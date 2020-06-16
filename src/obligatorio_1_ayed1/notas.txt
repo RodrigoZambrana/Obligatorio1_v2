@@ -1,0 +1,44 @@
+La lista de carpetas va a tener dentro un puntero a una lista de archivos (que serían los mensajes). 
+Y dentro de mi lista de archivos, cada nodo tiene una lista de líneas.
+Y cada nodo de la lista de líneas puede ser: línea en blanco, línea con palabras...
+
+Ejemplo:
+
+1 palabra1 palabra2 palabra3
+
+2 //línea en blanco
+
+3 palabraX palabraY
+
+
+Para listar un documento, tengo que buscar una carpeta, buscar un archivo, listar las líneas de ese 
+archivo y las palabras que tiene cada línea de ese archivo.
+ 
+Y a medida que voy agarrando cada palabra para mostrar la línea del archivo, tengo que ir a buscar si esa palabra está o 
+no en el diccionario para marcarla
+
+Explicación desgrabada del profe:
+
+qué significa crear sistema? 
+
+significa que si mi obligatorio necesita, por ejemplo, una estructura del tipo array de unidades
+
+A, B, C, D, E y ese array tiene no solo el nombre de las unidades sino que tiene una lista de carpetas, pero a su vez cada carpeta tiene una lista de documentos y 
+
+a su vez cada documento tiene una lista de líneas y cada línea tiene una lista de palabras. Y también tengo una lista suelta que es un diccionario de palabras.
+
+Sistema me tiene que crear el diccionario vacío y me tiene que crear una matriz para el último ejercicio (vacía).
+
+Entonces CrearSistema se encarga de crear la estructura mínima necesaria para que podamos trabajar con el obligatorio.
+
+Cuando ejecutamos CrearSistema me genera el array de unidades pero al generar el arrray de unidades cada unidad tiene el puntero a una lista vacía de carpetas, 
+me genera una lista vacía que es el diccionario de carpetas y a partir de ahí, siguiendo las siguientes funcionalidades: agregarCarpeta (tiene que ir a buscar la 
+unidad en el array y una vez que se paró en la posición hace el get de la lista de carpetas. 
+Y una vez que tengo la lista de carpetas busco la carpeta en la lista de carpetas. Si no está, la agrego.
+
+
+
+
+Dudas: 
+1) cómo construimos el diccionario y cómo resaltamos las palabras que no estén en él?
+2) hay que hacer una clase Posicion y otra Cadena?
