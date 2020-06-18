@@ -11,32 +11,37 @@ package obligatorio_1_ayed1;
  */
 public class Sistema implements ISistema {
      private ListaUnidades lstUnidades;
-      private static Sistema instancia;
-     
-        public static Sistema Instancia()
-        {
-            if (instancia == null)
-            {
-                instancia = new Sistema();
-               
-            }
+     private ListaPalabras diccionario;
+     public  int[][] mapa=new int [5][5] ;
 
-            return instancia;
-        }
-
-        //Constructor privado, para evitar que se pueda hacer un new Empresa.
-        private Sistema()
-        {
-          ListaUnidades lstUnidades = new ListaUnidades();
-          this.lstUnidades=lstUnidades;
-        }
+    public Sistema() {
+        ListaUnidades lstUnidades = new ListaUnidades();
+        this.lstUnidades=lstUnidades;
+        ListaPalabras diccionario = new ListaPalabras();
+        this.diccionario=diccionario;
+        //this.mapa = mapa;
+    }
+    
+//      //agregar mapa, diccionario y mapa
+//      //agregar juego de prueba para el mapa
+// 
+//
+//        public Sistema()
+//        {
+//          ListaUnidades lstUnidades = new ListaUnidades();
+//          this.lstUnidades=lstUnidades;
+//          
+//        }
        
 
     @Override
     public Retorno crearSistemaMensajes() {
-         Retorno ret = new Retorno(Retorno.Resultado.OK);
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
         NodoUnidad nodoUnidad = new NodoUnidad("C:");
         lstUnidades.agregarInicio(nodoUnidad);
+        CargarDistancias(mapa);  
+       
+        
         return ret;
     }
 
@@ -210,18 +215,90 @@ public class Sistema implements ISistema {
         return ret;
     }
 
+//    -------------------------------------------Aranca ejercicio de distancias------------------------------------------------------------------
     @Override
     public Retorno CargarDistancias(int[][] Ciudades) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        mapa[0][1] = 5;
+        mapa[1][0] = 5;
+    
+        mapa[0][2] = 2;
+        mapa[2][0] = 2;
+        
+        mapa[1][2] = 2;
+        mapa[2][1] = 2;
+        
+        mapa[1][3] = 3;
+        mapa[3][1] = 3;
+        
+        mapa[2][4] = 4;
+        mapa[4][2] = 4;
+        
+        mapa[3][4] = 1;
+        mapa[4][3] = 1;
+        
+        mapa[1][4] = 3;                                                                   
+        mapa[4][1] = 3;
+        
+        mapa[0][3] = 4;
+        mapa[3][0] = 4;
+        
+        mapa[2][3] = 4;
+        mapa[3][2] = 4;
+        
         return ret;
     }
 
     @Override
     public Retorno BuscarCamino(int[][] M, String origen, String destino) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        int suma=9999;
+        int columnas= M[0].length;
+        String escala ="";
+        int miOrigen=ciudadANumero(origen);
+        int miDestino=ciudadANumero(origen);
+        
+        for (int i = 0; i < columnas; i++) {
+            if(M[miOrigen][i]!=0 && M[miDestino][i]!=0){
+            
+                if (M[miOrigen][i]+ M[miDestino][i]<suma) {
+                    suma =M[miOrigen][i]+ M[miDestino][i];
+                    escala=numeroACiudad(i);
+                } 
+            }
+            
+        }
+        
+        ret.valorString="El camino mas corto es:"+ origen+"-"+escala+ "-"+destino;
+        
 
         return ret;
     }
 
+    private int ciudadANumero(String Cuidad) {
+        if(Cuidad.equals("MVD"))return 0;
+        if(Cuidad.equals("POA"))return 1;
+        if(Cuidad.equals("BA"))return 2;
+        if(Cuidad.equals("SP"))return 3;
+        if(Cuidad.equals("NYC"))return 4;
+        if(Cuidad.equals("MIA"))return 5;
+        if(Cuidad.equals("MAD"))return 6;
+        
+        return -1;
+    }
+    
+        private String numeroACiudad(int nroCuidad) {
+        if(nroCuidad==0) return "MVD";
+        if(nroCuidad==1) return "POA";
+        if(nroCuidad==2) return "BA";
+        if(nroCuidad==3) return "SP";
+        if(nroCuidad==4) return "NYC";
+        if(nroCuidad==5) return "MIA";
+        if(nroCuidad==6) return "MAD";
+        
+        
+        return "";
+    }
+    
+    
 }

@@ -20,7 +20,7 @@ public class Obligatorio_1_AYED1 {
 //        crearSistemaMensajes(cantUnidades);
         
         Prueba prueba1= new Prueba();
-        Sistema sistema =Sistema.Instancia();
+        Sistema sistema =new Sistema();
         
         prueba1(sistema, prueba1);
         
@@ -38,6 +38,7 @@ public class Obligatorio_1_AYED1 {
       p.ver(s.AgregarCarpeta("C:", "Otros Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta otros Archivos en unidad C");
    // listamos par ver si la estructura es correcta
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
+
 //    p.ver(s.AgregarCarpeta("C", "Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta Archivos en unidad C"); 
 //    p.ver(s.AgregarCarpeta("C", "Documentos").resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Se creo la carpeta documentos en unidad C");   
 //    p.ver(s.AgregarCarpeta("C", "Mensajes").resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Se creo la carpeta mensajes en unidad C");
@@ -68,6 +69,12 @@ public class Obligatorio_1_AYED1 {
 //    p.ver(s.EliminarMensaje("C:","Archivos","mensaje4").resultado, Retorno.Resultado.ERROR, "Se intenta eliminar mensaje 4 en carpeta Archivos que no existe");
 //    
 //    p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Se destruye sistema" );
+
+
+
+
+     
+      p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString);
 //    p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Se destruye sistema" );
     
     p.imprimirResultadosPrueba();
