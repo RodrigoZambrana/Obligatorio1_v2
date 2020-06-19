@@ -5,13 +5,15 @@ package obligatorio_1_ayed1;
 public interface IListaCarpetas {
     //metodos de la interfaz
     public boolean esVacia();
-    public void agregarInicio(String Nombre);
+    public void agregarInicio(String nombre, String unidad);
     public void agregarFinal(int dato, String Nombre);
-    public void borrarInicio(); 
-    public boolean buscarelemento(int dato);    
+    public void borrarInicio();
+    public void borrarFin();
+    public boolean buscarelemento(String nombre);    
     public void vaciar();
     public void mostrar();  
-    public NodoCarpeta obtenercarpeta(int dato);
+    public NodoCarpeta obtenerCarpeta(String nombre);
+    public void borrarElemento(String nombre);
  
 //    public void mostrarREC(Nodo l); // implementar el mostrar recursivo
     

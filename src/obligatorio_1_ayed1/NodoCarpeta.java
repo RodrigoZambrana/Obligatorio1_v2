@@ -2,13 +2,14 @@ package obligatorio_1_ayed1;
 
 public class NodoCarpeta {
 
-    String unidad;
+    String unidad;/*FIXME ¿está bien que tenga éste atributo?*/
     String nombre;
     ListaArchivos la;
     NodoCarpeta siguiente;
+    NodoCarpeta anterior; /*FIXME 6*/
 
-    public NodoCarpeta(String nombre) {
-        this.unidad = unidad;
+    public NodoCarpeta(String nombre, String unidad) {
+        this.unidad = unidad;/*FIXME 2*/
         this.nombre = nombre;
         this.la = new ListaArchivos();
         this.siguiente = null;
@@ -43,8 +44,16 @@ public class NodoCarpeta {
     public NodoCarpeta getSiguiente() {
         return siguiente;
     }
+    
+    public NodoCarpeta getAnterior() {
+        return anterior;
+    }
 
     public void setSiguiente(NodoCarpeta siguiente) {
         this.siguiente = siguiente;
+    }
+    
+    public void setAnterior(NodoCarpeta anterior) {
+        this.anterior = anterior;
     }
 }
