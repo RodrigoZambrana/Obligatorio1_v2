@@ -30,11 +30,10 @@ public class Obligatorio_1_AYED1 {
       p.ver(s.AgregarCarpeta("C:", "Otros Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta otros Archivos en unidad C");
    // listamos par ver si la estructura es correcta
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
-
 //   // listamos par ver si la estructura es correcta
 //    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");    
     // agregamos mensajes a una carpeta
-      p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
+    p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
 //    p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
 //    p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
 //    
@@ -50,7 +49,7 @@ public class Obligatorio_1_AYED1 {
 //    // listamos la carpeta nuevamente para ver si estan los arvhivos correctos.
 //    p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");
 //       
-//    // casos de error
+//    // CASOS DE ERROR
 //    p.ver(s.AgregarCarpeta("C:", "Archivos").resultado, Retorno.Resultado.ERROR, "Error Se intento crear la carpeta Archivos en unidad C que ya existe");   
 //    p.ver(s.EliminarCarpeta("C:", "Carpeta X").resultado, Retorno.Resultado.ERROR, "Se intento borrar carpeta X que no existe");
 //    p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.ERROR, "Se intento agregar mensaje 1 en carpeta Archivos ya existente");
