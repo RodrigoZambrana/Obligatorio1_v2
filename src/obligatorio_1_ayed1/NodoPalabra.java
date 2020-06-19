@@ -12,6 +12,34 @@ package obligatorio_1_ayed1;
 public class NodoPalabra {
     
     String palabra;
+    NodoPalabra Primero;
+
+    public NodoPalabra getPrimero() {
+        return Primero;
+    }
+
+    public void setPrimero(NodoPalabra Primero) {
+        this.Primero = Primero;
+    }
+
+    public NodoPalabra getUltimo() {
+        return Ultimo;
+    }
+
+    public void setUltimo(NodoPalabra Ultimo) {
+        this.Ultimo = Ultimo;
+    }
+
+    public NodoPalabra getAnterior() {
+        return Anterior;
+    }
+
+    public void setAnterior(NodoPalabra Anterior) {
+        this.Anterior = Anterior;
+    }
+    NodoPalabra Ultimo;
+    NodoPalabra Anterior;
+ 
 
      public NodoPalabra(String palabra) {
         this.palabra = palabra;

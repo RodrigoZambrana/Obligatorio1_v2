@@ -36,7 +36,6 @@ public class Sistema implements ISistema {
     @Override
     public Retorno crearSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        //NodoUnidad nodoUnidad = new NodoUnidad("C:");
         lstUnidades.agregarInicio("C:");
         CargarDistancias(mapa);
 
@@ -45,8 +44,11 @@ public class Sistema implements ISistema {
 
     @Override
     public Retorno destruirSistemaMensajes() {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        lstUnidades.vaciar(); 
+        diccionario.vaciar();
+        
+        
         return ret;
     }
 
@@ -55,18 +57,25 @@ public class Sistema implements ISistema {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
         ListaCarpetas lc = nodoUnidad.getLc();
-        lc.agregarInicio(carpeta, unidad);
-
+        if(!lc.buscarelemento(carpeta))
+        lc.agregarInicio(carpeta, unidad);   
+        else ret.valorString="La carpeta ya existe en la unidad";
+        
         return ret;
     }
 
     /*FIXME 4*/
     @Override
     public Retorno EliminarCarpeta(String unidad, String carpeta) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString="";
+        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad); 
         ListaCarpetas lc = nodoUnidad.getLc();
+        if(lc.buscarelemento(carpeta)){
         lc.borrarElemento(carpeta);
+        }else{
+            ret.valorString="La carpeta no existe en la unidad";
+        }
         return ret;
     }
 
@@ -76,7 +85,12 @@ public class Sistema implements ISistema {
         NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
         ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
         NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
+        boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
+        if(!encontreMensaje){
         carpetaBuscada.getLa().agregarInicio(mensaje);
+        }else{
+            ret.valorString="El  mensaje ya existe en la carpeta";
+        }
         return ret;
     }
 
@@ -86,7 +100,12 @@ public class Sistema implements ISistema {
         NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
         ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
         NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
+        boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
+        if(encontreMensaje){
         carpetaBuscada.getLa().borrarElemento(mensaje);
+        }else{
+            ret.valorString="El mensaje no existe en la carpeta";
+        }
         return ret;
     }
 

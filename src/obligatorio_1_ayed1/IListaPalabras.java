@@ -9,12 +9,8 @@ package obligatorio_1_ayed1;
  *
  * @author rodrigo
  */
-public interface IListaUnidades {
+public interface IListaPalabras {
     
-    public boolean esVacia();
-     public void agregarInicio(String Nombre);
-     public void mostrar();
-     public NodoUnidad obtenerElemento(String nombre);
-     public void vaciar();
-     
+    public void vaciar();
+    
 }

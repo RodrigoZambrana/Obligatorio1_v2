@@ -46,6 +46,8 @@ public class ListaCarpetas implements IListaCarpetas{
 
     @Override
     public void agregarInicio(String nombre, String unidad) {/*FIXME - Ahora también le paso unidad*/   
+        
+        
         NodoCarpeta nuevo = new NodoCarpeta(nombre,unidad);
         if (this.esVacia()) {
             this.Primero = nuevo;
@@ -54,7 +56,6 @@ public class ListaCarpetas implements IListaCarpetas{
             nuevo.siguiente = this.Primero;
             Primero.anterior = nuevo;
             this.Primero = nuevo;
-        
     }
     }
 
@@ -101,7 +102,6 @@ public class ListaCarpetas implements IListaCarpetas{
     /*FIXME 3 - borrarElemento; obtenerCarpeta; borrarInicio; borrarFin;*/
     @Override
     public void borrarElemento(String nombre) {
-
         NodoCarpeta aux = obtenerCarpeta(nombre);
 
         if (this.Primero == aux) {

@@ -42,25 +42,19 @@ public class Obligatorio_1_AYED1 {
       
 // agregamos un nuevo mensaje y posteriormente lo elimino 
       p.ver(s.AgregarMensaje("C:", "Archivos", "mensajex").resultado, Retorno.Resultado.OK, "Se agrega mensaje x en carpeta Archivos");
-      p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
-
       p.ver(s.EliminarMensaje("C:","Archivos","mensajex").resultado, Retorno.Resultado.OK, "Se  elimina mensaje x en carpeta Archivos ");
 //   
-
-
-//
 //    // listamos la carpeta nuevamente para ver si estan los arvhivos correctos.
- //     p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
-//       
+      p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);       
 //    // CASOS DE ERROR
-//    p.ver(s.AgregarCarpeta("C:", "Archivos").resultado, Retorno.Resultado.ERROR, "Error Se intento crear la carpeta Archivos en unidad C que ya existe");   
-//    p.ver(s.EliminarCarpeta("C:", "Carpeta X").resultado, Retorno.Resultado.ERROR, "Se intento borrar carpeta X que no existe");
-//    p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.ERROR, "Se intento agregar mensaje 1 en carpeta Archivos ya existente");
-//    p.ver(s.EliminarMensaje("C:","Archivos","mensaje4").resultado, Retorno.Resultado.ERROR, "Se intenta eliminar mensaje 4 en carpeta Archivos que no existe");
+      p.ver(s.AgregarCarpeta("C:", "Archivos").resultado, Retorno.Resultado.ERROR,s.AgregarCarpeta("C:", "Archivos").valorString);   
+      p.ver(s.EliminarCarpeta("C:", "Carpeta X").resultado, Retorno.Resultado.ERROR, s.EliminarCarpeta("C:", "Carpeta X").valorString);
+      p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.ERROR,  s.AgregarMensaje("C:","Archivos", "mensaje1").valorString);
+      p.ver(s.EliminarMensaje("C:","Archivos","mensaje4").resultado, Retorno.Resultado.ERROR,  s.EliminarMensaje("C:", "Archivos","mensaje4").valorString);
 //    
-//    p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Se destruye sistema" );
+     p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.OK, "Se destruye sistema" );
 
-      p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString);
+    // p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString);
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
     
     p.imprimirResultadosPrueba();

@@ -12,8 +12,6 @@ package obligatorio_1_ayed1;
 public class ListaUnidades implements IListaUnidades {
 
     NodoUnidad Primero;
-
-    
     NodoUnidad Ultimo;
     ListaCarpetas listaCarpetas;
 
@@ -73,5 +71,11 @@ public class ListaUnidades implements IListaUnidades {
          return null;         
     }
     
+    
+    @Override
+    public void vaciar() {
+        this.Primero=null;
+        this.Ultimo=null;
+    }
 
 }

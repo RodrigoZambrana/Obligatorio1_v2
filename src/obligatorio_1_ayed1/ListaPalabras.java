@@ -9,6 +9,15 @@ package obligatorio_1_ayed1;
  *
  * @author rodrigo
  */
-public class ListaPalabras {
+public class ListaPalabras implements IListaPalabras{
+    NodoPalabra Primero;
+    NodoPalabra Ultimo;
+
+     @Override
+    public void vaciar() {
+        this.Primero=null;
+        this.Ultimo=null;
+    }
+    
     
 }
