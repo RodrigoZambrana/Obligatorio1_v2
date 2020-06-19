@@ -102,10 +102,16 @@ public class Sistema implements ISistema {
 
             NodoCarpeta nodoCarpeta = nodoUnidad.getLc().getPrimero();
 
-            while (nodoCarpeta != null) {
-                ret.valorString += "" + "+" + nodoCarpeta.getNombre() + "\n";
-                nodoCarpeta = nodoCarpeta.getSiguiente();
+            while (nodoCarpeta != null) {               
+                ret.valorString += "" + "+" + nodoCarpeta.getNombre() + "\n"; 
+                
+                 NodoArchivo nodoArchivo = nodoCarpeta.getLa().getPrimero();    
+                 while (nodoArchivo != null) {
+                 ret.valorString += "" + "*" + nodoArchivo.getNombre() + "\n";
+                  nodoArchivo = nodoArchivo.getSiguiente();
 
+            }
+              nodoCarpeta = nodoCarpeta.getSiguiente();
             }
             nodoUnidad = nodoUnidad.getSiguiente();
         }
