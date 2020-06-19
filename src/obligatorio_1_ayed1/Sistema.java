@@ -65,16 +65,21 @@ public class Sistema implements ISistema {
 
     @Override
     public Retorno EliminarCarpeta(String unidad, String carpeta) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+         Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoUnidad nodoUnidad=lstUnidades.obtenerElemento(unidad);
+        ListaCarpetas lc= nodoUnidad.getLc();
+        lc.agregarInicio(carpeta);
         return ret;
     }
 
     @Override
     public Retorno AgregarMensaje(String unidad, String carpeta, String mensaje) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
-        return ret;
+         Retorno ret = new Retorno(Retorno.Resultado.OK);
+         NodoUnidad nodoUnidad=lstUnidades.obtenerElemento(unidad);
+         ListaCarpetas carpetasEnUnidad= nodoUnidad.getLc();
+         NodoCarpeta carpetaBuscada= carpetasEnUnidad.obtenercarpeta(carpeta);
+         carpetaBuscada.getLa().agregarFinal(mensaje);
+         return ret;
     }
 
     @Override

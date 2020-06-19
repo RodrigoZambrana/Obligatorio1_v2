@@ -11,7 +11,7 @@ public interface IListaCarpetas {
     public boolean buscarelemento(int dato);    
     public void vaciar();
     public void mostrar();  
-    public NodoCarpeta obtenercarpeta(int dato);
+    public NodoCarpeta obtenercarpeta(String dato);
  
 //    public void mostrarREC(Nodo l); // implementar el mostrar recursivo
     

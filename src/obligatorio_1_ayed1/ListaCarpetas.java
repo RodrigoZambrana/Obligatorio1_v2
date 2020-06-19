@@ -4,7 +4,7 @@ package obligatorio_1_ayed1;
 
 public class ListaCarpetas implements IListaCarpetas{
     
-     NodoCarpeta Primero;
+    NodoCarpeta Primero;
     NodoCarpeta Ultimo;
     ListaArchivos la;
 
@@ -81,8 +81,15 @@ public class ListaCarpetas implements IListaCarpetas{
     }
 
     @Override
-    public NodoCarpeta obtenercarpeta(int dato) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public NodoCarpeta obtenercarpeta(String nombre) {
+        NodoCarpeta aux=this.Primero;
+           while (aux!=null){
+              if (aux.getNombre()==nombre){
+                  return aux;
+              }
+               aux=aux.siguiente;           
+        }     
+         return null;
     }
     
 }
