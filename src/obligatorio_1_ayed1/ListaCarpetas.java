@@ -45,14 +45,17 @@ public class ListaCarpetas implements IListaCarpetas{
     }
 
     @Override
-    public void agregarInicio(String nombre, String unidad) {/*FIXME - Ahora también le paso unidad*/
-           NodoCarpeta nuevo = new NodoCarpeta(nombre, unidad); /*FIXME - da error porque no le paso la unidad*/
-           if (this.esVacia())
-               this.Primero=nuevo;
-           else{
-               nuevo.siguiente=this.Primero;
-               this.Primero=nuevo;                      
-           }
+    public void agregarInicio(String nombre, String unidad) {/*FIXME - Ahora también le paso unidad*/   
+        NodoCarpeta nuevo = new NodoCarpeta(nombre,unidad);
+        if (this.esVacia()) {
+            this.Primero = nuevo;
+            this.Ultimo = nuevo;
+        } else {
+            nuevo.siguiente = this.Primero;
+            Primero.anterior = nuevo;
+            this.Primero = nuevo;
+        
+    }
     }
 
     @Override

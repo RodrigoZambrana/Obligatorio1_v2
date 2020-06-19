@@ -14,10 +14,9 @@ public class NodoArchivo {
     //String unidad;
     String nombre;
     NodoArchivo siguiente;
+    NodoArchivo anterior; 
     ListaLineas li;
 
-    
-    
     public NodoArchivo(String nombre) {
         this.nombre = nombre;
         this.siguiente = null;
@@ -40,5 +39,13 @@ public class NodoArchivo {
 
     public void setSiguiente(NodoArchivo siguiente) {
         this.siguiente = siguiente;
+    }
+    
+    public NodoArchivo getAnterior() {
+        return anterior;
+    }
+
+    public void setAnterior(NodoArchivo anterior) {
+        this.anterior = anterior;
     }
 }

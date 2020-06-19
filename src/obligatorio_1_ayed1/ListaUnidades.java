@@ -39,14 +39,15 @@ public class ListaUnidades implements IListaUnidades {
     }
 
     @Override
-    public void agregarInicio(NodoUnidad nuevo) {
-      
+    public void agregarInicio(String nodo) {
+        NodoUnidad nuevo = new NodoUnidad(nodo);
         if (this.esVacia()) {
             this.Primero = nuevo;
             this.Ultimo = nuevo;
         } else {
-            nuevo.setSiguiente(this.Primero);
-            this.Primero = nuevo;
+            nuevo.Siguiente=this.Primero;
+            Primero.Anterior=nuevo;
+            this.Primero=nuevo;
         }
     }
     

@@ -38,13 +38,19 @@ public class Obligatorio_1_AYED1 {
       p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
  
       // listamos la carpeta Archivos para ver si estan los mensajes agregados.
-      p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");   
-      // agregamos un nuevo mensaje y posteriormente lo elimino 
-//    p.ver(s.AgregarMensaje("C:", "Archivos", "mensajex").resultado, Retorno.Resultado.OK, "Se agrega mensaje x en carpeta Archivos");
-//    p.ver(s.EliminarMensaje("C:","Archivos","mensajex").resultado, Retorno.Resultado.OK, "Se  elimina mensaje x en carpeta Archivos ");
+      p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
+      
+// agregamos un nuevo mensaje y posteriormente lo elimino 
+      p.ver(s.AgregarMensaje("C:", "Archivos", "mensajex").resultado, Retorno.Resultado.OK, "Se agrega mensaje x en carpeta Archivos");
+      p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
+
+      p.ver(s.EliminarMensaje("C:","Archivos","mensajex").resultado, Retorno.Resultado.OK, "Se  elimina mensaje x en carpeta Archivos ");
 //   
+
+
+//
 //    // listamos la carpeta nuevamente para ver si estan los arvhivos correctos.
-//    p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");
+ //     p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
 //       
 //    // CASOS DE ERROR
 //    p.ver(s.AgregarCarpeta("C:", "Archivos").resultado, Retorno.Resultado.ERROR, "Error Se intento crear la carpeta Archivos en unidad C que ya existe");   
@@ -55,9 +61,11 @@ public class Obligatorio_1_AYED1 {
 //    p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Se destruye sistema" );
 
       p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString);
-//    p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Se destruye sistema" );
+      p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
     
     p.imprimirResultadosPrueba();
+    
+    //iMPLEMENTACION DE DICCIONARIO, AGREGAR PALABRAS AL DICCIOARIO.lINEA DE PALABRAS
 }  
     
     

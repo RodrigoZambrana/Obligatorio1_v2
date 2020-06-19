@@ -12,6 +12,8 @@ package obligatorio_1_ayed1;
 public class ListaArchivos implements IListaArchivos{
     NodoArchivo primero;
     NodoArchivo ultimo;
+  
+    
 
     public ListaArchivos() {
         this.primero = null;
@@ -39,37 +41,54 @@ public class ListaArchivos implements IListaArchivos{
         return this.primero==null;
     }
 
+//    @Override
+//    public void agregarInicio(String nombre) {
+//        NodoArchivo nuevo = new NodoArchivo(nombre);
+//        
+//        if (this.esVacia()) {
+//            this.primero=nuevo;
+//            this.ultimo=nuevo;
+//        }
+//        else{
+//            nuevo.siguiente=this.primero;
+//            this.primero=nuevo;
+//        }
+//    }
+
     @Override
     public void agregarInicio(String nombre) {
         NodoArchivo nuevo = new NodoArchivo(nombre);
-        
         if (this.esVacia()) {
-            this.primero=nuevo;
-            this.ultimo=nuevo;
-        }
-        else{
-            nuevo.siguiente=this.primero;
-            this.primero=nuevo;
-        }
-    }
-
-    @Override
-    public void agregarFinal(String nombre) {
-        NodoArchivo nuevo = new NodoArchivo(nombre);
-        
-        if(this.esVacia())
-            this.agregarInicio(nombre);
-        else{
-            ultimo.siguiente=nuevo;
-            ultimo=nuevo;
+            this.primero = nuevo;
+            this.ultimo = nuevo;
+        } else {
+            nuevo.siguiente = this.primero;
+            primero.anterior = nuevo;
+            this.primero = nuevo;
         }
     }
 
     @Override
     public void borrarInicio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         if (!this.esVacia()) {
+            if (this.primero == this.ultimo) {
+                this.vaciar();
+            } else {
+                this.primero = this.primero.getSiguiente();
+                this.primero.setAnterior(null);
+            }
+        }
     }
-
+    
+    
+    @Override
+    public void borrarFin() {
+        this.ultimo = this.ultimo.getAnterior();
+        this.ultimo.setSiguiente(null);
+    }
+    
+    
+    
     @Override
     public boolean buscarelemento(String nombre) {
         NodoArchivo aux=this.primero;
@@ -81,6 +100,20 @@ public class ListaArchivos implements IListaArchivos{
         }
         return false;
     }
+    
+    @Override
+    public NodoArchivo obtenerArchivo(String nombre) {
+        NodoArchivo aux=this.primero;
+           while (aux!=null){
+              if (aux.getNombre()==nombre){
+                  return aux;
+              }
+               aux=aux.siguiente;           
+        }     
+         return null;
+    }
+    
+    
 
     @Override
     public void vaciar() {
@@ -98,6 +131,29 @@ public class ListaArchivos implements IListaArchivos{
 
     @Override
     public NodoCarpeta obtenercarpeta(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+
+    @Override
+    public void borrarElemento(String nombre) {
+        NodoArchivo aux = obtenerArchivo(nombre);
+        if (this.primero == aux) {
+            this.borrarInicio();
+        } else {
+            if (this.ultimo == aux) {
+                this.borrarFin();
+            }
+
+            aux.getAnterior().setSiguiente(aux.getSiguiente());
+            aux.getSiguiente().setAnterior(aux.getAnterior());  
+        }
+    
+}
+
+    @Override
+    public void agregarFinal(String Nombre) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

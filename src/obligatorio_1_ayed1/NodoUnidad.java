@@ -12,10 +12,12 @@ package obligatorio_1_ayed1;
 
 public class NodoUnidad {
 
-    private String nombreUnidad;
-    private NodoUnidad Primero;
-    private NodoUnidad Siguiente;
-    private ListaCarpetas lc;
+     String nombreUnidad;
+     NodoUnidad Primero;
+     NodoUnidad Siguiente;
+     NodoUnidad Anterior;
+
+     ListaCarpetas lc;
 
     public NodoUnidad(String nombreUnidad) {
         this.nombreUnidad = nombreUnidad;

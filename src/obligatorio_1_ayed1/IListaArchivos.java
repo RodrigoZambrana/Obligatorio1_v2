@@ -15,10 +15,13 @@ public interface IListaArchivos {
     public void agregarInicio(String Nombre);
     public void agregarFinal(String Nombre);
     public void borrarInicio(); 
-    public boolean buscarelemento(String nombre);    
+    public boolean buscarelemento(String nombre); 
+    public void borrarElemento(String nombre);
     public void vaciar();
     public void mostrar();  
     public NodoCarpeta obtenercarpeta(String nombre);
+    public NodoArchivo obtenerArchivo(String nombre);
+    public void borrarFin();
 //    public void mostrarREC(Nodo l); // implementar el mostrar recursivo
     
 //   public void borrarFin();

@@ -36,8 +36,8 @@ public class Sistema implements ISistema {
     @Override
     public Retorno crearSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        NodoUnidad nodoUnidad = new NodoUnidad("C:");
-        lstUnidades.agregarInicio(nodoUnidad);
+        //NodoUnidad nodoUnidad = new NodoUnidad("C:");
+        lstUnidades.agregarInicio("C:");
         CargarDistancias(mapa);
 
         return ret;
@@ -59,7 +59,7 @@ public class Sistema implements ISistema {
 
         return ret;
     }
-    
+
     /*FIXME 4*/
     @Override
     public Retorno EliminarCarpeta(String unidad, String carpeta) {
@@ -72,18 +72,21 @@ public class Sistema implements ISistema {
 
     @Override
     public Retorno AgregarMensaje(String unidad, String carpeta, String mensaje) {
-         Retorno ret = new Retorno(Retorno.Resultado.OK);
-         NodoUnidad nodoUnidad=lstUnidades.obtenerElemento(unidad);
-         ListaCarpetas carpetasEnUnidad= nodoUnidad.getLc();
-         NodoCarpeta carpetaBuscada= carpetasEnUnidad.obtenercarpeta(carpeta);
-         carpetaBuscada.getLa().agregarFinal(mensaje);
-         return ret;
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
+        ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
+        NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
+        carpetaBuscada.getLa().agregarInicio(mensaje);
+        return ret;
     }
 
     @Override
     public Retorno EliminarMensaje(String unidad, String carpeta, String mensaje) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
+        ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
+        NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
+        carpetaBuscada.getLa().borrarElemento(mensaje);
         return ret;
     }
 
@@ -102,16 +105,18 @@ public class Sistema implements ISistema {
 
             NodoCarpeta nodoCarpeta = nodoUnidad.getLc().getPrimero();
 
-            while (nodoCarpeta != null) {               
-                ret.valorString += "" + "+" + nodoCarpeta.getNombre() + "\n"; 
-                
-                 NodoArchivo nodoArchivo = nodoCarpeta.getLa().getPrimero();    
-                 while (nodoArchivo != null) {
-                 ret.valorString += "" + "*" + nodoArchivo.getNombre() + "\n";
-                  nodoArchivo = nodoArchivo.getSiguiente();
+            while (nodoCarpeta != null) {
+                ret.valorString += "" + "+" + nodoCarpeta.getNombre() + "\n";
 
-            }
-              nodoCarpeta = nodoCarpeta.getSiguiente();
+                if (nodoCarpeta.getLa() != null) { //si la carpeta contiene archivos, los lista
+                    NodoArchivo nodoArchivo = nodoCarpeta.getLa().getPrimero();
+                    while (nodoArchivo != null) {
+                        ret.valorString += "" + "*" + nodoArchivo.getNombre() + "\n";
+                        nodoArchivo = nodoArchivo.getSiguiente();
+
+                    }
+                }
+                nodoCarpeta = nodoCarpeta.getSiguiente();
             }
             nodoUnidad = nodoUnidad.getSiguiente();
         }
