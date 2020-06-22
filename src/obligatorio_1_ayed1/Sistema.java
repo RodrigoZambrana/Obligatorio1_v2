@@ -87,10 +87,7 @@ public class Sistema implements ISistema {
         NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
         boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
         if(!encontreMensaje){
-        carpetaBuscada.getLa().agregarInicio(mensaje);
-        NodoArchivo archivoBuscado = carpetaBuscada.getLa().obtenerArchivo(mensaje);
-        archivoBuscado.getLi().agregarFinal();
-        archivoBuscado.getLi().agregarFinal();
+        carpetaBuscada.getLa().agregarInicio(mensaje);   
         }else{
             ret.valorString="El  mensaje ya existe en la carpeta";
         }
@@ -136,7 +133,7 @@ public class Sistema implements ISistema {
                         ret.valorString += "" + "*" + nodoArchivo.getNombre() + "\n";
                         NodoLinea primero = nodoArchivo.getLi().getPrimero();
                         while (primero!=null) {                            
-                            ret.valorString += "" + "_" + primero.getNumeroLinea()+ "\n";
+                            ret.valorString += "" + "_" + primero.getDato()+ "\n";
                             primero=primero.getSiguiente();
                         }
                         nodoArchivo = nodoArchivo.getSiguiente();
@@ -150,21 +147,34 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public Retorno InsertarLinea() {
+    public Retorno InsertarLinea(String unidad, String carpeta, String mensaje) 
+    {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString="";     
+        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
+        ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
+        NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
+        boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
+        if(encontreMensaje){
+        carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().insertarLinea();
+        ret.valorString="Se inserta linea en blanco";
+        }else{
+            ret.valorString="El  mensaje no  existe en la carpeta";
+        }
+        return ret;
+
+    }
+
+    @Override
+    public Retorno InsertarLineaEnPosicion(String unidad, String carpeta, String mensaje,int posicionLinea) 
+    {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
 
         return ret;
     }
 
     @Override
-    public Retorno InsertarLineaEnPosicion(int posicionLinea) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
-        return ret;
-    }
-
-    @Override
-    public Retorno BorrarLinea(int posicionLinea) {
+    public Retorno BorrarLinea(String unidad, String carpeta, String mensaje,int posicionLinea) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
 
         return ret;

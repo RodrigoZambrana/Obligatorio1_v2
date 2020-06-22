@@ -12,11 +12,23 @@ package obligatorio_1_ayed1;
 public class ListaPalabras implements IListaPalabras{
     NodoPalabra Primero;
     NodoPalabra Ultimo;
+    int cantPalabras;
 
      @Override
     public void vaciar() {
         this.Primero=null;
         this.Ultimo=null;
+    }
+    
+    @Override
+    public int cantElementos() {
+        NodoPalabra aux = this.Ultimo;
+        int cont=0;
+        while (aux != null) {
+            cont=cont+1;
+            aux = aux.getAnterior();
+        }   
+        return cont;
     }
     
     

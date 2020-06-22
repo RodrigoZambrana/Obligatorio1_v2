@@ -13,8 +13,7 @@ public class ListaArchivos implements IListaArchivos{
     NodoArchivo primero;
     NodoArchivo ultimo;
   
-    
-
+   
     public ListaArchivos() {
         this.primero = null;
         this.ultimo = null;

@@ -4,9 +4,9 @@ public class NodoCarpeta {
 
     String unidad;/*FIXME ¿está bien que tenga éste atributo?*/
     String nombre;
-    ListaArchivos la;
     NodoCarpeta siguiente;
     NodoCarpeta anterior; /*FIXME 6*/
+    ListaArchivos la;
 
     public NodoCarpeta(String nombre, String unidad) {
         this.unidad = unidad;/*FIXME 2*/

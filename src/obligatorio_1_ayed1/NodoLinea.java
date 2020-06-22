@@ -10,30 +10,24 @@ package obligatorio_1_ayed1;
  * @author marti
  */
 public class NodoLinea {
-    int numeroLinea;
-    ListaPalabras lp;
+    Object dato;
     NodoLinea siguiente;
     NodoLinea anterior;
-    
-    public NodoLinea(int numeroLinea) {
-        this.numeroLinea = numeroLinea;
+    ListaPalabras lp;
+      
+     public NodoLinea(Object dato) {
+        this.dato = dato;
+        this.siguiente = null;
         this.lp = new ListaPalabras();
     }
+   
 
-    public int getNumeroLinea() {
-        return numeroLinea;
+    public Object getDato() {
+        return dato;
     }
 
-    public void setNumeroLinea(int numeroLinea) {
-        this.numeroLinea = numeroLinea;
-    }
-
-    public ListaPalabras getLp() {
-        return lp;
-    }
-
-    public void setLp(ListaPalabras lp) {
-        this.lp = lp;
+    public void setDato(Object dato) {
+        this.dato = dato;
     }
 
     public NodoLinea getSiguiente() {
@@ -43,13 +37,21 @@ public class NodoLinea {
     public void setSiguiente(NodoLinea siguiente) {
         this.siguiente = siguiente;
     }
-
+    
     public NodoLinea getAnterior() {
         return anterior;
     }
 
     public void setAnterior(NodoLinea anterior) {
         this.anterior = anterior;
+    }
+
+    public ListaPalabras getLp() {
+        return lp;
+    }
+
+    public void setLp(ListaPalabras lp) {
+        this.lp = lp;
     }
     
 }

@@ -12,5 +12,6 @@ package obligatorio_1_ayed1;
 public interface IListaPalabras {
     
     public void vaciar();
+    public int cantElementos();
     
 }
