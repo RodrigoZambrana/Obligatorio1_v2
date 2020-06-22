@@ -26,6 +26,14 @@ public class NodoUnidad {
         this.lc = new ListaCarpetas();
     }
 
+    public NodoUnidad getAnterior() {
+        return Anterior;
+    }
+
+    public void setAnterior(NodoUnidad Anterior) {
+        this.Anterior = Anterior;
+    }
+
     public String getNombreUnidad() {
         return nombreUnidad;
     }

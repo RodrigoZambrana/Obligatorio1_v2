@@ -13,6 +13,7 @@ public interface IListaUnidades {
     
     public boolean esVacia();
      public void agregarInicio(String Nombre);
+     public void agregarFinal(String Nombre);
      public void mostrar();
      public NodoUnidad obtenerElemento(String nombre);
      public void vaciar();

@@ -13,6 +13,9 @@ public class ListaLineas implements IListaLineas{
 
     NodoLinea Primero;
     NodoLinea Ultimo;
+    int cantaLineas;
+
+    
 
     public ListaLineas() {
         this.Primero = null;
@@ -34,6 +37,13 @@ public class ListaLineas implements IListaLineas{
     public void setUltimo(NodoLinea Ultimo) {
         this.Ultimo = Ultimo;
     }
+    public int getCantaLineas() {
+        return cantaLineas;
+    }
+
+    public void setCantaLineas(int cantaLineas) {
+        this.cantaLineas = cantaLineas;
+    }
 
     @Override
     public boolean esVacia() {
@@ -41,7 +51,7 @@ public class ListaLineas implements IListaLineas{
     }
     
      @Override
-    public void insertarLinea() {
+    public void insertarLinea() {//al inicio
         NodoLinea nuevo = new NodoLinea("");
         if (this.esVacia()) {
             this.Primero = nuevo;

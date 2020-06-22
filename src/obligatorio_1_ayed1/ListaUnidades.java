@@ -13,6 +13,7 @@ public class ListaUnidades implements IListaUnidades {
 
     NodoUnidad Primero;
     NodoUnidad Ultimo;
+    NodoUnidad Siguiente;
     ListaCarpetas listaCarpetas;
 
     @Override
@@ -48,6 +49,38 @@ public class ListaUnidades implements IListaUnidades {
             this.Primero=nuevo;
         }
     }
+    
+     @Override
+    public void agregarFinal(String unidad) {
+        NodoUnidad nuevo=new NodoUnidad(unidad);
+        if(this.esVacia()){
+            this.Primero=nuevo;
+            this.Ultimo=nuevo;            
+        }else{
+            this.Ultimo.setSiguiente(nuevo);
+            nuevo.setAnterior(this.Ultimo);
+            this.Ultimo=nuevo;
+            
+        }
+   }
+    
+    
+    
+//     @Override
+//    public void agregarFinal(String unidad, String carpeta) {
+//        NodoCarpeta nuevo=new NodoCarpeta(unidad, carpeta);
+//        if(this.esVacia()){
+//            this.Primero=nuevo;
+//            this.Ultimo=nuevo;            
+//        }else{
+//            this.Ultimo.setSiguiente(nuevo);
+//            nuevo.setAnt(this.Ultimo);
+//            this.ultimo=nuevo;
+//            
+//        }
+//   }
+//    
+    
     
     @Override
     public void mostrar() {

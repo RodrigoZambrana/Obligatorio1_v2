@@ -5,6 +5,7 @@ package obligatorio_1_ayed1;
 public class ListaCarpetas implements IListaCarpetas{
     
     NodoCarpeta Primero;
+    NodoCarpeta Siguiente;
     NodoCarpeta Ultimo;
     ListaArchivos la;
     
@@ -21,7 +22,16 @@ public class ListaCarpetas implements IListaCarpetas{
     public void setPrimero(NodoCarpeta Primero) {
         this.Primero = Primero;
     }
+    
+    public NodoCarpeta getSiguiente() {
+        return Siguiente;
+    }
 
+    public void setSiguiente(NodoCarpeta Siguiente) {
+        this.Siguiente = Siguiente;
+    }
+
+    
     public NodoCarpeta getUltimo() {
         return Ultimo;
     }
@@ -47,9 +57,7 @@ public class ListaCarpetas implements IListaCarpetas{
     }
 
     @Override
-    public void agregarInicio(String nombre, String unidad) {/*FIXME - Ahora también le paso unidad*/   
-        
-        
+    public void agregarInicio(String nombre, String unidad) {/*FIXME - Ahora también le paso unidad*/         
         NodoCarpeta nuevo = new NodoCarpeta(nombre,unidad);
         if (this.esVacia()) {
             this.Primero = nuevo;
@@ -62,9 +70,21 @@ public class ListaCarpetas implements IListaCarpetas{
     }
 
     @Override
-    public void agregarFinal(int dato, String Nombre) {
+    public void agregarFinal(String Nombre,String unidad) {     
+        NodoCarpeta nuevo=new NodoCarpeta(Nombre,unidad);
+        if(this.esVacia()){
+            this.Primero=nuevo;
+            this.Ultimo=nuevo;            
+        }else{
+            this.Ultimo.setSiguiente(nuevo);
+            nuevo.setAnterior(this.Ultimo);
+            this.Ultimo=nuevo;
+            
+        }
 
     }
+
+    
     /*FIXME 5*/
     @Override
     public void borrarInicio() {

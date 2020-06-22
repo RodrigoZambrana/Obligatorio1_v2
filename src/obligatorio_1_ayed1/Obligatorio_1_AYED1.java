@@ -25,17 +25,25 @@ public class Obligatorio_1_AYED1 {
     
 //    // agregar carpetas 
       p.ver(s.AgregarCarpeta("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta Archivos en unidad C"); 
-      p.ver(s.AgregarCarpeta("C:", "Documentos").resultado, Retorno.Resultado.OK, "Se creo la carpeta documentos en unidad C");   
+            p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
+
+      p.ver(s.AgregarCarpeta("C:", "Documentos").resultado, Retorno.Resultado.OK, "Se creo la carpeta documentos en unidad C");  
+            p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
+
       p.ver(s.AgregarCarpeta("C:", "Mensajes").resultado, Retorno.Resultado.OK, "Se creo la carpeta mensajes en unidad C");
+            p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
+
       p.ver(s.AgregarCarpeta("C:", "Otros Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta otros Archivos en unidad C");
+            p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
+
    // listamos par ver si la estructura es correcta
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
 //   // listamos par ver si la estructura es correcta
      p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");    
     // agregamos mensajes a una carpeta
       p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
-      //p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
-      //p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
+      p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
+      p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
  
       // listamos la carpeta Archivos para ver si estan los mensajes agregados.
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
@@ -49,16 +57,23 @@ public class Obligatorio_1_AYED1 {
 
 
 //agregamos una nueva línea a un mensaje1
-      p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensajex").valorString);
-      p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensajex").valorString);
-      p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensajex").valorString);
-      p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensajex").valorString);
+     // p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
+     // p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
+     // p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
+      //p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensaje1").valorString);
+      //p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensaje1").valorString);
+      
+     // p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
 
-      
-      
+     // p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 3 dentro de mensaje1 en carpeta Archivos"+"\n");
+      //p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",1).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 4 dentro de mensaje1 en carpeta Archivos"+"\n");
+//     
+//      p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 1 dentro de mensaje1 en carpeta Archivos"+"\n"+s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).valorString);
+//      p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",4).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 4 dentro de mensaje1 en carpeta Archivos"+"\n"+s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",4).valorString);
+//     
       
 //    // CASOS DE ERROR
-      p.ver(s.AgregarCarpeta("C:", "Archivos").resultado, Retorno.Resultado.ERROR,s.AgregarCarpeta("C:", "Archivos").valorString);   
+     // p.ver(s.AgregarCarpeta("C:", "Archivos").resultado, Retorno.Resultado.ERROR,s.AgregarCarpeta("C:", "Archivos").valorString);   
 //      p.ver(s.EliminarCarpeta("C:", "Carpeta X").resultado, Retorno.Resultado.ERROR, s.EliminarCarpeta("C:", "Carpeta X").valorString);
 //      p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.ERROR,  s.AgregarMensaje("C:","Archivos", "mensaje1").valorString);
 //      p.ver(s.EliminarMensaje("C:","Archivos","mensaje4").resultado, Retorno.Resultado.ERROR,  s.EliminarMensaje("C:", "Archivos","mensaje4").valorString);
@@ -66,7 +81,7 @@ public class Obligatorio_1_AYED1 {
 //      p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.OK, "Se destruye sistema" );
 
     // p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString);
-      p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
+     p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
     
       p.imprimirResultadosPrueba();
     

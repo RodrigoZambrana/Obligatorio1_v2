@@ -45,6 +45,7 @@ public class NodoCarpeta {
         return siguiente;
     }
     
+    
     public NodoCarpeta getAnterior() {
         return anterior;
     }
@@ -56,4 +57,6 @@ public class NodoCarpeta {
     public void setAnterior(NodoCarpeta anterior) {
         this.anterior = anterior;
     }
+
+   
 }

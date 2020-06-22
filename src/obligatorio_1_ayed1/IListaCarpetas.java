@@ -6,7 +6,7 @@ public interface IListaCarpetas {
     //metodos de la interfaz
     public boolean esVacia();
     public void agregarInicio(String nombre, String unidad);
-    public void agregarFinal(int dato, String Nombre);
+    public void agregarFinal(String Nombre,String unidad);
     public void borrarInicio();
     public void borrarFin();
     public boolean buscarelemento(String nombre);    

@@ -36,7 +36,7 @@ public class Sistema implements ISistema {
     @Override
     public Retorno crearSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        lstUnidades.agregarInicio("C:");
+        lstUnidades.agregarFinal("C:");
         CargarDistancias(mapa);
 
         return ret;
@@ -55,10 +55,11 @@ public class Sistema implements ISistema {
     @Override
     public Retorno AgregarCarpeta(String unidad, String carpeta) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString="";
         NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
         ListaCarpetas lc = nodoUnidad.getLc();
         if(!lc.buscarelemento(carpeta))
-        lc.agregarInicio(carpeta, unidad);   
+        lc.agregarFinal(carpeta, unidad);   
         else ret.valorString="La carpeta ya existe en la unidad";
         
         return ret;
@@ -114,31 +115,27 @@ public class Sistema implements ISistema {
         //sistema? Y cuando se lista simplemente se muestra lo que hay?
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorString = "";
-        // ListaUnidades lu= new ListaUnidades(); esto es lo que haciamos inicialmente, pero no esta bien, ya que estariamos creando 
-        //una nueva lista de unidades cada vez que se llame a listar estructura, en vez de solo mostrar los elementos de la ya creada cuando se inicia el sistema
-        // ListaUnidades aux= new ListaUnidades();
-        //Nodo elemento= aux.getPrimero();
         NodoUnidad nodoUnidad = lstUnidades.getPrimero();
         while (nodoUnidad != null) {
             ret.valorString += "-" + nodoUnidad.getNombreUnidad() + "\n";
-
             NodoCarpeta nodoCarpeta = nodoUnidad.getLc().getPrimero();
-
             while (nodoCarpeta != null) {
                 ret.valorString += "" + "+" + nodoCarpeta.getNombre() + "\n";
-
-                if (nodoCarpeta.getLa() != null) { //si la carpeta contiene archivos, los lista
+                // dif (nodoCarpeta.getLa() != null) { //si la carpeta contiene archivos, los lista
                     NodoArchivo nodoArchivo = nodoCarpeta.getLa().getPrimero();
                     while (nodoArchivo != null) {
                         ret.valorString += "" + "*" + nodoArchivo.getNombre() + "\n";
                         NodoLinea primero = nodoArchivo.getLi().getPrimero();
+                        //int i=1;
                         while (primero!=null) {                            
-                            ret.valorString += "" + "_" + primero.getDato()+ "\n";
+                            ret.valorString +=primero.getDato()+":"+ "\n";
                             primero=primero.getSiguiente();
                         }
+                        
                         nodoArchivo = nodoArchivo.getSiguiente();
+                     
                     }
-                }
+                //}
                 nodoCarpeta = nodoCarpeta.getSiguiente();
             }
             nodoUnidad = nodoUnidad.getSiguiente();
@@ -156,7 +153,7 @@ public class Sistema implements ISistema {
         NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
         boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
         if(encontreMensaje){
-        carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().insertarLinea();
+        carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().agregarFinal("");
         ret.valorString="Se inserta linea en blanco";
         }else{
             ret.valorString="El  mensaje no  existe en la carpeta";
@@ -168,7 +165,67 @@ public class Sistema implements ISistema {
     @Override
     public Retorno InsertarLineaEnPosicion(String unidad, String carpeta, String mensaje,int posicionLinea) 
     {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        ListaLineas listaL=archivoBuscado.getLi();
+        int cantLineas=listaL.cantElementos();
+        
+         NodoLinea primerLinea=listaL.getPrimero();
+        NodoLinea nuevaLinea= new NodoLinea(posicionLinea);
+        
+        if(posicionLinea<=cantLineas){//la posicion a agregar es menor o igual al tamaño de la lista
+            if(!listaL.esVacia()){
+                
+                if(posicionLinea==1){
+                    listaL.agregarInicio(nuevaLinea);//agrego inicio
+                }else if(posicionLinea==cantLineas+1){
+                    listaL.agregarFinal(nuevaLinea);//agego final
+                }
+                else//recorro hasta encontrar pos
+                {
+                    for (int i = 1; i <=cantLineas ; i++) {
+                        
+                        if(i==posicionLinea)
+                        {
+                        if(primerLinea!=null){
+                            nuevaLinea.setAnterior(primerLinea);
+                            nuevaLinea.setSiguiente(primerLinea.getSiguiente());
+                            primerLinea.getSiguiente().setAnterior(nuevaLinea);
+                            primerLinea.setSiguiente(nuevaLinea);
+                            
+                        }else 
+                        {
+                        listaL.setUltimo(nuevaLinea);
+                        }
+                        ret.valorString="Se inserto una linea en la posicion"+posicionLinea;
+                        return ret;
+                        }
+                        if(primerLinea!=null)
+                        {
+                        primerLinea=primerLinea.getSiguiente();
+                        }
+                    
+                    }
+                }
+            
+            }//esta vacia, agrego al inicio
+            else
+            {
+                listaL.agregarInicio(nuevaLinea);
+                ret.valorString="Se inserto una linea en la posicion"+posicionLinea;
+                 return ret;
+                
+            }
+            cantLineas++;
+        
+        
+            }  else{//es mayor a la cantidad de elementos,agreggo al final
+            
+                listaL.agregarFinal(nuevaLinea);
+                ret.valorString="Se inserto una linea en la posicion"+posicionLinea;
+                return ret;
+            }
 
         return ret;
     }
