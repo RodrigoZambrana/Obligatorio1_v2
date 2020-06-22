@@ -88,7 +88,7 @@ public class Sistema implements ISistema {
         NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
         boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
         if(!encontreMensaje){
-        carpetaBuscada.getLa().agregarInicio(mensaje);   
+        carpetaBuscada.getLa().agregarFinal(mensaje);   
         }else{
             ret.valorString="El  mensaje ya existe en la carpeta";
         }

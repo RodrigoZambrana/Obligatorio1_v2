@@ -102,14 +102,11 @@ public class ListaArchivos implements IListaArchivos{
     
     @Override
     public NodoArchivo obtenerArchivo(String nombre) {
-        NodoArchivo aux=this.primero;
-           while (aux!=null){
-              if (aux.getNombre()==nombre){
-                  return aux;
-              }
-               aux=aux.siguiente;           
-        }     
-         return null;
+        NodoArchivo aux = this.primero;
+        while (aux != null && aux.getNombre()!= nombre) {
+            aux = aux.getSiguiente();
+        }
+        return aux;
     }
     
     
@@ -137,7 +134,8 @@ public class ListaArchivos implements IListaArchivos{
 
     @Override
     public void borrarElemento(String nombre) {
-        NodoArchivo aux = obtenerArchivo(nombre);
+         NodoArchivo aux = obtenerArchivo(nombre);
+
         if (this.primero == aux) {
             this.borrarInicio();
         } else {
@@ -146,14 +144,25 @@ public class ListaArchivos implements IListaArchivos{
             }
 
             aux.getAnterior().setSiguiente(aux.getSiguiente());
-            aux.getSiguiente().setAnterior(aux.getAnterior());  
+            aux.getSiguiente().setAnterior(aux.getAnterior());
         }
     
 }
 
     @Override
     public void agregarFinal(String Nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        NodoArchivo nuevo=new NodoArchivo(Nombre);
+        if(this.esVacia()){
+            this.primero=nuevo;
+            this.ultimo=nuevo;            
+        }else{
+            this.ultimo.setSiguiente(nuevo);
+            nuevo.setAnterior(this.ultimo);
+            this.ultimo=nuevo;
+            
+        }
+        
+        
     }
     
 }

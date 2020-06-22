@@ -49,23 +49,23 @@ public class Obligatorio_1_AYED1 {
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
       
 // agregamos un nuevo mensaje y posteriormente lo elimino 
-      p.ver(s.AgregarMensaje("C:", "Archivos", "mensajex").resultado, Retorno.Resultado.OK, "Se agrega mensaje x en carpeta Archivos");
-      p.ver(s.EliminarMensaje("C:","Archivos","mensajex").resultado, Retorno.Resultado.OK, "Se  elimina mensaje x en carpeta Archivos ");
+     p.ver(s.AgregarMensaje("C:", "Archivos", "mensajex").resultado, Retorno.Resultado.OK, "Se agrega mensajex en carpeta Archivos");
+   //  p.ver(s.EliminarMensaje("C:","Archivos","mensajex").resultado, Retorno.Resultado.OK, "Se  elimina mensajex en carpeta Archivos ");
 //   
 //    // listamos la carpeta nuevamente para ver si estan los arvhivos correctos.
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);       
 
 
 //agregamos una nueva línea a un mensaje1
-     // p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
-     // p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
-     // p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
-      //p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensaje1").valorString);
-      //p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensaje1").valorString);
+        p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
+        p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
+        p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
+       // p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensaje1").valorString);
+       // p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n"+s.InsertarLinea("C:", "Archivos", "mensaje1").valorString);
       
-     // p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
+       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
 
-     // p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 3 dentro de mensaje1 en carpeta Archivos"+"\n");
+      //p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 3 dentro de mensaje1 en carpeta Archivos"+"\n");
       //p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",1).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 4 dentro de mensaje1 en carpeta Archivos"+"\n");
 //     
 //      p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 1 dentro de mensaje1 en carpeta Archivos"+"\n"+s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).valorString);
