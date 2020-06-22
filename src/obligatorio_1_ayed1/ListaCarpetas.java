@@ -7,6 +7,12 @@ public class ListaCarpetas implements IListaCarpetas{
     NodoCarpeta Primero;
     NodoCarpeta Ultimo;
     ListaArchivos la;
+    
+    
+    public ListaCarpetas() {
+        this.Primero = null;
+        this.Ultimo = null;
+    }
 
     public NodoCarpeta getPrimero() {
         return Primero;
@@ -34,10 +40,6 @@ public class ListaCarpetas implements IListaCarpetas{
     
    
 
-    public ListaCarpetas() {
-        this.Primero = null;
-        this.Ultimo = null;
-    }
 
      @Override
     public boolean esVacia() {

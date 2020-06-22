@@ -88,6 +88,9 @@ public class Sistema implements ISistema {
         boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
         if(!encontreMensaje){
         carpetaBuscada.getLa().agregarInicio(mensaje);
+        NodoArchivo archivoBuscado = carpetaBuscada.getLa().obtenerArchivo(mensaje);
+        archivoBuscado.getLi().agregarFinal();
+        archivoBuscado.getLi().agregarFinal();
         }else{
             ret.valorString="El  mensaje ya existe en la carpeta";
         }
@@ -131,8 +134,12 @@ public class Sistema implements ISistema {
                     NodoArchivo nodoArchivo = nodoCarpeta.getLa().getPrimero();
                     while (nodoArchivo != null) {
                         ret.valorString += "" + "*" + nodoArchivo.getNombre() + "\n";
+                        NodoLinea primero = nodoArchivo.getLi().getPrimero();
+                        while (primero!=null) {                            
+                            ret.valorString += "" + "_" + primero.getNumeroLinea()+ "\n";
+                            primero=primero.getSiguiente();
+                        }
                         nodoArchivo = nodoArchivo.getSiguiente();
-
                     }
                 }
                 nodoCarpeta = nodoCarpeta.getSiguiente();
