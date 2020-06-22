@@ -17,12 +17,12 @@ public class NodoArchivo {
     NodoArchivo anterior; 
     ListaLineas li;
 
+   
+
     public NodoArchivo(String nombre) {
         this.nombre = nombre;
         this.siguiente = null;
          this.li= new ListaLineas();
-        
-        
     }
 
     public String getNombre() {
@@ -47,5 +47,13 @@ public class NodoArchivo {
 
     public void setAnterior(NodoArchivo anterior) {
         this.anterior = anterior;
+    }
+    
+     public ListaLineas getLi() {
+        return li;
+    }
+
+    public void setLi(ListaLineas li) {
+        this.li = li;
     }
 }

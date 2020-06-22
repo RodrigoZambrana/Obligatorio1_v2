@@ -34,8 +34,8 @@ public class Obligatorio_1_AYED1 {
      p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");    
     // agregamos mensajes a una carpeta
       p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
-      p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
-      p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
+      //p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
+      //p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
  
       // listamos la carpeta Archivos para ver si estan los mensajes agregados.
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
@@ -46,6 +46,11 @@ public class Obligatorio_1_AYED1 {
 //   
 //    // listamos la carpeta nuevamente para ver si estan los arvhivos correctos.
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);       
+
+
+//agregamos una nueva línea a un mensaje
+      //p.ver()
+
 //    // CASOS DE ERROR
       p.ver(s.AgregarCarpeta("C:", "Archivos").resultado, Retorno.Resultado.ERROR,s.AgregarCarpeta("C:", "Archivos").valorString);   
       p.ver(s.EliminarCarpeta("C:", "Carpeta X").resultado, Retorno.Resultado.ERROR, s.EliminarCarpeta("C:", "Carpeta X").valorString);

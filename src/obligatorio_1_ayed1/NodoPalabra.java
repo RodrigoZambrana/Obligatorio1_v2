@@ -10,9 +10,15 @@ package obligatorio_1_ayed1;
  * @author rodrigo
  */
 public class NodoPalabra {
-    
-    String palabra;
+
+    NodoPalabra Ultimo;
+    NodoPalabra Anterior;
     NodoPalabra Primero;
+    String palabra;
+
+    public NodoPalabra(String palabra) {
+        this.palabra = palabra;
+    }
 
     public NodoPalabra getPrimero() {
         return Primero;
@@ -37,14 +43,7 @@ public class NodoPalabra {
     public void setAnterior(NodoPalabra Anterior) {
         this.Anterior = Anterior;
     }
-    NodoPalabra Ultimo;
-    NodoPalabra Anterior;
- 
 
-     public NodoPalabra(String palabra) {
-        this.palabra = palabra;
-    }
-     
     public String getPalabra() {
         return palabra;
     }
@@ -53,6 +52,4 @@ public class NodoPalabra {
         this.palabra = palabra;
     }
 
-   
-    
 }
