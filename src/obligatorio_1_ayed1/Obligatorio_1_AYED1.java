@@ -31,7 +31,7 @@ public class Obligatorio_1_AYED1 {
    // listamos par ver si la estructura es correcta
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
 //   // listamos par ver si la estructura es correcta
-//    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");    
+     p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");    
     // agregamos mensajes a una carpeta
       p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
       p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
@@ -52,12 +52,12 @@ public class Obligatorio_1_AYED1 {
       p.ver(s.AgregarMensaje("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.ERROR,  s.AgregarMensaje("C:","Archivos", "mensaje1").valorString);
       p.ver(s.EliminarMensaje("C:","Archivos","mensaje4").resultado, Retorno.Resultado.ERROR,  s.EliminarMensaje("C:", "Archivos","mensaje4").valorString);
 //    
-     p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.OK, "Se destruye sistema" );
+      p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.OK, "Se destruye sistema" );
 
     // p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString);
       p.ver(s.ListarEstructura("C:","Archivos").resultado,Retorno.Resultado.OK,"Se muestra la estrucura actual del sistema"+"\n"+s.ListarEstructura("C:", "Archivos").valorString);
     
-    p.imprimirResultadosPrueba();
+      p.imprimirResultadosPrueba();
     
     //iMPLEMENTACION DE DICCIONARIO, AGREGAR PALABRAS AL DICCIOARIO.lINEA DE PALABRAS
 }  

@@ -9,6 +9,6 @@ package obligatorio_1_ayed1;
  *
  * @author marti
  */
-public class ListaLineas {
+public class ListaLineas implements IListaLineas {
     
 }

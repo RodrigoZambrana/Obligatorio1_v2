@@ -18,6 +18,8 @@ public interface ISistema {
  Retorno AgregarMensaje(String unidad, String carpeta, String mensaje);
  Retorno EliminarMensaje(String unidad,String carpeta, String mensaje);
  Retorno ListarEstructura(String unidad, String carpeta);
+ 
+ // funcionalidad referente a archivo de mensaje, lineas, palabras diccionario. 
  Retorno InsertarLinea(); 
  Retorno InsertarLineaEnPosicion(int posicionLinea); 
  Retorno BorrarLinea(int posicionLinea);
@@ -29,6 +31,8 @@ public interface ISistema {
  Retorno BorrarPalabra(int posicionLinea, int posicionPalabra);
  Retorno BorrarOcurrenciasPalabraEnLinea(int posicionLinea, String palabraABorrar);
  Retorno ImprimirLinea(int posicionLinea);
+ 
+ //Diccionario
  Retorno IngresarPalabraDiccionario(String palabraAIngresar);  
  Retorno BorrarPalabraDiccionario(String palabraABorrar);
  Retorno ImprimirDiccionario();
