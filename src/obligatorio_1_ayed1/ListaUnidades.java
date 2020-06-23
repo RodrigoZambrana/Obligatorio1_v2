@@ -20,7 +20,7 @@ public class ListaUnidades implements IListaUnidades {
     public boolean esVacia() {
         return this.Primero == null;
     }
-    
+
     public NodoUnidad getPrimero() {
         return Primero;
     }
@@ -44,71 +44,69 @@ public class ListaUnidades implements IListaUnidades {
             this.Primero = nuevo;
             this.Ultimo = nuevo;
         } else {
-            nuevo.Siguiente=this.Primero;
-            Primero.Anterior=nuevo;
-            this.Primero=nuevo;
-        }
-    }
-    
-     @Override
-    public void agregarFinal(String unidad) {
-        NodoUnidad nuevo=new NodoUnidad(unidad);
-        if(this.esVacia()){
-            this.Primero=nuevo;
-            this.Ultimo=nuevo;            
-        }else{
-            this.Ultimo.setSiguiente(nuevo);
-            nuevo.setAnterior(this.Ultimo);
-            this.Ultimo=nuevo;
-            
-        }
-   }
-    
-    
-    
-//     @Override
-//    public void agregarFinal(String unidad, String carpeta) {
-//        NodoCarpeta nuevo=new NodoCarpeta(unidad, carpeta);
-//        if(this.esVacia()){
-//            this.Primero=nuevo;
-//            this.Ultimo=nuevo;            
-//        }else{
-//            this.Ultimo.setSiguiente(nuevo);
-//            nuevo.setAnt(this.Ultimo);
-//            this.ultimo=nuevo;
-//            
-//        }
-//   }
-//    
-    
-    
-    @Override
-    public void mostrar() {
-        NodoUnidad aux = this.Primero;
-        while (aux!=null) {            
-            System.out.print(aux.getNombreUnidad());
-            aux=aux.getSiguiente();
+            nuevo.Siguiente = this.Primero;
+            Primero.Anterior = nuevo;
+            this.Primero = nuevo;
         }
     }
 
     @Override
-    public NodoUnidad obtenerElemento(String nombre) {
-           NodoUnidad aux= this.getPrimero();          
-          while (aux!=null){
-              if (aux.getNombreUnidad()==nombre)
-                  return aux;
-              
-              aux=aux.getSiguiente();
-          }
-          
-         return null;         
+    public void agregarFinal(String unidad) {
+        NodoUnidad nuevo = new NodoUnidad(unidad);
+        if (this.esVacia()) {
+            this.Primero = nuevo;
+            this.Ultimo = nuevo;
+        } else {
+            this.Ultimo.setSiguiente(nuevo);
+            nuevo.setAnterior(this.Ultimo);
+            this.Ultimo = nuevo;
+
+        }
     }
-    
-    
+
+    @Override
+    public void mostrar() {
+        NodoUnidad aux = this.Primero;
+        while (aux != null) {
+            System.out.print(aux.getNombreUnidad());
+            aux = aux.getSiguiente();
+        }
+    }
+
+    @Override
+    public boolean buscarelemento(String nombre) {
+        if (!this.esVacia()) {
+            NodoUnidad aux = this.Primero;
+            while (aux != null) {
+                if (aux.getNombreUnidad().equals(nombre)) {
+                    return true;
+                }
+
+                aux = aux.getSiguiente();
+            }
+        }
+        return false;
+
+    }
+
+    @Override
+    public NodoUnidad obtenerElemento(String nombre) {
+        NodoUnidad aux = this.getPrimero();
+        while (aux != null) {
+            if (aux.getNombreUnidad() == nombre) {
+                return aux;
+            }
+
+            aux = aux.getSiguiente();
+        }
+
+        return null;
+    }
+
     @Override
     public void vaciar() {
-        this.Primero=null;
-        this.Ultimo=null;
+        this.Primero = null;
+        this.Ultimo = null;
     }
 
 }

@@ -15,6 +15,7 @@ public interface IListaUnidades {
      public void agregarInicio(String Nombre);
      public void agregarFinal(String Nombre);
      public void mostrar();
+     public boolean buscarelemento(String nombre);
      public NodoUnidad obtenerElemento(String nombre);
      public void vaciar();
      

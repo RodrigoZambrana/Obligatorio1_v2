@@ -13,9 +13,10 @@ public class Sistema implements ISistema {
 
     private ListaUnidades lstUnidades;
     private ListaPalabras diccionario;
+    int MAX_CANT_PALABRAS_X_LINEA;
     public int[][] mapa = new int[5][5];
 
-    public Sistema() {
+    public Sistema(int CantCuidades) {
         this.lstUnidades = new ListaUnidades();
         this.diccionario = new ListaPalabras();
     }
@@ -51,7 +52,6 @@ public class Sistema implements ISistema {
 //        this.diccionario = diccionario;
 //        //this.mapa = mapa;
 //    }
-
     @Override
     public Retorno crearSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
@@ -74,12 +74,17 @@ public class Sistema implements ISistema {
     public Retorno AgregarCarpeta(String unidad, String carpeta) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorString = "";
-        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
-        ListaCarpetas lc = nodoUnidad.getLc();
-        if (!lc.buscarelemento(carpeta)) {
-            lc.agregarFinal(carpeta, unidad);
+        if (lstUnidades.buscarelemento(unidad)) {
+            NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
+            ListaCarpetas lc = nodoUnidad.getLc();
+            if (!lc.buscarelemento(carpeta)) {
+                lc.agregarFinal(carpeta, unidad);
+            } else {
+                ret.valorString = "La carpeta ya existe en la unidad";
+            }
+
         } else {
-            ret.valorString = "La carpeta ya existe en la unidad";
+            ret.valorString = "La unidad no existe en el sistema";
         }
 
         return ret;
@@ -90,12 +95,16 @@ public class Sistema implements ISistema {
     public Retorno EliminarCarpeta(String unidad, String carpeta) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorString = "";
-        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
-        ListaCarpetas lc = nodoUnidad.getLc();
-        if (lc.buscarelemento(carpeta)) {
-            lc.borrarElemento(carpeta);
+        if (lstUnidades.buscarelemento(unidad)) {
+            NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
+            ListaCarpetas lc = nodoUnidad.getLc();
+            if (lc.buscarelemento(carpeta)) {
+                lc.borrarElemento(carpeta);
+            } else {
+                ret.valorString = "La carpeta no existe en la unidad";
+            }
         } else {
-            ret.valorString = "La carpeta no existe en la unidad";
+            ret.valorString = "La unidad no existe en el sistema";
         }
         return ret;
     }
@@ -308,10 +317,10 @@ public class Sistema implements ISistema {
     @Override
     public Retorno IngresarPalabraDiccionario(String palabraAIngresar) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        ret.valorString = "";    
+        ret.valorString = "";
         if (!diccionario.buscarelemento(palabraAIngresar)) {
             //this.diccionario.agregarOrd(palabraAIngresar);
-             diccionario.agregarOrd(palabraAIngresar);
+            diccionario.agregarOrd(palabraAIngresar);
         } else {
             ret.valorString = palabraAIngresar + "ya existe en el diccionario.";
         }
@@ -341,7 +350,7 @@ public class Sistema implements ISistema {
             NodoPalabra primeraPalabra = diccionario.getPrimero();
             while (primeraPalabra != null) {
                 ret.valorString += "-" + primeraPalabra.getPalabra() + "\n";
-               primeraPalabra= primeraPalabra.getSiguiente();
+                primeraPalabra = primeraPalabra.getSiguiente();
             }
         } else {
             ret.valorString = "Diccionario vacio";
