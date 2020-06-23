@@ -16,23 +16,42 @@ public class Sistema implements ISistema {
     public int[][] mapa = new int[5][5];
 
     public Sistema() {
-        ListaUnidades lstUnidades = new ListaUnidades();
-        this.lstUnidades = lstUnidades;
-        ListaPalabras diccionario = new ListaPalabras();
-        this.diccionario = diccionario;
-        //this.mapa = mapa;
+        this.lstUnidades = new ListaUnidades();
+        this.diccionario = new ListaPalabras();
     }
 
-//      //agregar mapa, diccionario y mapa
-//      //agregar juego de prueba para el mapa
-// 
-//
-//        public Sistema()
-//        {
-//          ListaUnidades lstUnidades = new ListaUnidades();
-//          this.lstUnidades=lstUnidades;
-//          
-//        }
+    public ListaUnidades getLstUnidades() {
+        return lstUnidades;
+    }
+
+    public void setLstUnidades(ListaUnidades lstUnidades) {
+        this.lstUnidades = lstUnidades;
+    }
+
+    public ListaPalabras getDiccionario() {
+        return diccionario;
+    }
+
+    public void setDiccionario(ListaPalabras diccionario) {
+        this.diccionario = diccionario;
+    }
+
+    public int[][] getMapa() {
+        return mapa;
+    }
+
+    public void setMapa(int[][] mapa) {
+        this.mapa = mapa;
+    }
+
+//    public Sistema() {
+//        ListaUnidades lstUnidades = new ListaUnidades();
+//        this.lstUnidades = lstUnidades;
+//        ListaPalabras diccionario = new ListaPalabras();
+//        this.diccionario = diccionario;
+//        //this.mapa = mapa;
+//    }
+
     @Override
     public Retorno crearSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
@@ -45,23 +64,24 @@ public class Sistema implements ISistema {
     @Override
     public Retorno destruirSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        lstUnidades.vaciar(); 
+        lstUnidades.vaciar();
         diccionario.vaciar();
-        
-        
+
         return ret;
     }
 
     @Override
     public Retorno AgregarCarpeta(String unidad, String carpeta) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        ret.valorString="";
+        ret.valorString = "";
         NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
         ListaCarpetas lc = nodoUnidad.getLc();
-        if(!lc.buscarelemento(carpeta))
-        lc.agregarFinal(carpeta, unidad);   
-        else ret.valorString="La carpeta ya existe en la unidad";
-        
+        if (!lc.buscarelemento(carpeta)) {
+            lc.agregarFinal(carpeta, unidad);
+        } else {
+            ret.valorString = "La carpeta ya existe en la unidad";
+        }
+
         return ret;
     }
 
@@ -69,13 +89,13 @@ public class Sistema implements ISistema {
     @Override
     public Retorno EliminarCarpeta(String unidad, String carpeta) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        ret.valorString="";
-        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad); 
+        ret.valorString = "";
+        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
         ListaCarpetas lc = nodoUnidad.getLc();
-        if(lc.buscarelemento(carpeta)){
-        lc.borrarElemento(carpeta);
-        }else{
-            ret.valorString="La carpeta no existe en la unidad";
+        if (lc.buscarelemento(carpeta)) {
+            lc.borrarElemento(carpeta);
+        } else {
+            ret.valorString = "La carpeta no existe en la unidad";
         }
         return ret;
     }
@@ -86,11 +106,11 @@ public class Sistema implements ISistema {
         NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
         ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
         NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
-        boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
-        if(!encontreMensaje){
-        carpetaBuscada.getLa().agregarFinal(mensaje);   
-        }else{
-            ret.valorString="El  mensaje ya existe en la carpeta";
+        boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
+        if (!encontreMensaje) {
+            carpetaBuscada.getLa().agregarFinal(mensaje);
+        } else {
+            ret.valorString = "El  mensaje ya existe en la carpeta";
         }
         return ret;
     }
@@ -101,11 +121,11 @@ public class Sistema implements ISistema {
         NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
         ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
         NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
-        boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
-        if(encontreMensaje){
-        carpetaBuscada.getLa().borrarElemento(mensaje);
-        }else{
-            ret.valorString="El mensaje no existe en la carpeta";
+        boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
+        if (encontreMensaje) {
+            carpetaBuscada.getLa().borrarElemento(mensaje);
+        } else {
+            ret.valorString = "El mensaje no existe en la carpeta";
         }
         return ret;
     }
@@ -122,19 +142,19 @@ public class Sistema implements ISistema {
             while (nodoCarpeta != null) {
                 ret.valorString += "" + "+" + nodoCarpeta.getNombre() + "\n";
                 // dif (nodoCarpeta.getLa() != null) { //si la carpeta contiene archivos, los lista
-                    NodoArchivo nodoArchivo = nodoCarpeta.getLa().getPrimero();
-                    while (nodoArchivo != null) {
-                        ret.valorString += "" + "*" + nodoArchivo.getNombre() + "\n";
-                        NodoLinea primero = nodoArchivo.getLi().getPrimero();
-                        //int i=1;
-                        while (primero!=null) {                            
-                            ret.valorString +=primero.getDato()+":"+ "\n";
-                            primero=primero.getSiguiente();
-                        }
-                        
-                        nodoArchivo = nodoArchivo.getSiguiente();
-                     
+                NodoArchivo nodoArchivo = nodoCarpeta.getLa().getPrimero();
+                while (nodoArchivo != null) {
+                    ret.valorString += "" + "*" + nodoArchivo.getNombre() + "\n";
+                    NodoLinea primero = nodoArchivo.getLi().getPrimero();
+                    //int i=1;
+                    while (primero != null) {
+                        ret.valorString += primero.getDato() + ":" + "\n";
+                        primero = primero.getSiguiente();
                     }
+
+                    nodoArchivo = nodoArchivo.getSiguiente();
+
+                }
                 //}
                 nodoCarpeta = nodoCarpeta.getSiguiente();
             }
@@ -144,94 +164,86 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public Retorno InsertarLinea(String unidad, String carpeta, String mensaje) 
-    {
+    public Retorno InsertarLinea(String unidad, String carpeta, String mensaje) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        ret.valorString="";     
+        ret.valorString = "";
         NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
         ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
         NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
-        boolean encontreMensaje= carpetaBuscada.getLa().buscarelemento(mensaje);
-        if(encontreMensaje){
-        carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().agregarFinal("");
-        ret.valorString="Se inserta linea en blanco";
-        }else{
-            ret.valorString="El  mensaje no  existe en la carpeta";
+        boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
+        if (encontreMensaje) {
+            carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().agregarFinal("");
+            ret.valorString = "Se inserta linea en blanco";
+        } else {
+            ret.valorString = "El  mensaje no  existe en la carpeta";
         }
         return ret;
 
     }
 
     @Override
-    public Retorno InsertarLineaEnPosicion(String unidad, String carpeta, String mensaje,int posicionLinea) 
-    {
+    public Retorno InsertarLineaEnPosicion(String unidad, String carpeta, String mensaje, int posicionLinea) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorString = "";
         NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
-        ListaLineas listaL=archivoBuscado.getLi();
-        int cantLineas=listaL.cantElementos();
-        
-         NodoLinea primerLinea=listaL.getPrimero();
-        NodoLinea nuevaLinea= new NodoLinea(posicionLinea);
-        
-        if(posicionLinea<=cantLineas){//la posicion a agregar es menor o igual al tamaño de la lista
-            if(!listaL.esVacia()){
-                
-                if(posicionLinea==1){
+        ListaLineas listaL = archivoBuscado.getLi();
+        int cantLineas = listaL.cantElementos();
+
+        NodoLinea primerLinea = listaL.getPrimero();
+        NodoLinea nuevaLinea = new NodoLinea(posicionLinea);
+
+        if (posicionLinea <= cantLineas) {//la posicion a agregar es menor o igual al tamaño de la lista
+            if (!listaL.esVacia()) {
+
+                if (posicionLinea == 1) {
                     listaL.agregarInicio(nuevaLinea);//agrego inicio
-                }else if(posicionLinea==cantLineas+1){
+                } else if (posicionLinea == cantLineas + 1) {
                     listaL.agregarFinal(nuevaLinea);//agego final
-                }
-                else//recorro hasta encontrar pos
+                } else//recorro hasta encontrar pos
                 {
-                    for (int i = 1; i <=cantLineas ; i++) {
-                        
-                        if(i==posicionLinea)
-                        {
-                        if(primerLinea!=null){
-                            nuevaLinea.setAnterior(primerLinea);
-                            nuevaLinea.setSiguiente(primerLinea.getSiguiente());
-                            primerLinea.getSiguiente().setAnterior(nuevaLinea);
-                            primerLinea.setSiguiente(nuevaLinea);
-                            
-                        }else 
-                        {
-                        listaL.setUltimo(nuevaLinea);
+                    for (int i = 1; i <= cantLineas; i++) {
+
+                        if (i == posicionLinea) {
+                            if (primerLinea != null) {
+                                nuevaLinea.setAnterior(primerLinea);
+                                nuevaLinea.setSiguiente(primerLinea.getSiguiente());
+                                primerLinea.getSiguiente().setAnterior(nuevaLinea);
+                                primerLinea.setSiguiente(nuevaLinea);
+
+                            } else {
+                                listaL.setUltimo(nuevaLinea);
+                            }
+                            ret.valorString = "Se inserto una linea en la posicion" + posicionLinea;
+                            return ret;
                         }
-                        ret.valorString="Se inserto una linea en la posicion"+posicionLinea;
-                        return ret;
+                        if (primerLinea != null) {
+                            primerLinea = primerLinea.getSiguiente();
                         }
-                        if(primerLinea!=null)
-                        {
-                        primerLinea=primerLinea.getSiguiente();
-                        }
-                    
+
                     }
                 }
-            
+
             }//esta vacia, agrego al inicio
-            else
-            {
+            else {
                 listaL.agregarInicio(nuevaLinea);
-                ret.valorString="Se inserto una linea en la posicion"+posicionLinea;
-                 return ret;
-                
+                ret.valorString = "Se inserto una linea en la posicion" + posicionLinea;
+                return ret;
+
             }
             cantLineas++;
-        
-        
-            }  else{//es mayor a la cantidad de elementos,agreggo al final
-            
-                listaL.agregarFinal(nuevaLinea);
-                ret.valorString="Se inserto una linea en la posicion"+posicionLinea;
-                return ret;
-            }
+
+        } else {//es mayor a la cantidad de elementos,agreggo al final
+
+            listaL.agregarFinal(nuevaLinea);
+            ret.valorString = "Se inserto una linea en la posicion" + posicionLinea;
+            return ret;
+        }
 
         return ret;
     }
 
     @Override
-    public Retorno BorrarLinea(String unidad, String carpeta, String mensaje,int posicionLinea) {
+    public Retorno BorrarLinea(String unidad, String carpeta, String mensaje, int posicionLinea) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
 
         return ret;
@@ -295,22 +307,45 @@ public class Sistema implements ISistema {
 
     @Override
     public Retorno IngresarPalabraDiccionario(String palabraAIngresar) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";    
+        if (!diccionario.buscarelemento(palabraAIngresar)) {
+            //this.diccionario.agregarOrd(palabraAIngresar);
+             diccionario.agregarOrd(palabraAIngresar);
+        } else {
+            ret.valorString = palabraAIngresar + "ya existe en el diccionario.";
+        }
 
         return ret;
+
     }
 
     @Override
     public Retorno BorrarPalabraDiccionario(String palabraABorrar) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+        if (diccionario.buscarelemento(palabraABorrar)) {
+            diccionario.borrarElemento(palabraABorrar);
+        } else {
+            ret.valorString = palabraABorrar + "no existe en el diccionario.";
+        }
 
         return ret;
     }
 
     @Override
     public Retorno ImprimirDiccionario() {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+        if (!diccionario.esVacia()) {
+            NodoPalabra primeraPalabra = diccionario.getPrimero();
+            while (primeraPalabra != null) {
+                ret.valorString += "-" + primeraPalabra.getPalabra() + "\n";
+               primeraPalabra= primeraPalabra.getSiguiente();
+            }
+        } else {
+            ret.valorString = "Diccionario vacio";
+        }
         return ret;
     }
 

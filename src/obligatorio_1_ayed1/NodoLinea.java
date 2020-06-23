@@ -13,12 +13,12 @@ public class NodoLinea {
     Object dato;
     NodoLinea siguiente;
     NodoLinea anterior;
-    ListaPalabras lp;
+    ListaPalabras listaPalabras;
       
      public NodoLinea(Object dato) {
         this.dato = dato;
         this.siguiente = null;
-        this.lp = new ListaPalabras();
+        this.listaPalabras = new ListaPalabras();
     }
    
 
@@ -47,11 +47,11 @@ public class NodoLinea {
     }
 
     public ListaPalabras getLp() {
-        return lp;
+        return listaPalabras;
     }
 
     public void setLp(ListaPalabras lp) {
-        this.lp = lp;
+        this.listaPalabras = lp;
     }
     
 }

@@ -22,6 +22,7 @@ public class NodoArchivo {
     public NodoArchivo(String nombre) {
         this.nombre = nombre;
         this.siguiente = null;
+        this.siguiente = null; 
          this.li= new ListaLineas();
     }
 

@@ -40,20 +40,6 @@ public class ListaArchivos implements IListaArchivos{
         return this.primero==null;
     }
 
-//    @Override
-//    public void agregarInicio(String nombre) {
-//        NodoArchivo nuevo = new NodoArchivo(nombre);
-//        
-//        if (this.esVacia()) {
-//            this.primero=nuevo;
-//            this.ultimo=nuevo;
-//        }
-//        else{
-//            nuevo.siguiente=this.primero;
-//            this.primero=nuevo;
-//        }
-//    }
-
     @Override
     public void agregarInicio(String nombre) {
         NodoArchivo nuevo = new NodoArchivo(nombre);
@@ -82,7 +68,7 @@ public class ListaArchivos implements IListaArchivos{
     
     @Override
     public void borrarFin() {
-        this.ultimo = this.ultimo.getAnterior();
+        this.ultimo=this.ultimo.getAnterior();
         this.ultimo.setSiguiente(null);
     }
     
@@ -103,7 +89,7 @@ public class ListaArchivos implements IListaArchivos{
     @Override
     public NodoArchivo obtenerArchivo(String nombre) {
         NodoArchivo aux = this.primero;
-        while (aux != null && aux.getNombre()!= nombre) {
+        while (aux != null && !aux.getNombre().equals(nombre)) {
             aux = aux.getSiguiente();
         }
         return aux;
@@ -144,14 +130,18 @@ public class ListaArchivos implements IListaArchivos{
             }
 
             aux.getAnterior().setSiguiente(aux.getSiguiente());
-            aux.getSiguiente().setAnterior(aux.getAnterior());
+            aux.getSiguiente().setAnterior(aux.getAnterior()); //esta da error
+            
+//            primerLinea.getSiguiente().setAnterior(nuevaLinea);
+//            primerLinea.setSiguiente(nuevaLinea);
         }
     
 }
 
+    
     @Override
-    public void agregarFinal(String Nombre) {
-        NodoArchivo nuevo=new NodoArchivo(Nombre);
+    public void agregarFinal(String nombre) {
+        NodoArchivo nuevo=new NodoArchivo(nombre);
         if(this.esVacia()){
             this.primero=nuevo;
             this.ultimo=nuevo;            
@@ -161,8 +151,8 @@ public class ListaArchivos implements IListaArchivos{
             this.ultimo=nuevo;
             
         }
-        
-        
+
+
     }
     
 }
