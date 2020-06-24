@@ -397,9 +397,62 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public Retorno BorrarPalabra(int posicionLinea, int posicionPalabra) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+    public Retorno BorrarPalabra(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        ListaLineas listaL = archivoBuscado.getLi();
+        NodoLinea auxLinea = listaL.getPrimero();
+        int i = 1;
+        boolean encontre = false;
+        //recorro líneas hasta encontrar la posicionLinea
+        while (auxLinea!=null && !encontre) {
+            if(i==posicionLinea){
+                //si es la primera posición, borro inicio
+                if (posicionPalabra==1) {
+                    auxLinea.getLp().borrarInicio();
+                    encontre=true;
+                }
+                else{
+                    NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
+                    int j = 1;
+                    //recorro las palabras
+                    while (auxPalabra!=null) {                        
+                        if (j==posicionPalabra) {
+                            //si es la última palabra, borro al final
+                            if (auxPalabra.getSiguiente()==null) {
+                                auxLinea.getLp().borrarFin();
+                            }
+                            //si no voy a borrar la primera ni la última
+                            else{
+                                auxPalabra.getAnterior().setSiguiente(auxPalabra.getSiguiente());
+                                auxPalabra.getSiguiente().setAnterior(auxPalabra.getAnterior());
+                            }
+                        }
+                        j++;
+                        auxPalabra=auxPalabra.getSiguiente();
+                    }
+                }
+            }
+            i++;
+            auxLinea = auxLinea.siguiente;
+        }
+//    public void borrarElemento(int n) {
+//
+//        NodoDoble aux = obtenerElemento(n);
+//
+//        if (this.primero == aux) {
+//            this.borrarInicio();
+//        } else {
+//            if (this.ultimo == aux) {
+//                this.borrarFin();
+//            }
+//
+//            
+//        }
+//
+//    }
+        
         return ret;
     }
 
