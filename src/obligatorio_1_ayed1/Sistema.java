@@ -45,13 +45,6 @@ public class Sistema implements ISistema {
         this.mapa = mapa;
     }
 
-//    public Sistema() {
-//        ListaUnidades lstUnidades = new ListaUnidades();
-//        this.lstUnidades = lstUnidades;
-//        ListaPalabras diccionario = new ListaPalabras();
-//        this.diccionario = diccionario;
-//        //this.mapa = mapa;
-//    }
     @Override
     public Retorno crearSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
@@ -157,11 +150,13 @@ public class Sistema implements ISistema {
                     NodoLinea primero = nodoArchivo.getLi().getPrimero();
                     //int i=1;
                     while (primero != null) {
-                        ret.valorString += primero.getNumeroLinea() + ": "+"\n";
+                        ret.valorString += primero.getNumeroLinea() + ": ";
                         NodoPalabra auxPalabra = primero.getLp().getPrimero();
-                        while(auxPalabra!=null){
+                        while (auxPalabra != null) {
                             ret.valorString += auxPalabra.getPalabra() + " ";
+                            auxPalabra = auxPalabra.getSiguiente();
                         }
+                        ret.valorString += "\n";
                         primero = primero.getSiguiente();
                     }
 
@@ -236,15 +231,60 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public Retorno BorrarLinea(String unidad, String carpeta, String mensaje, int posicionLinea) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+    public Retorno BorrarLinea(String unidad, String carpeta, String mensaje, int posicionLinea) { //ver borrar elemento
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        ListaLineas listaL = archivoBuscado.getLi();
+        int cantLineas = listaL.cantElementos();
+
+        if (!listaL.esVacia()) {//lista no vacia
+            if (posicionLinea <= cantLineas) {//posicion esta entre la cantidad de lineas
+                if (posicionLinea == 1) {
+                    listaL.borrarInicio();//borro al inicio
+                    listaL.numerar();
+                } else if (posicionLinea == cantLineas) {
+                    listaL.borrarFin();
+                } else {//recorro y borro en la posicion
+
+                    NodoLinea aux = listaL.getPrimero();
+                    boolean encontre = false;
+                    while (aux != null && !encontre) {
+                        if (aux.getNumeroLinea() == posicionLinea) {//revisar
+
+                            //borrar elemento
+                            aux.getAnterior().setSiguiente(aux.getSiguiente());
+                            aux.getSiguiente().setAnterior(aux.getAnterior());
+
+                            encontre = true;
+                            ret.valorString = "Se inserta línea en la posición " + posicionLinea;
+                            listaL.numerar();
+                        }
+                        aux = aux.siguiente;
+                    }
+                }
+            } else {
+                if (posicionLinea == cantLineas) {//es la ultima posicion. Borro al final
+                    listaL.borrarFin();
+                    
+                } else if (posicionLinea > cantLineas) {
+                    ret.valorString = "La linea no existe en el texto";
+                }
+            }
+
+        } else {
+            ret.valorString = "El archivo proporcionado no contiene lineas";
+        }
 
         return ret;
     }
 
     @Override
-    public Retorno BorrarTodo() {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+    public Retorno BorrarTodo(String unidad, String carpeta, String mensaje) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        ListaLineas listaLineas = archivoBuscado.getLi();
+        listaLineas.vaciar();
 
         return ret;
     }
@@ -277,18 +317,21 @@ public class Sistema implements ISistema {
             NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
             ListaLineas listaL = archivoBuscado.getLi();
             NodoLinea auxLinea = listaL.getPrimero();
-            while (auxLinea != null) {
+            while (auxLinea != null) { //recorro las lienas
                 if (auxLinea.getNumeroLinea() == posicionLinea) {
                     //si encuentro la línea,
                     //pregunto si la cantidad de palabras en la línea está al máximo o si la posición buscada es inválida:
                     if (!auxLinea.getLp().esVacia()) {
-                        int cantidadPalabras = auxLinea.getLp().getCantPalabras();
+                        int cantidadPalabras = auxLinea.getLp().cantElementos();
                         if (posicionPalabra > cantidadPalabras + 1) {
                             ret.valorString = "Error: la posición de la palabra es inválida";
-                        } else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
+                        } if(posicionPalabra == cantidadPalabras + 1){
+                           auxLinea.getLp().agregarFinal(palabraAIngresar);
+                           auxLinea = null;
+                        }else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
                             ret.valorString = "Error: la lista de palabras está llena";
-                        } else {
-                            //segundo: recorro lista de palabras hasta ubicarme en posicionPalabra
+                        } else {                               
+                           //segundo: recorro lista de palabras hasta ubicarme en posicionPalabra
                             int i = 1;
                             boolean encontre = false;
                             NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
@@ -302,20 +345,27 @@ public class Sistema implements ISistema {
                                     encontre = true;
                                     listaL.numerar();
                                 }
+                                 i++;
                                 auxPalabra = auxPalabra.Siguiente;
-                                i++;
+                               
                             }
                         }
                     } //está vacía; agrego al inicio
                     else {
                         auxLinea.getLp().agregarInicio(palabraAIngresar);
+                        auxLinea = null;
+
                     }
                 } else {
-                    //si no encuentro la línea:
-                    ret.valorString = "Error: la posición de la línea es inválida";
+
+                    auxLinea = auxLinea.getSiguiente();
+
                 }
+                //si no encuentro la línea:
+                ret.valorString = "Error: la posición de la línea es inválida";
                 
             }
+
         }
         return ret;
     }

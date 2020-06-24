@@ -11,34 +11,35 @@ package obligatorio_1_ayed1;
  */
 public interface ISistema {
     
- Retorno crearSistemaMensajes();
- Retorno destruirSistemaMensajes();
- Retorno AgregarCarpeta(String unidad, String carpeta);
- Retorno EliminarCarpeta(String unidad, String carpeta);
- Retorno AgregarMensaje(String unidad, String carpeta, String mensaje);
- Retorno EliminarMensaje(String unidad,String carpeta, String mensaje);
- Retorno ListarEstructura(String unidad, String carpeta);
+ Retorno crearSistemaMensajes();//(OK)
+ Retorno destruirSistemaMensajes();//OK()
+ Retorno AgregarCarpeta(String unidad, String carpeta);//(OK)
+ Retorno EliminarCarpeta(String unidad, String carpeta);//(OK)
+ Retorno AgregarMensaje(String unidad, String carpeta, String mensaje);//(OK)
+ Retorno EliminarMensaje(String unidad,String carpeta, String mensaje);//(OK)
+ Retorno ListarEstructura(String unidad, String carpeta);//(OK..NECESITA AJUSTARSE A PARAMETROS)
  
  // funcionalidad referente a archivo de mensaje, lineas, palabras diccionario. 
- Retorno InsertarLinea(String unidad, String carpeta, String mensaje); 
- Retorno InsertarLineaEnPosicion(String unidad, String carpeta, String mensaje,int posicionLinea); 
- Retorno BorrarLinea(String unidad, String carpeta, String mensaje,int posicionLinea);
- Retorno BorrarTodo(); 
- Retorno BorrarOcurrenciasPalabraEnTexto(String palabraABorrar);
- Retorno ImprimirTexto();
- Retorno InsertarPalabraEnLinea(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar);
- Retorno InsertarPalabraYDesplazar(int posicionLinea, int posicionPalabra, String palabraAIngresar);
- Retorno BorrarPalabra(int posicionLinea, int posicionPalabra);
- Retorno BorrarOcurrenciasPalabraEnLinea(int posicionLinea, String palabraABorrar);
- Retorno ImprimirLinea(int posicionLinea);
+ Retorno InsertarLinea(String unidad, String carpeta, String mensaje); //(OK)
+ Retorno InsertarLineaEnPosicion(String unidad, String carpeta, String mensaje,int posicionLinea); //(OK)
+ Retorno BorrarLinea(String unidad, String carpeta, String mensaje,int posicionLinea);//()
+ Retorno BorrarTodo(String unidad, String carpeta, String mensaje); //()
+ Retorno BorrarOcurrenciasPalabraEnTexto(String palabraABorrar);//()
+ Retorno ImprimirTexto();//()
+ Retorno InsertarPalabraEnLinea(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar);//()
+ Retorno InsertarPalabraYDesplazar(int posicionLinea, int posicionPalabra, String palabraAIngresar);//()
+ Retorno BorrarPalabra(int posicionLinea, int posicionPalabra);//()
+ Retorno BorrarOcurrenciasPalabraEnLinea(int posicionLinea, String palabraABorrar);//()
+ Retorno ImprimirLinea(int posicionLinea);//()
+
  
  //Diccionario
- Retorno IngresarPalabraDiccionario(String palabraAIngresar);  
- Retorno BorrarPalabraDiccionario(String palabraABorrar);
- Retorno ImprimirDiccionario();
- Retorno ImprimirTextoIncorrecto();
- Retorno CargarDistancias(int[][] Ciudades);
- Retorno BuscarCamino ( int [][] M, String origen, String destino);
+ Retorno IngresarPalabraDiccionario(String palabraAIngresar);  //()
+ Retorno BorrarPalabraDiccionario(String palabraABorrar);//()
+ Retorno ImprimirDiccionario();//()
+ Retorno ImprimirTextoIncorrecto();//()
+ Retorno CargarDistancias(int[][] Ciudades);//()
+ Retorno BuscarCamino ( int [][] M, String origen, String destino);//()
  
  }   
     
