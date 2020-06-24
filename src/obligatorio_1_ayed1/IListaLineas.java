@@ -6,10 +6,10 @@ package obligatorio_1_ayed1;
  * @author marti
  */
 public interface IListaLineas {
-    public boolean esVacia();
+       public boolean esVacia();
     public void insertarLinea();
-    public void agregarInicio(Object dato);
-    public void agregarFinal(Object dato);
+    public void agregarInicio();
+    public void agregarFinal();
     public void borrarInicio(); 
     public boolean buscarelemento(Object dato);    
     public void vaciar();

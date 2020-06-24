@@ -13,7 +13,7 @@ public class ListaLineas implements IListaLineas{
 
     NodoLinea Primero;
     NodoLinea Ultimo;
-    int cantaLineas;
+    int cantLineas;
 
     
 
@@ -37,12 +37,12 @@ public class ListaLineas implements IListaLineas{
     public void setUltimo(NodoLinea Ultimo) {
         this.Ultimo = Ultimo;
     }
-    public int getCantaLineas() {
-        return cantaLineas;
+    public int getCantLineas() {
+        return cantLineas;
     }
 
-    public void setCantaLineas(int cantaLineas) {
-        this.cantaLineas = cantaLineas;
+    public void setCantLineas(int cantaLineas) {
+        this.cantLineas = cantaLineas;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ListaLineas implements IListaLineas{
     
      @Override
     public void insertarLinea() {//al inicio
-        NodoLinea nuevo = new NodoLinea("");
+        NodoLinea nuevo = new NodoLinea();
         if (this.esVacia()) {
             this.Primero = nuevo;
             this.Ultimo = nuevo;
@@ -63,14 +63,20 @@ public class ListaLineas implements IListaLineas{
     }
 
     @Override
-    public void agregarInicio(Object dato) {
-        NodoLinea nuevo = new NodoLinea(dato);
+    public void agregarInicio() {
+        NodoLinea nuevo = new NodoLinea();
         if (this.esVacia()) {
             this.Primero = nuevo;
             this.Ultimo = nuevo;
         } else {
+            NodoLinea aux = this.Primero;
+            while (aux != null) {
+               aux.setNumeroLinea(aux.getNumeroLinea()+1);
+               aux = aux.siguiente;
+            }
             nuevo.siguiente = this.Primero;
             this.Primero = nuevo;
+            nuevo.setNumeroLinea(1);
         }
     }
 
@@ -90,9 +96,9 @@ public class ListaLineas implements IListaLineas{
     public boolean buscarelemento(Object dato) {
         NodoLinea aux = this.Primero;
         while (aux != null) {
-            if (aux.getDato() == dato) {
-                return true;
-            }
+//            if (aux.getDato() == dato) {
+//                return true;
+//            }
             aux = aux.siguiente;
         }
         return false;
@@ -108,7 +114,7 @@ public class ListaLineas implements IListaLineas{
     public void mostrar() {
         NodoLinea aux = this.Primero;
         while (aux != null) {
-            System.out.print(aux.getDato() + " - ");
+            //System.out.print(aux.getDato() + " - ");
             aux = aux.siguiente;
         }
     }
@@ -116,23 +122,22 @@ public class ListaLineas implements IListaLineas{
     @Override
     public void mostrarREC(NodoLinea l) {
         if (l != null) {
-            System.out.print(l.getDato() + " - ");
+            //System.out.print(l.getDato() + " - ");
             mostrarREC(l.siguiente);
         }
     }
 
     @Override
-    public void agregarFinal(Object dato) {
-        NodoLinea nuevo = new NodoLinea(dato);
+    public void agregarFinal() {
+        NodoLinea nuevo = new NodoLinea();
 
         if (this.esVacia()) {
-            this.agregarInicio(dato);
-        } else {
-            nuevo.siguiente = this.Primero;
-            Primero.anterior = nuevo;
             this.Primero = nuevo;
-            
-
+            this.Ultimo = nuevo;
+        } else {
+            this.Ultimo.setSiguiente(nuevo);
+            nuevo.setAnterior(this.Ultimo);
+            this.Ultimo = nuevo;
         }
 
     }
@@ -154,24 +159,24 @@ public class ListaLineas implements IListaLineas{
     @Override
     public void agregarOrd(Object dato) {
         
-           if (this.esVacia() || (this.getPrimero().getDato().toString().compareTo(dato.toString())>0)) {
-            this.agregarInicio(dato);
-            return;
-        }
-        if (this.getUltimo().getDato().toString().compareTo(dato.toString()) < 0) {   //Ã¹ltimo elemento es menor o igual => agrego al final
-            this.agregarFinal(dato);
-            return;
-        }
-        NodoLinea aux = this.getPrimero();
-        NodoLinea auxant = aux;
-        NodoLinea nuevo = new NodoLinea(dato);
-       
-        while (aux != null && aux.getDato().toString().compareTo(dato.toString()) < 0) {
-            auxant = aux;
-            aux = aux.getSiguiente();
-        }
-        nuevo.setSiguiente(auxant.getSiguiente());
-        auxant.setSiguiente(nuevo);
+//           if (this.esVacia() || (this.getPrimero().getDato().toString().compareTo(dato.toString())>0)) {
+//            this.agregarInicio(dato);
+//            return;
+//        }
+//        if (this.getUltimo().getDato().toString().compareTo(dato.toString()) < 0) {   //Ã¹ltimo elemento es menor o igual => agrego al final
+//            this.agregarFinal(dato);
+//            return;
+//        }
+//        NodoLinea aux = this.getPrimero();
+//        NodoLinea auxant = aux;
+//        NodoLinea nuevo = new NodoLinea(dato);
+//       
+//        while (aux != null && aux.getDato().toString().compareTo(dato.toString()) < 0) {
+//            auxant = aux;
+//            aux = aux.getSiguiente();
+//        }
+//        nuevo.setSiguiente(auxant.getSiguiente());
+//        auxant.setSiguiente(nuevo);
     }
 
 
@@ -179,9 +184,9 @@ public class ListaLineas implements IListaLineas{
     public NodoLinea obtenerElemento(Object n) {
         NodoLinea aux = this.Primero;
         while (aux != null) {
-            if (aux.getDato() == n) {
-                return aux;
-            }
+//            if (aux.getDato() == n) {
+//                return aux;
+//            }
             aux = aux.siguiente;
         }
         return null;
@@ -197,7 +202,18 @@ public class ListaLineas implements IListaLineas{
         }   
         return cont;
     }
-
+    
+    public void numerar(){
+        NodoLinea aux = this.Primero;
+        aux.setNumeroLinea(1);
+        int contador = 1;
+        while (aux!=null) {            
+            aux.setNumeroLinea(contador);
+            aux=aux.siguiente;
+            contador++;
+        }
+    }
+    
     @Override
     public void borrarElemento(Object n) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

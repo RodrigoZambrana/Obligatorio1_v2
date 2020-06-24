@@ -157,7 +157,7 @@ public class Sistema implements ISistema {
                     NodoLinea primero = nodoArchivo.getLi().getPrimero();
                     //int i=1;
                     while (primero != null) {
-                        ret.valorString += primero.getDato() + ":" + "\n";
+                        ret.valorString += primero.getNumeroLinea()+ ":" + "\n";
                         primero = primero.getSiguiente();
                     }
 
@@ -181,7 +181,7 @@ public class Sistema implements ISistema {
         NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
         boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
         if (encontreMensaje) {
-            carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().agregarFinal("");
+            carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().agregarFinal();
             ret.valorString = "Se inserta linea en blanco";
         } else {
             ret.valorString = "El  mensaje no  existe en la carpeta";
@@ -198,56 +198,39 @@ public class Sistema implements ISistema {
         ListaLineas listaL = archivoBuscado.getLi();
         int cantLineas = listaL.cantElementos();
 
-        NodoLinea primerLinea = listaL.getPrimero();
-        NodoLinea nuevaLinea = new NodoLinea(posicionLinea);
-
-        if (posicionLinea <= cantLineas) {//la posicion a agregar es menor o igual al tamaño de la lista
-            if (!listaL.esVacia()) {
-
+        
+        
+        if (!listaL.esVacia()) {
+            if (posicionLinea <= cantLineas) {//la posicion a agregar es menor o igual al tamaño de la lista
                 if (posicionLinea == 1) {
-                    listaL.agregarInicio(nuevaLinea);//agrego inicio
-                } else if (posicionLinea == cantLineas + 1) {
-                    listaL.agregarFinal(nuevaLinea);//agego final
-                } else//recorro hasta encontrar pos
-                {
-                    for (int i = 1; i <= cantLineas; i++) {
-
-                        if (i == posicionLinea) {
-                            if (primerLinea != null) {
-                                nuevaLinea.setAnterior(primerLinea);
-                                nuevaLinea.setSiguiente(primerLinea.getSiguiente());
-                                primerLinea.getSiguiente().setAnterior(nuevaLinea);
-                                primerLinea.setSiguiente(nuevaLinea);
-
-                            } else {
-                                listaL.setUltimo(nuevaLinea);
-                            }
-                            ret.valorString = "Se inserto una linea en la posicion" + posicionLinea;
-                            return ret;
+                    listaL.agregarInicio();//agrego al inicio
+                } else {
+                    NodoLinea aux = listaL.getPrimero();
+                    boolean encontre = false;
+                    while (aux != null && !encontre) {
+                        if (aux.getNumeroLinea() == posicionLinea) {
+                            NodoLinea nuevaLinea = new NodoLinea();
+                            nuevaLinea.anterior = aux.anterior;
+                            aux.anterior.siguiente = nuevaLinea;
+                            aux.anterior = nuevaLinea;
+                            nuevaLinea.siguiente = aux;
+                            
+                            encontre = true;
+                            ret.valorString = "Se inserta línea en la posición " + posicionLinea;
+                            listaL.numerar();
                         }
-                        if (primerLinea != null) {
-                            primerLinea = primerLinea.getSiguiente();
-                        }
-
+                        aux = aux.siguiente;
                     }
                 }
-
-            }//esta vacia, agrego al inicio
-            else {
-                listaL.agregarInicio(nuevaLinea);
-                ret.valorString = "Se inserto una linea en la posicion" + posicionLinea;
-                return ret;
-
+            } else if (posicionLinea == cantLineas + 1) {
+                listaL.agregarFinal();//agrego al final
             }
-            cantLineas++;
-
-        } else {//es mayor a la cantidad de elementos,agreggo al final
-
-            listaL.agregarFinal(nuevaLinea);
+        } //está vacía, agrego al inicio
+        else {
+            listaL.agregarInicio();
             ret.valorString = "Se inserto una linea en la posicion" + posicionLinea;
             return ret;
         }
-
         return ret;
     }
 
