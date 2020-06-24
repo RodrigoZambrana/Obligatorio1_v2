@@ -28,7 +28,7 @@ public interface ISistema {
  Retorno ImprimirTexto();//()
  Retorno InsertarPalabraEnLinea(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar);//()
  Retorno InsertarPalabraYDesplazar(int posicionLinea, int posicionPalabra, String palabraAIngresar);//()
- Retorno BorrarPalabra(int posicionLinea, int posicionPalabra);//()
+ Retorno BorrarPalabra(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra);//()
  Retorno BorrarOcurrenciasPalabraEnLinea(int posicionLinea, String palabraABorrar);//()
  Retorno ImprimirLinea(int posicionLinea);//()
 

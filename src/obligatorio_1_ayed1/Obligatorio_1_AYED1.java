@@ -103,31 +103,35 @@ public class Obligatorio_1_AYED1 {
 
         p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 8).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 8 dentro de mensaje1 en carpeta Archivos" + "\n");
         // p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 7).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 3 dentro de mensaje1 en carpeta Archivos" + "\n");
-        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 1, "palabrax").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
-        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 2, "palabra").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 1, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 2, "palabra2").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 3, "palabra3").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
 
 // p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 1).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 8 dentro de mensaje1 en carpeta Archivos" + "\n");
 
         
         
         p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 1, 1, "palabrax").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
-       // p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 1, 2, "palabrax").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 2 dentro de mensaje1 en carpeta Archivos" + "\n");
-
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 1, 2, "palabrax").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 2 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
+        
+        p.ver(s.BorrarPalabra("C:", "Archivos", "mensaje1", 2/*línea*/, 2/*palabra*/).resultado, Retorno.Resultado.OK, "Se borra palabra en posición 2 dentro de mensaje1, línea 2, en carpeta Archivos" + "\n");
+       
         p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
        // p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 5).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 8 dentro de mensaje1 en carpeta Archivos" + "\n");
 
         
         
         // p.ver(s.BorrarTodo("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se borran todas las lineas de mensaje1 en carpeta Archivos" + "\n");
-        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
-        p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 4).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 4 dentro de mensaje1 en carpeta Archivos" + "\n");
-        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
+        //p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
+        //p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 4).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 4 dentro de mensaje1 en carpeta Archivos" + "\n");
+        //p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
 
         //p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
 //funcionalidades de busqueda de camino       
         // p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString);
         p.imprimirResultadosPrueba();
-
+        
     }
 
     public static void pruebasCasosError(Sistema s, Prueba p) {

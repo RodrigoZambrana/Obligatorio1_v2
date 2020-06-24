@@ -266,7 +266,7 @@ public class Sistema implements ISistema {
             } else {
                 if (posicionLinea == cantLineas) {//es la ultima posicion. Borro al final
                     listaL.borrarFin();
-                    
+
                 } else if (posicionLinea > cantLineas) {
                     ret.valorString = "La linea no existe en el texto";
                 }
@@ -325,13 +325,14 @@ public class Sistema implements ISistema {
                         int cantidadPalabras = auxLinea.getLp().cantElementos();
                         if (posicionPalabra > cantidadPalabras + 1) {
                             ret.valorString = "Error: la posición de la palabra es inválida";
-                        } if(posicionPalabra == cantidadPalabras + 1){
-                           auxLinea.getLp().agregarFinal(palabraAIngresar);
-                           auxLinea = null;
-                        }else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
+                        }
+                        if (posicionPalabra == cantidadPalabras + 1) {
+                            auxLinea.getLp().agregarFinal(palabraAIngresar);
+                            auxLinea = null;
+                        } else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
                             ret.valorString = "Error: la lista de palabras está llena";
-                        } else {                               
-                           //segundo: recorro lista de palabras hasta ubicarme en posicionPalabra
+                        } else {
+                            //segundo: recorro lista de palabras hasta ubicarme en posicionPalabra
                             int i = 1;
                             boolean encontre = false;
                             NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
@@ -345,9 +346,9 @@ public class Sistema implements ISistema {
                                     encontre = true;
                                     listaL.numerar();
                                 }
-                                 i++;
+                                i++;
                                 auxPalabra = auxPalabra.Siguiente;
-                               
+
                             }
                         }
                     } //está vacía; agrego al inicio
@@ -363,7 +364,7 @@ public class Sistema implements ISistema {
                 }
                 //si no encuentro la línea:
                 ret.valorString = "Error: la posición de la línea es inválida";
-                
+
             }
 
         }
@@ -378,9 +379,62 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public Retorno BorrarPalabra(int posicionLinea, int posicionPalabra) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+    public Retorno BorrarPalabra(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        ListaLineas listaL = archivoBuscado.getLi();
+        NodoLinea auxLinea = listaL.getPrimero();
+        int i = 1;
+        boolean encontre = false;
+        //recorro líneas hasta encontrar la posicionLinea
+        while (auxLinea!=null && !encontre) {
+            if(i==posicionLinea){
+                //si es la primera posición, borro inicio
+                if (posicionPalabra==1) {
+                    auxLinea.getLp().borrarInicio();
+                    encontre=true;
+                }
+                else{
+                    NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
+                    int j = 1;
+                    //recorro las palabras
+                    while (auxPalabra!=null) {                        
+                        if (j==posicionPalabra) {
+                            //si es la última palabra, borro al final
+                            if (auxPalabra.getSiguiente()==null) {
+                                auxLinea.getLp().borrarFin();
+                            }
+                            //si no voy a borrar la primera ni la última
+                            else{
+                                auxPalabra.getAnterior().setSiguiente(auxPalabra.getSiguiente());
+                                auxPalabra.getSiguiente().setAnterior(auxPalabra.getAnterior());
+                            }
+                        }
+                        j++;
+                        auxPalabra=auxPalabra.getSiguiente();
+                    }
+                }
+            }
+            i++;
+            auxLinea = auxLinea.siguiente;
+        }
+//    public void borrarElemento(int n) {
+//
+//        NodoDoble aux = obtenerElemento(n);
+//
+//        if (this.primero == aux) {
+//            this.borrarInicio();
+//        } else {
+//            if (this.ultimo == aux) {
+//                this.borrarFin();
+//            }
+//
+//            
+//        }
+//
+//    }
+        
         return ret;
     }
 
