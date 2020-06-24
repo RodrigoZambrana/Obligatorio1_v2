@@ -290,9 +290,31 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public Retorno BorrarOcurrenciasPalabraEnTexto(String palabraABorrar) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+    public Retorno BorrarOcurrenciasPalabraEnTexto(String unidad, String carpeta, String mensaje, String palabraABorrar) {
+         Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        ListaLineas listaLineas = archivoBuscado.getLi();
+        if (!listaLineas.esVacia()) {
+            NodoLinea primero = archivoBuscado.getLi().getPrimero();
+            while (primero != null) {
+                NodoPalabra auxPalabra = primero.getLp().getPrimero();
+                //falta borrar inicio y borrar fin
+                while (auxPalabra != null) {
+                         
+                    if(auxPalabra.getPalabra()==palabraABorrar){
+                    auxPalabra.getAnterior().setSiguiente(auxPalabra.getSiguiente());
+                    auxPalabra.getSiguiente().setAnterior(auxPalabra.getAnterior());
+                    }
+                    auxPalabra = auxPalabra.getSiguiente();
+                }
+                ret.valorString += "\n";
+                primero = primero.getSiguiente();
+            }
 
+        } else {
+            ret.valorString = "Texto vacio";
+        }
         return ret;
     }
 
@@ -399,73 +421,74 @@ public class Sistema implements ISistema {
     @Override
     public Retorno BorrarPalabra(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        
         NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
         ListaLineas listaL = archivoBuscado.getLi();
         NodoLinea auxLinea = listaL.getPrimero();
         int i = 1;
         boolean encontre = false;
         //recorro líneas hasta encontrar la posicionLinea
-        while (auxLinea!=null && !encontre) {
-            if(i==posicionLinea){
+        while (auxLinea != null && !encontre) {
+            if (i == posicionLinea) {
                 //si es la primera posición, borro inicio
-                if (posicionPalabra==1) {
+                if (posicionPalabra == 1) {
                     auxLinea.getLp().borrarInicio();
-                    encontre=true;
-                }
-                else{
+                    encontre = true;
+                } else {
                     NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
                     int j = 1;
                     //recorro las palabras
-                    while (auxPalabra!=null) {                        
-                        if (j==posicionPalabra) {
+                    while (auxPalabra != null) {
+                        if (j == posicionPalabra) {
                             //si es la última palabra, borro al final
-                            if (auxPalabra.getSiguiente()==null) {
+                            if (auxPalabra.getSiguiente() == null) {
                                 auxLinea.getLp().borrarFin();
-                            }
-                            //si no voy a borrar la primera ni la última
-                            else{
+                            } //si no voy a borrar la primera ni la última
+                            else {
                                 auxPalabra.getAnterior().setSiguiente(auxPalabra.getSiguiente());
                                 auxPalabra.getSiguiente().setAnterior(auxPalabra.getAnterior());
                             }
                         }
                         j++;
-                        auxPalabra=auxPalabra.getSiguiente();
+                        auxPalabra = auxPalabra.getSiguiente();
                     }
                 }
             }
             i++;
             auxLinea = auxLinea.siguiente;
         }
-//    public void borrarElemento(int n) {
-//
-//        NodoDoble aux = obtenerElemento(n);
-//
-//        if (this.primero == aux) {
-//            this.borrarInicio();
-//        } else {
-//            if (this.ultimo == aux) {
-//                this.borrarFin();
-//            }
-//
-//            
-//        }
-//
-//    }
-        
         return ret;
     }
 
     @Override
-    public Retorno BorrarOcurrenciasPalabraEnLinea(int posicionLinea, String palabraABorrar) {
+    public Retorno BorrarOcurrenciasPalabraEnLinea(String unidad, String carpeta, String mensaje, int posicionLinea, String palabraABorrar) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
 
         return ret;
     }
 
     @Override
-    public Retorno ImprimirLinea(int posicionLinea) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+    public Retorno ImprimirLinea(String unidad, String carpeta, String mensaje, int posicionLinea) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        ListaLineas listaLineas = archivoBuscado.getLi();
+        if (!listaLineas.esVacia()&& posicionLinea<=listaLineas.cantElementos()) {
+            NodoLinea primeraLinea = archivoBuscado.getLi().getPrimero();
+            boolean encontre = false;
+            while (primeraLinea != null && !encontre) {
+                if(primeraLinea.getNumeroLinea()==posicionLinea) {
+                    ret.valorString += primeraLinea.getNumeroLinea() + ": ";
+                    NodoPalabra auxPalabra = primeraLinea.getLp().getPrimero();
+                    while (auxPalabra != null) {
+                        ret.valorString += auxPalabra.getPalabra() + " ";
+                        auxPalabra = auxPalabra.getSiguiente();
+                    }
+                   encontre = true;
+                }
+                primeraLinea = primeraLinea.getSiguiente();
+            }
+
+        }else ret.valorString = "La linea proprocionada no no es valida";
 
         return ret;
     }

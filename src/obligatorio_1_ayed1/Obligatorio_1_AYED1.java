@@ -119,11 +119,18 @@ public class Obligatorio_1_AYED1 {
        
         p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
        // p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 5).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 8 dentro de mensaje1 en carpeta Archivos" + "\n");
-    
+        
+       
+       p.ver(s.ImprimirTexto("C:", "Archivos","mensaje2").resultado, Retorno.Resultado.OK, "Se muestra el contenido actual del mensaje2" + "\n" + s.ImprimirTexto("C:", "Archivos","mensaje2").valorString);
+       p.ver(s.ImprimirTexto("C:", "Archivos","mensaje1").resultado, Retorno.Resultado.OK, "Se muestra el contenido actual del mensaje1" + "\n" + s.ImprimirTexto("C:", "Archivos","mensaje1").valorString);
+       
+       
+       p.ver(s.ImprimirLinea("C:", "Archivos","mensaje1",2).resultado, Retorno.Resultado.OK, "Se muestra el contenido actual de la linea 2 en mensaje1" + "\n" +s.ImprimirLinea("C:", "Archivos","mensaje1",2).valorString);
+
         // p.ver(s.BorrarTodo("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se borran todas las lineas de mensaje1 en carpeta Archivos" + "\n");
         //p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
         //p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 4).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 4 dentro de mensaje1 en carpeta Archivos" + "\n");
-        //p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
+        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
 
         //p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
 //funcionalidades de busqueda de camino       
