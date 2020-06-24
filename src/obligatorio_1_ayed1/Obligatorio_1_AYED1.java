@@ -77,8 +77,8 @@ public class Obligatorio_1_AYED1 {
 //        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
 //        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
 
-      p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 1 dentro de mensaje1 en carpeta Archivos"+"\n");
-      p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",4).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 4 dentro de mensaje1 en carpeta Archivos"+"\n");
+      p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",2).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 3 dentro de mensaje1 en carpeta Archivos"+"\n");
+      p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 4 dentro de mensaje1 en carpeta Archivos"+"\n");
      
 //agregamos palabras al diccionario
 //        p.ver(s.ImprimirDiccionario().resultado, Retorno.Resultado.OK,"Se muestra las palabras en el diccionario" + "\n" +s.ImprimirDiccionario().valorString);
@@ -98,6 +98,8 @@ public class Obligatorio_1_AYED1 {
 
 //funcionalidades de busqueda de camino       
         // p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString);
+        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
+        p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 4 dentro de mensaje1 en carpeta Archivos"+"\n");
         p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
 
         p.imprimirResultadosPrueba();

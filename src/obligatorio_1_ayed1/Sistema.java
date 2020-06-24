@@ -197,9 +197,7 @@ public class Sistema implements ISistema {
         NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
         ListaLineas listaL = archivoBuscado.getLi();
         int cantLineas = listaL.cantElementos();
-
-        
-        
+ 
         if (!listaL.esVacia()) {
             if (posicionLinea <= cantLineas) {//la posicion a agregar es menor o igual al tamaño de la lista
                 if (posicionLinea == 1) {
@@ -235,16 +233,58 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public Retorno BorrarLinea(String unidad, String carpeta, String mensaje, int posicionLinea) {
+    public Retorno BorrarLinea(String unidad, String carpeta, String mensaje, int posicionLinea) { //ver borrar elemento
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+        ret.valorString = "";
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        ListaLineas listaL = archivoBuscado.getLi();
+        int cantLineas = listaL.cantElementos();
+ 
+        if (!listaL.esVacia()) {//lista no vacia
+            if (posicionLinea <= cantLineas) {//posicion esta entre la cantidad de lineas
+            if (posicionLinea == 1) {
+                    listaL.agregarInicio();//agrego al inicio
+                } else {
+                    NodoLinea aux = listaL.getPrimero();
+                    boolean encontre = false;
+                    while (aux != null && !encontre) {
+                        if (aux.getNumeroLinea() == posicionLinea) {//revisar
+                            
+                           //borrar elemento
+                            aux.getAnterior().setSiguiente(aux.getSiguiente());
+                            aux.getSiguiente().setAnterior(aux.getAnterior());
+                            
+                            encontre = true;
+                            ret.valorString = "Se inserta línea en la posición " + posicionLinea;
+                            listaL.numerar();
+                        }
+                        aux = aux.siguiente;
+                    }
+                }      
+            }else{
+                if(posicionLinea == cantLineas){//es la ultima posicion. Borro al final
+                    
+                }else if(posicionLinea > cantLineas){
+             ret.valorString = "La linea no existe en el texto";
+             }
+        }
+            
+                   
+        }else{
+             ret.valorString = "El archivo proporcionado no contiene lineas";
+        }
+        
+        
         return ret;
     }
 
     @Override
-    public Retorno BorrarTodo() {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
+    public Retorno BorrarTodo(String unidad, String carpeta, String mensaje) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        ListaLineas listaLineas = archivoBuscado.getLi();
+        listaLineas.vaciar();
+      
         return ret;
     }
 
