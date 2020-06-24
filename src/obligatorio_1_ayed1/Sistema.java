@@ -314,6 +314,7 @@ public class Sistema implements ISistema {
                     //si no encuentro la línea:
                     ret.valorString = "Error: la posición de la línea es inválida";
                 }
+                
             }
         }
         return ret;
