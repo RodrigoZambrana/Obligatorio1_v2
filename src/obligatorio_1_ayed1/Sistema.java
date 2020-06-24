@@ -411,10 +411,17 @@ public class Sistema implements ISistema {
                                 auxPalabra.getSiguiente().setAnterior(auxPalabra.getAnterior());
                             }
                         }
+                        else{
+                            ret.valorString = "Error: la posición de la palabra es inválida";
+                        }
                         j++;
                         auxPalabra=auxPalabra.getSiguiente();
                     }
                 }
+            }
+            else{
+                //si no encuentro la línea:
+                ret.valorString = "Error: la posición de la línea es inválida";
             }
             i++;
             auxLinea = auxLinea.siguiente;
