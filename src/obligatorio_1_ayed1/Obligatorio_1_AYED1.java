@@ -10,9 +10,13 @@ public class Obligatorio_1_AYED1 {
 //        int cantUnidades = 0;
 //        crearSistemaMensajes(cantUnidades);
 
+
         Prueba prueba1 = new Prueba();
         Sistema sistema = new Sistema(0);//recibe como parametro la cantidad de cuidades a gestionar para el ultimo ejercicio
 
+//        ListaPalabras lp = new ListaPalabras();
+//        lp.mostrar();
+        
         pruebasCasosOK(sistema, prueba1);
         //pruebasCasosError(sistema, prueba1);
 
@@ -59,7 +63,7 @@ public class Obligatorio_1_AYED1 {
          p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
          p.ver(s.InsertarLinea("C:", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega linea en blanco a  mensaje1 en carpeta Archivos"+"\n");
 
-        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
+        //p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
 
 //agregamos una nueva línea en posicion
 //        p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje2", 2).resultado, Retorno.Resultado.OK, "Se inserta linea en posicion 2 dentro de mensaje2 en carpeta Archivos" + "\n");
@@ -79,7 +83,16 @@ public class Obligatorio_1_AYED1 {
 
       p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",3).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 1 dentro de mensaje1 en carpeta Archivos"+"\n");
       p.ver(s.InsertarLineaEnPosicion("C:", "Archivos", "mensaje1",4).resultado,Retorno.Resultado.OK, "Se inserta linea en posicion 4 dentro de mensaje1 en carpeta Archivos"+"\n");
-     
+
+//agrego palabra en una línea  
+
+
+          p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 1, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra1 en la posición 1 de la línea 2 de mensaje1"+"\n");
+
+
+
+
+
 //agregamos palabras al diccionario
 //        p.ver(s.ImprimirDiccionario().resultado, Retorno.Resultado.OK,"Se muestra las palabras en el diccionario" + "\n" +s.ImprimirDiccionario().valorString);
 //        p.ver(s.IngresarPalabraDiccionario("algoritmos").resultado, Retorno.Resultado.OK, "Se agrega palabra algoritmos  al diccionario");  
@@ -98,8 +111,8 @@ public class Obligatorio_1_AYED1 {
 
 //funcionalidades de busqueda de camino       
         // p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString);
-        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
-
+        //p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
+        
         p.imprimirResultadosPrueba();
 
 

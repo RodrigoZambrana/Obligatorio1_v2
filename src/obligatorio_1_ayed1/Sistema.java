@@ -13,7 +13,7 @@ public class Sistema implements ISistema {
 
     private ListaUnidades lstUnidades;
     private ListaPalabras diccionario;
-    int MAX_CANT_PALABRAS_X_LINEA;
+    int MAX_CANT_PALABRAS_X_LINEA = 6;
     public int[][] mapa = new int[5][5];
 
     public Sistema(int CantCuidades) {
@@ -157,7 +157,11 @@ public class Sistema implements ISistema {
                     NodoLinea primero = nodoArchivo.getLi().getPrimero();
                     //int i=1;
                     while (primero != null) {
-                        ret.valorString += primero.getNumeroLinea()+ ":" + "\n";
+                        ret.valorString += primero.getNumeroLinea() + ": "+"\n";
+                        NodoPalabra auxPalabra = primero.getLp().getPrimero();
+                        while(auxPalabra!=null){
+                            ret.valorString += auxPalabra.getPalabra() + " ";
+                        }
                         primero = primero.getSiguiente();
                     }
 
@@ -198,8 +202,6 @@ public class Sistema implements ISistema {
         ListaLineas listaL = archivoBuscado.getLi();
         int cantLineas = listaL.cantElementos();
 
-        
-        
         if (!listaL.esVacia()) {
             if (posicionLinea <= cantLineas) {//la posicion a agregar es menor o igual al tamaño de la lista
                 if (posicionLinea == 1) {
@@ -214,7 +216,6 @@ public class Sistema implements ISistema {
                             aux.anterior.siguiente = nuevaLinea;
                             aux.anterior = nuevaLinea;
                             nuevaLinea.siguiente = aux;
-                            
                             encontre = true;
                             ret.valorString = "Se inserta línea en la posición " + posicionLinea;
                             listaL.numerar();
@@ -263,9 +264,58 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public Retorno InsertarPalabraEnLinea(int posicionLinea, int posicionPalabra, String palabraAIngresar) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+    public Retorno InsertarPalabraEnLinea(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar) {
 
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+
+        if (posicionPalabra < 1) {
+            ret.valorString = "Error: la posición de la palabra es inválida";
+            //return ret;
+        } else {
+            //primero: ubico la línea:
+            NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+            ListaLineas listaL = archivoBuscado.getLi();
+            NodoLinea auxLinea = listaL.getPrimero();
+            while (auxLinea != null) {
+                if (auxLinea.getNumeroLinea() == posicionLinea) {
+                    //si encuentro la línea,
+                    //pregunto si la cantidad de palabras en la línea está al máximo o si la posición buscada es inválida:
+                    if (!auxLinea.getLp().esVacia()) {
+                        int cantidadPalabras = auxLinea.getLp().getCantPalabras();
+                        if (posicionPalabra > cantidadPalabras + 1) {
+                            ret.valorString = "Error: la posición de la palabra es inválida";
+                        } else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
+                            ret.valorString = "Error: la lista de palabras está llena";
+                        } else {
+                            //segundo: recorro lista de palabras hasta ubicarme en posicionPalabra
+                            int i = 1;
+                            boolean encontre = false;
+                            NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
+                            while (auxPalabra != null && !encontre) {
+                                if (i == posicionPalabra) {
+                                    NodoPalabra nuevaPalabra = new NodoPalabra(palabraAIngresar);
+                                    nuevaPalabra.Anterior = auxPalabra.Anterior;
+                                    auxPalabra.Anterior.Siguiente = nuevaPalabra;
+                                    auxPalabra.Anterior = nuevaPalabra;
+                                    nuevaPalabra.Siguiente = auxPalabra;
+                                    encontre = true;
+                                    listaL.numerar();
+                                }
+                                auxPalabra = auxPalabra.Siguiente;
+                                i++;
+                            }
+                        }
+                    } //está vacía; agrego al inicio
+                    else {
+                        auxLinea.getLp().agregarInicio(palabraAIngresar);
+                    }
+                } else {
+                    //si no encuentro la línea:
+                    ret.valorString = "Error: la posición de la línea es inválida";
+                }
+            }
+        }
         return ret;
     }
 
