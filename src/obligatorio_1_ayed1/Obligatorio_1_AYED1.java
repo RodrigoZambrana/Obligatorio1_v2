@@ -188,6 +188,7 @@ public static void pruebatopes(Sistema s, Prueba p) {
         p.ver(s.ImprimirTextoIncorrecto().resultado, Retorno.Resultado.OK, "Palabras no ingresadas al diccionario impresas");               
         p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.OK, "Sistema Borrado");
         
+         p.imprimirResultadosPrueba();
 }
 //    /**
 //     * @param args the command line arguments
