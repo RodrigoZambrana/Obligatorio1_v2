@@ -13,15 +13,16 @@ public class Obligatorio_1_AYED1 {
 
 //        ListaPalabras lp = new ListaPalabras();
 //        lp.mostrar();
-        pruebasCasosOK(sistema, prueba1);
+        //pruebasCasosOK(sistema, prueba1);
         //pruebasCasosError(sistema, prueba1);
+        pruebaEstructura(sistema, prueba1);
 
     }
 
     public static void pruebasCasosOK(Sistema s, Prueba p) {
 // casos Ok
         p.ver(s.crearSistemaMensajes().resultado, Retorno.Resultado.OK, "Se crea sistema de mensajes");
-        // p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.OK, "Se destruye sistema");
+         //p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.OK, "Se destruye sistema");
 
         // agregar carpetas 
         p.ver(s.AgregarCarpeta("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta Archivos en unidad C");
@@ -108,6 +109,10 @@ public class Obligatorio_1_AYED1 {
         p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 3, 2, "palabra2").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
         p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 3, 3, "palabra3").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
         p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 3, 4, "palabra4").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 4, 1, "palabra4").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 4, 2, "palabra4").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 4, 3, "palabra4").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 4, 4, "palabra4").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
 
 // p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 1).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 8 dentro de mensaje1 en carpeta Archivos" + "\n");
 
@@ -125,39 +130,52 @@ public static void pruebaEstructura(Sistema s, Prueba p){
     p.ver(s.crearSistemaMensajes().resultado,Retorno.Resultado.OK,"Se crea sistema de mensajes");   
     
 // agregar carpetas 
-    p.ver(s.AgregarCarpeta("C", "Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta Archivos en unidad C"); 
-    p.ver(s.AgregarCarpeta("C", "Documentos").resultado, Retorno.Resultado.OK, "Se creo la carpeta documentos en unidad C");   
-    p.ver(s.AgregarCarpeta("C", "Mensajes").resultado, Retorno.Resultado.OK, "Se creo la carpeta mensajes en unidad C");
-    p.ver(s.AgregarCarpeta("C", "Otros Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta otros Archivos en unidad C");
-   // listamos par ver si la estructura es correcta
-    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos"+s.ListarEstructura("C","Archivos").valorString);
-    
-    // agregamos mensajes a una carpeta
-    p.ver(s.AgregarMensaje("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
-    p.ver(s.AgregarMensaje("C", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
-    p.ver(s.AgregarMensaje("C", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
-
-    // listamos la carpeta Archivos para ver si estan los mensajes agregados.
-    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos"+s.ListarEstructura("C","Archivos").valorString);
-    
-    // agregamos un nuevo mensaje y posteriormente lo elimino 
-    p.ver(s.AgregarMensaje("C", "Archivos", "mensajex").resultado, Retorno.Resultado.OK, "Se agrega mensaje x en carpeta Archivos");
-    p.ver(s.EliminarMensaje("C","Archivos","mensajex").resultado, Retorno.Resultado.OK, "Se  elimina mensaje x en carpeta Archivos ");
-   
-    //-------------------------------------------------------------------------------------------------------------
-  
-    // juego de prueba para las lineas, palabras y diccionario.
-    //------------------------------------------------------------------------------------------------------------
-    p.ver(s.InsertarLinea("C", "Archivos", "mensaje1").resultado,Retorno.Resultado.OK,"Se agrega mensaje 1 en carpeta Archivos");
-    // listamos la carpeta nuevamente para ver si estan los arvhivos correctos.
-    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");
- 
+//    p.ver(s.AgregarCarpeta("C", "Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta Archivos en unidad C"); 
+//    p.ver(s.AgregarCarpeta("C", "Documentos").resultado, Retorno.Resultado.OK, "Se creo la carpeta documentos en unidad C");   
+//    p.ver(s.AgregarCarpeta("C", "Mensajes").resultado, Retorno.Resultado.OK, "Se creo la carpeta mensajes en unidad C");
+//    p.ver(s.AgregarCarpeta("C", "Otros Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta otros Archivos en unidad C");
+//   // listamos par ver si la estructura es correcta
+//    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos"+s.ListarEstructura("C","Archivos").valorString);
+//    
+//    // agregamos mensajes a una carpeta
+//    p.ver(s.AgregarMensaje("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
+//    p.ver(s.AgregarMensaje("C", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
+//    p.ver(s.AgregarMensaje("C", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
+//        
+//        //p.ver(s.BorrarPalabra("C:", "Archivos", "mensaje1", 2/*línea*/, 2/*palabra*/).resultado, Retorno.Resultado.OK, "Se borra palabra en posición 2 dentro de mensaje1, línea 2, en carpeta Archivos" + "\n");
+//        //p.ver(s.InsertarPalabraYDesplazar("C:", "Archivos", "mensaje1", 2/*línea*/, 2/*pos.palabra*/,"palabra5").resultado, Retorno.Resultado.OK, "se inserta palabra4 en línea 1" + "\n");
+//       
+//        p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
+//       // p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 5).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 8 dentro de mensaje1 en carpeta Archivos" + "\n");
+//        
+//       
+//       p.ver(s.ImprimirTexto("C:", "Archivos","mensaje2").resultado, Retorno.Resultado.OK, "Se muestra el contenido actual del mensaje2" + "\n" + s.ImprimirTexto("C:", "Archivos","mensaje2").valorString);
+//       p.ver(s.ImprimirTexto("C:", "Archivos","mensaje1").resultado, Retorno.Resultado.OK, "Se muestra el contenido actual del mensaje1" + "\n" + s.ImprimirTexto("C:", "Archivos","mensaje1").valorString);
+//       
+//       
+//       p.ver(s.ImprimirLinea("C:", "Archivos","mensaje1",2).resultado, Retorno.Resultado.OK, "Se muestra el contenido actual de la linea 2 en mensaje1" + "\n" +s.ImprimirLinea("C:", "Archivos","mensaje1",2).valorString);
+//
+//    // listamos la carpeta Archivos para ver si estan los mensajes agregados.
+//    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos"+s.ListarEstructura("C","Archivos").valorString);
+//    
+//    // agregamos un nuevo mensaje y posteriormente lo elimino 
+//    p.ver(s.AgregarMensaje("C", "Archivos", "mensajex").resultado, Retorno.Resultado.OK, "Se agrega mensaje x en carpeta Archivos");
+//    p.ver(s.EliminarMensaje("C","Archivos","mensajex").resultado, Retorno.Resultado.OK, "Se  elimina mensaje x en carpeta Archivos ");
+//   
+//    //-------------------------------------------------------------------------------------------------------------
+//  
+//    // juego de prueba para las lineas, palabras y diccionario.
+//    //------------------------------------------------------------------------------------------------------------
+//    p.ver(s.InsertarLinea("C", "Archivos", "mensaje1").resultado,Retorno.Resultado.OK,"Se agrega mensaje 1 en carpeta Archivos");
+//    // listamos la carpeta nuevamente para ver si estan los arvhivos correctos.
+//    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");
+// 
     // casos de error
-    p.ver(s.AgregarCarpeta("C", "Archivos").resultado, Retorno.Resultado.ERROR, "Error Se intento crear la carpeta Archivos en unidad C que ya existe");   
-    p.ver(s.EliminarCarpeta("C", "Carpeta X").resultado, Retorno.Resultado.ERROR, "Se intento borrar carpeta X que no existe");
-    p.ver(s.AgregarMensaje("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.ERROR, "Se intento agregar mensaje 1 en carpeta Archivos ya existente");
-    p.ver(s.EliminarMensaje("C","Archivos","mensaje4").resultado, Retorno.Resultado.ERROR, "Se intenta eliminar mensaje 4 en carpeta Archivos que no existe");
-    
+//    p.ver(s.AgregarCarpeta("C", "Archivos").resultado, Retorno.Resultado.ERROR, "Error Se intento crear la carpeta Archivos en unidad C que ya existe");   
+//    p.ver(s.EliminarCarpeta("C", "Carpeta X").resultado, Retorno.Resultado.ERROR, "Se intento borrar carpeta X que no existe");
+//    p.ver(s.AgregarMensaje("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.ERROR, "Se intento agregar mensaje 1 en carpeta Archivos ya existente");
+//    p.ver(s.EliminarMensaje("C","Archivos","mensaje4").resultado, Retorno.Resultado.ERROR, "Se intenta eliminar mensaje 4 en carpeta Archivos que no existe");
+//    
     
     p.ver(s.BuscarCamino(s.mapa, "MVD", "NYC").resultado, Retorno.Resultado.OK,s.BuscarCamino(s.mapa, "MVD", "NYC").valorString );
     
