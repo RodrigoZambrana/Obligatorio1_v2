@@ -13,7 +13,7 @@ public class Sistema implements ISistema {
 
     private ListaUnidades lstUnidades;
     private ListaPalabras diccionario;
-    int MAX_CANT_PALABRAS_X_LINEA = 6;
+    int MAX_CANT_PALABRAS_X_LINEA = 3;
     public int[][] mapa = new int[5][5];
 
     public Sistema(int CantCuidades) {
@@ -48,7 +48,7 @@ public class Sistema implements ISistema {
     @Override
     public Retorno crearSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        lstUnidades.agregarFinal("C:");
+        lstUnidades.agregarFinal("C");
         CargarDistancias(mapa);
 
         return ret;
@@ -357,12 +357,14 @@ public class Sistema implements ISistema {
             NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
             ListaLineas listaL = archivoBuscado.getLi();
             NodoLinea auxLinea = listaL.getPrimero();
+            int cantidadPalabras = auxLinea.getLp().cantElementos();
             while (auxLinea != null) { //recorro las lienas
+                
                 if (auxLinea.getNumeroLinea() == posicionLinea) {
                     //si encuentro la línea,
                     //pregunto si la cantidad de palabras en la línea está al máximo o si la posición buscada es inválida:
                     if (!auxLinea.getLp().esVacia()) {
-                        int cantidadPalabras = auxLinea.getLp().cantElementos();
+                        
                         if (posicionPalabra > cantidadPalabras + 1) {
                             ret.valorString = "Error: la posición de la palabra es inválida";
                         }
@@ -406,13 +408,14 @@ public class Sistema implements ISistema {
                 ret.valorString = "Error: la posición de la línea es inválida";
 
             }
+             ret.valorString = "Error: la posición de la línea es inválida";
 
         }
         return ret;
     }
 
     @Override
-    public Retorno InsertarPalabraYDesplazar(int posicionLinea, int posicionPalabra, String palabraAIngresar) {
+    public Retorno InsertarPalabraYDesplazar(String unidad, String carpeta,String mensaje,int posicionLinea, int posicionPalabra, String palabraAIngresar) {
         Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
 
         return ret;
