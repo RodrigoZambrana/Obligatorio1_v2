@@ -106,6 +106,10 @@ public class Obligatorio_1_AYED1 {
         p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 1, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
         p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 2, "palabra2").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
         p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 3, "palabra3").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 3, 1, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 3, 2, "palabra2").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 3, 3, "palabra3").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
+        p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 3, 4, "palabra4").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
 
 // p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 1).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 8 dentro de mensaje1 en carpeta Archivos" + "\n");
 
@@ -114,10 +118,11 @@ public class Obligatorio_1_AYED1 {
         //p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 1, 1, "palabrax").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 1 dentro de mensaje1 en carpeta Archivos" + "\n");
         //p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 1, 2, "palabrax").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 2 dentro de mensaje1 en carpeta Archivos" + "\n");
         p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 2, "palabra4").resultado, Retorno.Resultado.OK, "Se inserta palabra en posicion 3 dentro de mensaje1 en carpeta Archivos" + "\n");
+        //p.ver(s.InsertarPalabraEnLinea("C:", "Archivos", "mensaje1", 2, 2, "palabra5").resultado, Retorno.Resultado.OK, "Agrego palabra 5 a la línea 2 que está llena" + "\n");
         p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
         
         //p.ver(s.BorrarPalabra("C:", "Archivos", "mensaje1", 2/*línea*/, 2/*palabra*/).resultado, Retorno.Resultado.OK, "Se borra palabra en posición 2 dentro de mensaje1, línea 2, en carpeta Archivos" + "\n");
-        //p.ver(s.InsertarPalabraYDesplazar("C:", "Archivos", "mensaje1", 1/*línea*/, 2/*palabra*/,"palabra4").resultado, Retorno.Resultado.OK, "se inserta palabra4 en línea 1" + "\n");
+        p.ver(s.InsertarPalabraYDesplazar("C:", "Archivos", "mensaje1", 2/*línea*/, 2/*pos.palabra*/,"palabra5").resultado, Retorno.Resultado.OK, "se inserta palabra4 en línea 1" + "\n");
        
         p.ver(s.ListarEstructura("C:", "Archivos").resultado, Retorno.Resultado.OK, "Se muestra la estrucura actual del sistema" + "\n" + s.ListarEstructura("C:", "Archivos").valorString);
        // p.ver(s.BorrarLinea("C:", "Archivos", "mensaje1", 5).resultado, Retorno.Resultado.OK, "Se borra linea en posicion 8 dentro de mensaje1 en carpeta Archivos" + "\n");
