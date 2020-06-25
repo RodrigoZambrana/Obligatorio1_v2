@@ -7,7 +7,7 @@ public class Obligatorio_1_AYED1 {
         // TODO code application logic here
         Sistema s = new Sistema(0);
         Prueba p  = new Prueba();
-        pruebaEstructura(s,p);
+       // pruebaEstructura(s,p);
         pruebatopes(s,p);
         
         
@@ -23,7 +23,7 @@ public static void pruebaEstructura(Sistema s, Prueba p){
     p.ver(s.AgregarCarpeta("C", "Mensajes").resultado, Retorno.Resultado.OK, "Se creo la carpeta mensajes en unidad C");
     p.ver(s.AgregarCarpeta("C", "Otros Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta otros Archivos en unidad C");
    // listamos par ver si la estructura es correcta
-    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");
+    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos"+s.ListarEstructura("C","Archivos").valorString);
     
     // agregamos mensajes a una carpeta
     p.ver(s.AgregarMensaje("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
@@ -31,7 +31,7 @@ public static void pruebaEstructura(Sistema s, Prueba p){
     p.ver(s.AgregarMensaje("C", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
 
     // listamos la carpeta Archivos para ver si estan los mensajes agregados.
-    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos");
+    p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos"+s.ListarEstructura("C","Archivos").valorString);
     
     // agregamos un nuevo mensaje y posteriormente lo elimino 
     p.ver(s.AgregarMensaje("C", "Archivos", "mensajex").resultado, Retorno.Resultado.OK, "Se agrega mensaje x en carpeta Archivos");
@@ -60,18 +60,22 @@ public static void pruebaEstructura(Sistema s, Prueba p){
 
 public static void pruebatopes(Sistema s, Prueba p) {
         p.tituloPrueba("pruebatopes");
-        p.ver(s.crearSistemaMensajes().resultado, Retorno.Resultado.OK, "Vacio");       
+        p.ver(s.crearSistemaMensajes().resultado, Retorno.Resultado.OK, "Vacio");  
+        p.ver(s.AgregarCarpeta("C", "Archivos").resultado, Retorno.Resultado.OK, "Se creo la carpeta Archivos en unidad C"); 
+        p.ver(s.AgregarMensaje("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
         p.ver(s.InsertarLinea("C", "Archivos", "mensaje1").resultado,Retorno.Resultado.OK,"Se agrega mensaje 1 en carpeta Archivos"); 
         p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1",1, 1, "Palabra1").resultado, Retorno.Resultado.OK, "Palabra Ingresada");
         p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1",1, 2, "Palabra2").resultado, Retorno.Resultado.OK, "Palabra Ingresada");
         p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1",1, 3, "Palabra3").resultado, Retorno.Resultado.OK, "Palabra Ingresada");
-        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1",1,2, "PalabraX").resultado, Retorno.Resultado.OK, "Insertada y desplazada");
+        p.ver(s.ListarEstructura("C","Archivos").resultado,Retorno.Resultado.OK,"Se listan los documentos de la carpeta Archivos"+s.ListarEstructura("C","Archivos").valorString);
+
+//      p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1",1,2, "PalabraX").resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Insertada y desplazada");
         p.ver(s.ImprimirTexto("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Texto impreso correctamente");
-        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1",2, 2, "Palabra4").resultado, Retorno.Resultado.OK, "Palabra Ingresada");
-        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1",2, 3, "Palabra5").resultado, Retorno.Resultado.OK, "Palabra Ingresada");
+//      p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1",2, 2, "Palabra4").resultado, Retorno.Resultado.OK, "Palabra Ingresada");
+//      p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1",2, 3, "Palabra5").resultado, Retorno.Resultado.OK, "Palabra Ingresada");
         p.ver(s.ImprimirTexto("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Texto impreso correctamente");
-        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1",1, 1, "PalabraY").resultado, Retorno.Resultado.OK, "Insertada y desplazada");
-        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1",1, 2, "XXXXX").resultado, Retorno.Resultado.OK, "Insertada y desplazada");
+        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1",1, 1, "PalabraY").resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Insertada y desplazada");
+        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1",1, 2, "XXXXX").resultado, Retorno.Resultado.NO_IMPLEMENTADA, "Insertada y desplazada");
         p.ver(s.ImprimirTexto("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Texto impreso correctamente");
         p.ver(s.IngresarPalabraDiccionario("XXXXX").resultado, Retorno.Resultado.OK, "Palabra agregada al diccionario");
         p.ver(s.ImprimirTextoIncorrecto().resultado, Retorno.Resultado.OK, "Palabras no ingresadas al diccionario impresas");               
