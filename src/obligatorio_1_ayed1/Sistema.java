@@ -13,8 +13,16 @@ public class Sistema implements ISistema {
 
     private ListaUnidades lstUnidades;
     private ListaPalabras diccionario;
-    int MAX_CANT_PALABRAS_X_LINEA = 4;
-    public int[][] mapa = {{0,10,25,15,30,0},{10,0,20,0,0,0},{25,20,0,0,0,40},{15,0,0,0,0,45},{30,0,0,0,0,25},{0,0,40,45,25,0}};
+    int MAX_CANT_PALABRAS_X_LINEA = 3;
+    public int[][] mapa = new int[6][6];
+    /*public int[][] mapa = {{0,10,25,15,30,0},
+                            {10,0,20,0,0,0},
+                            {25,20,0,0,0,40},
+                            {15,0,0,0,0,45},
+                            {30,0,0,0,0,25},
+                            {0,0,40,45,25,0}};*/
+    
+    
     
     public Sistema(int CantCuidades) {
         this.lstUnidades = new ListaUnidades();
@@ -48,7 +56,7 @@ public class Sistema implements ISistema {
     @Override
     public Retorno crearSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        lstUnidades.agregarFinal("C:");
+        lstUnidades.agregarFinal("C");
         CargarDistancias(mapa);
 
         return ret;
@@ -176,14 +184,22 @@ public class Sistema implements ISistema {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorString = "";
         NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
-        ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
-        NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
-        boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
-        if (encontreMensaje) {
-            carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().agregarFinal();
-            ret.valorString = "Se inserta linea en blanco";
+        if (nodoUnidad != null) {
+            ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
+            NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
+            if (carpetaBuscada != null) {
+                boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
+                if (encontreMensaje) {
+                    carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().agregarFinal();
+                    ret.valorString = "Se inserta linea en blanco";
+
+                }
+
+            } else {
+                ret.valorString = "El  mensaje no  existe en la carpeta";
+            }
         } else {
-            ret.valorString = "El  mensaje no  existe en la carpeta";
+            ret.valorString = "La unidad no existe en el sistema";
         }
         return ret;
 
@@ -343,7 +359,7 @@ public class Sistema implements ISistema {
         return ret;
     }
 
-    @Override
+     @Override
     public Retorno InsertarPalabraEnLinea(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar) {
 
         Retorno ret = new Retorno(Retorno.Resultado.OK);
@@ -412,6 +428,7 @@ public class Sistema implements ISistema {
 
     @Override
     public Retorno InsertarPalabraYDesplazar(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar) {
+
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorString = "";
 
@@ -629,32 +646,54 @@ public class Sistema implements ISistema {
     @Override
     public Retorno CargarDistancias(int[][] Ciudades) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
+        
+        /*public int[][] mapa = {{0,10,25,15,30,0},
+                                {10,0,20,0,0,0},
+                                {25,20,0,0,0,40},
+                                {15,0,0,0,0,45},
+                                {30,0,0,0,0,25},
+                                {0,0,40,45,25,0}};*/
+        mapa[0][0] = 0;
         mapa[0][1] = 10;
-        mapa[1][0] = 10;
-
         mapa[0][2] = 25;
-        mapa[2][0] = 25;
-
         mapa[0][3] = 15;
-        mapa[3][0] = 15;
-
         mapa[0][4] = 30;
+        mapa[0][5] = 0;
+        
+        mapa[1][0] = 10;
+        mapa[1][1] = 0;
+        mapa[1][2] = 20;
+        mapa[1][3] = 0;
+        mapa[1][4] = 0;
+        mapa[1][5] = 0;
+        
+        mapa[2][0] = 25;
+        mapa[2][1] = 20;
+        mapa[2][2] = 0;
+        mapa[2][3] = 0;
+        mapa[2][4] = 0;
+        mapa[2][5] = 40;
+
+        mapa[3][0] = 15;
+        mapa[3][1] = 0;
+        mapa[3][2] = 0;
+        mapa[3][3] = 0;
+        mapa[3][4] = 0;
+        mapa[3][5] = 45;
+        
         mapa[4][0] = 30;
-
-        mapa[2][4] = 4;
-        mapa[4][2] = 4;
-
-        mapa[3][4] = 1;
-        mapa[4][3] = 1;
-
-        mapa[1][4] = 3;
-        mapa[4][1] = 3;
-
-        mapa[0][3] = 4;
-        mapa[3][0] = 4;
-
-        mapa[2][3] = 4;
-        mapa[3][2] = 4;
+        mapa[4][1] = 0;
+        mapa[4][2] = 0;
+        mapa[4][3] = 0;
+        mapa[4][4] = 0;
+        mapa[4][5] = 25;
+        
+        mapa[5][0] = 0;
+        mapa[5][1] = 0;
+        mapa[5][2] = 40;
+        mapa[5][3] = 45;
+        mapa[5][4] = 25;
+        mapa[5][5] = 0;
 
         return ret;
     }
@@ -688,24 +727,22 @@ public class Sistema implements ISistema {
         if (Cuidad.equals("MVD")) {
             return 0;
         }
-        if (Cuidad.equals("POA")) {
+        if (Cuidad.equals("Santiago")) {
             return 1;
         }
-        if (Cuidad.equals("BA")) {
+        if (Cuidad.equals("Lima")) {
             return 2;
         }
-        if (Cuidad.equals("SP")) {
+        if (Cuidad.equals("San Pablo")) {
             return 3;
         }
-        if (Cuidad.equals("NYC")) {
+        if (Cuidad.equals("Panamá")) {
             return 4;
         }
-        if (Cuidad.equals("MIA")) {
+        if (Cuidad.equals("NYC")) {
             return 5;
         }
-        if (Cuidad.equals("MAD")) {
-            return 6;
-        }
+        
 
         return -1;
     }
@@ -715,23 +752,21 @@ public class Sistema implements ISistema {
             return "MVD";
         }
         if (nroCuidad == 1) {
-            return "POA";
+            return "Santiago";
         }
         if (nroCuidad == 2) {
-            return "BA";
+            return "Lima";
         }
         if (nroCuidad == 3) {
-            return "SP";
+            return "San Pablo";
         }
         if (nroCuidad == 4) {
-            return "NYC";
+            return "Panamá";
         }
         if (nroCuidad == 5) {
-            return "MIA";
+            return "NYC";
         }
-        if (nroCuidad == 6) {
-            return "MAD";
-        }
+       
 
         return "";
     }

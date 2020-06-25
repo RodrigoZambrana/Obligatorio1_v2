@@ -127,13 +127,11 @@ public class ListaArchivos implements IListaArchivos{
         } else {
             if (this.ultimo == aux) {
                 this.borrarFin();
-            }
+            }else{
 
-            aux.getAnterior().setSiguiente(aux.getSiguiente());
-            aux.getSiguiente().setAnterior(aux.getAnterior()); //esta da error
-            
-//            primerLinea.getSiguiente().setAnterior(nuevaLinea);
-//            primerLinea.setSiguiente(nuevaLinea);
+           aux.getAnterior().setSiguiente(aux.getSiguiente());
+           aux.getSiguiente().setAnterior(aux.getAnterior()); //esta da error
+            }
         }
     
 }
