@@ -420,8 +420,84 @@ public class Sistema implements ISistema {
 
     @Override
     public Retorno InsertarPalabraYDesplazar(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
 
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+
+        if (posicionPalabra < 1) {
+            ret.valorString = "Error: la posición de la palabra es inválida";
+            //return ret;
+        } else {
+            //primero: ubico la línea:
+            NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+            ListaLineas listaL = archivoBuscado.getLi();
+            NodoLinea auxLinea = listaL.getPrimero();
+            boolean agregue = false;
+            while (auxLinea != null) { //recorro las líneas
+                if (auxLinea.getNumeroLinea() == posicionLinea) {
+                    //si encuentro la línea,
+                    //pregunto si la cantidad de palabras en la línea está al máximo o si la posición buscada es inválida:
+                    if (!auxLinea.getLp().esVacia()) {
+                        int cantidadPalabras = auxLinea.getLp().cantElementos();
+                        if (posicionPalabra > cantidadPalabras + 1) {
+                            ret.valorString = "Error: la posición de la palabra es inválida";
+                        }
+                        if (posicionPalabra == cantidadPalabras + 1) {
+                            auxLinea.getLp().agregarFinal(palabraAIngresar);
+                            agregue = true;
+                        } else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
+                            //int cantidadPalabras = auxLinea.getLp().cantElementos();
+
+                            //while (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
+                            int i = 1;
+                            boolean encontre = false;
+                            NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
+                            while (auxPalabra != null && !encontre) {
+                                if (i == posicionPalabra) {
+                                    NodoPalabra nuevaPalabra = new NodoPalabra(palabraAIngresar);
+                                    nuevaPalabra.Anterior = auxPalabra.Anterior;
+                                    auxPalabra.Anterior.Siguiente = nuevaPalabra;
+                                    auxPalabra.Anterior = nuevaPalabra;
+                                    nuevaPalabra.Siguiente = auxPalabra;
+                                    encontre = true;
+                                    listaL.numerar();
+
+                                    auxLinea.siguiente.getLp().agregarInicio(auxLinea.getLp().getUltimo().getPalabra());
+                                    NodoPalabra ultimoLineaDos = auxLinea.getLp().getUltimo().getAnterior();
+                                    auxLinea.getLp().setUltimo(ultimoLineaDos);
+                                    auxLinea.getLp().getUltimo().setSiguiente(null);
+                                }
+                                i++;
+                                auxPalabra = auxPalabra.Siguiente;
+                            }
+                            auxLinea = auxLinea.siguiente;
+                            posicionLinea++;
+                            //cantidadPalabras = auxLinea.getLp().cantElementos();
+                            //}
+                            //agregue = true;
+                        } else if (cantidadPalabras > this.MAX_CANT_PALABRAS_X_LINEA) {
+                            auxLinea.siguiente.getLp().agregarInicio(auxLinea.getLp().getUltimo().getPalabra());
+                            NodoPalabra ultimoLineaDos = auxLinea.getLp().getUltimo().getAnterior();
+                            auxLinea.getLp().setUltimo(ultimoLineaDos);
+                            auxLinea.getLp().getUltimo().setSiguiente(null);
+                            auxLinea = auxLinea.siguiente;
+                        }
+                    } //está vacía; agrego al inicio
+                    else {
+                        auxLinea.getLp().agregarInicio(palabraAIngresar);
+                        agregue = true;
+                        //auxLinea = null;
+                    }
+                } else {
+                    auxLinea = auxLinea.getSiguiente();
+
+                }
+            }
+            if (agregue == false) {
+                //si no encuentro la línea:
+                ret.valorString = "Error: la posición de la línea es inválida";
+            }
+        }
         return ret;
     }
 
@@ -433,10 +509,10 @@ public class Sistema implements ISistema {
         NodoLinea auxLinea = listaL.getPrimero();
         int i = 1;
         boolean encontre = false;
-        //recorro líneas hasta encontrar la posicionLinea
+        //recorro líneas hasta encontrar la posicionLinea:
         while (auxLinea != null && !encontre) {
             if (i == posicionLinea) {
-                //si es la primera posición, borro inicio
+                //si es la primera posición, borro inicio:
                 if (posicionPalabra == 1) {
                     auxLinea.getLp().borrarInicio();
                     encontre = true;
@@ -446,10 +522,10 @@ public class Sistema implements ISistema {
                     //recorro las palabras
                     while (auxPalabra != null) {
                         if (j == posicionPalabra) {
-                            //si es la última palabra, borro al final
+                            //si es la última palabra, borro al final:
                             if (auxPalabra.getSiguiente() == null) {
                                 auxLinea.getLp().borrarFin();
-                            } //si no voy a borrar la primera ni la última
+                            } //si no voy a borrar la primera ni la última:
                             else {
                                 auxPalabra.getAnterior().setSiguiente(auxPalabra.getSiguiente());
                                 auxPalabra.getSiguiente().setAnterior(auxPalabra.getAnterior());
