@@ -4,9 +4,6 @@ package obligatorio_1_ayed1;
 public class Obligatorio_1_AYED1 {
 //
     public static void main(String[] args) {
-        // TODO code application logic here
-//        int cantUnidades = 0;
-//        crearSistemaMensajes(cantUnidades);
 
         Prueba prueba1 = new Prueba();
         Sistema sistema = new Sistema(0);//recibe como parametro la cantidad de cuidades a gestionar para el ultimo ejercicio
