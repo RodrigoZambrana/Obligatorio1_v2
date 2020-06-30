@@ -125,16 +125,16 @@ public class ListaCarpetas implements IListaCarpetas{
     @Override
     public void borrarElemento(String nombre) {
         NodoCarpeta aux = obtenerCarpeta(nombre);
-
-        if (this.Primero == aux) {
+      if (this.Primero == aux) {
             this.borrarInicio();
         } else {
             if (this.Ultimo == aux) {
                 this.borrarFin();
-            }
+            }else{
 
             aux.getAnterior().setSiguiente(aux.getSiguiente());
-            aux.getSiguiente().setAnterior(aux.getAnterior());  
+            aux.getSiguiente().setAnterior(aux.getAnterior());//<-esta linea da error
+            }
         }
 
     }

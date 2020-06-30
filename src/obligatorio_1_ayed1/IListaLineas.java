@@ -18,7 +18,7 @@ public interface IListaLineas {
     public void borrarFin();
     public void agregarOrd(Object n);
     public void borrarElemento(Object n);
-    public NodoLinea obtenerElemento(Object n);
+    public NodoLinea obtenerElemento(int n);
     public int cantElementos();
 }
 

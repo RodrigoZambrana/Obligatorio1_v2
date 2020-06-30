@@ -13,17 +13,15 @@ public class Sistema implements ISistema {
 
     private ListaUnidades lstUnidades;
     private ListaPalabras diccionario;
-    int MAX_CANT_PALABRAS_X_LINEA = 3;
+    int MAX_CANT_PALABRAS_X_LINEA = 5;
     public int[][] mapa = new int[6][6];
+
     /*public int[][] mapa = {{0,10,25,15,30,0},
                             {10,0,20,0,0,0},
                             {25,20,0,0,0,40},
                             {15,0,0,0,0,45},
                             {30,0,0,0,0,25},
                             {0,0,40,45,25,0}};*/
-    
-    
-    
     public Sistema(int CantCuidades) {
         this.lstUnidades = new ListaUnidades();
         this.diccionario = new ListaPalabras();
@@ -56,7 +54,7 @@ public class Sistema implements ISistema {
     @Override
     public Retorno crearSistemaMensajes() {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        lstUnidades.agregarFinal("C");
+        lstUnidades.agregarInicio("C");
         CargarDistancias(mapa);
 
         return ret;
@@ -81,11 +79,14 @@ public class Sistema implements ISistema {
             if (!lc.buscarelemento(carpeta)) {
                 lc.agregarFinal(carpeta, unidad);
             } else {
+
                 ret.valorString = "La carpeta ya existe en la unidad";
+                ret = new Retorno(Retorno.Resultado.ERROR);
             }
 
         } else {
             ret.valorString = "La unidad no existe en el sistema";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
 
         return ret;
@@ -103,9 +104,11 @@ public class Sistema implements ISistema {
                 lc.borrarElemento(carpeta);
             } else {
                 ret.valorString = "La carpeta no existe en la unidad";
+                ret = new Retorno(Retorno.Resultado.ERROR);
             }
         } else {
             ret.valorString = "La unidad no existe en el sistema";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
         return ret;
     }
@@ -113,14 +116,20 @@ public class Sistema implements ISistema {
     @Override
     public Retorno AgregarMensaje(String unidad, String carpeta, String mensaje) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
-        ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
-        NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
-        boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
-        if (!encontreMensaje) {
-            carpetaBuscada.getLa().agregarFinal(mensaje);
+        if (lstUnidades.buscarelemento(unidad)) {
+            NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
+            ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
+            NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
+            boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
+            if (!encontreMensaje) {
+                carpetaBuscada.getLa().agregarFinal(mensaje);
+            } else {
+                ret.valorString = "El  mensaje ya existe en la carpeta";
+                ret = new Retorno(Retorno.Resultado.ERROR);
+            }
         } else {
-            ret.valorString = "El  mensaje ya existe en la carpeta";
+            ret.valorString = "La unidad no existe en el sistema";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
         return ret;
     }
@@ -128,15 +137,22 @@ public class Sistema implements ISistema {
     @Override
     public Retorno EliminarMensaje(String unidad, String carpeta, String mensaje) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
-        ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
-        NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
-        boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
-        if (encontreMensaje) {
-            carpetaBuscada.getLa().borrarElemento(mensaje);
+        if (lstUnidades.buscarelemento(unidad)) {
+            NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
+            ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
+            NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
+            boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
+            if (encontreMensaje) {
+                carpetaBuscada.getLa().borrarElemento(mensaje);
+            } else {
+                ret.valorString = "El mensaje no existe en la carpeta";
+                ret = new Retorno(Retorno.Resultado.ERROR);
+            }
         } else {
-            ret.valorString = "El mensaje no existe en la carpeta";
+            ret.valorString = "La unidad no existe en el sistema";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
+
         return ret;
     }
 
@@ -150,15 +166,15 @@ public class Sistema implements ISistema {
             ret.valorString += "-" + nodoUnidad.getNombreUnidad() + "\n";
             NodoCarpeta nodoCarpeta = nodoUnidad.getLc().getPrimero();
             while (nodoCarpeta != null) {
-                ret.valorString += "" + "+" + nodoCarpeta.getNombre() + "\n";
+                ret.valorString += " " + "+" + nodoCarpeta.getNombre() + "\n";
                 // dif (nodoCarpeta.getLa() != null) { //si la carpeta contiene archivos, los lista
                 NodoArchivo nodoArchivo = nodoCarpeta.getLa().getPrimero();
                 while (nodoArchivo != null) {
-                    ret.valorString += "" + "*" + nodoArchivo.getNombre() + "\n";
+                    ret.valorString += "   " + "-" + nodoArchivo.getNombre() + "\n";
                     NodoLinea primero = nodoArchivo.getLi().getPrimero();
                     //int i=1;
                     while (primero != null) {
-                        ret.valorString += primero.getNumeroLinea() + ": ";
+                        ret.valorString += "    " + primero.getNumeroLinea() + ": ";
                         NodoPalabra auxPalabra = primero.getLp().getPrimero();
                         while (auxPalabra != null) {
                             ret.valorString += auxPalabra.getPalabra() + " ";
@@ -197,10 +213,13 @@ public class Sistema implements ISistema {
 
             } else {
                 ret.valorString = "El  mensaje no  existe en la carpeta";
+                ret = new Retorno(Retorno.Resultado.ERROR);
             }
         } else {
             ret.valorString = "La unidad no existe en el sistema";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
+
         return ret;
 
     }
@@ -285,11 +304,13 @@ public class Sistema implements ISistema {
 
                 } else if (posicionLinea > cantLineas) {
                     ret.valorString = "La linea no existe en el texto";
+                    ret = new Retorno(Retorno.Resultado.ERROR);
                 }
             }
 
         } else {
             ret.valorString = "El archivo proporcionado no contiene lineas";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
 
         return ret;
@@ -310,26 +331,21 @@ public class Sistema implements ISistema {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorString = "";
         NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
-        ListaLineas listaLineas = archivoBuscado.getLi();
-        if (!listaLineas.esVacia()) {
-            NodoLinea primero = archivoBuscado.getLi().getPrimero();
-            while (primero != null) {
-                NodoPalabra auxPalabra = primero.getLp().getPrimero();
-                //falta borrar inicio y borrar fin
-                while (auxPalabra != null) {
-
-                    if (auxPalabra.getPalabra() == palabraABorrar) {
-                        auxPalabra.getAnterior().setSiguiente(auxPalabra.getSiguiente());
-                        auxPalabra.getSiguiente().setAnterior(auxPalabra.getAnterior());
+        if (archivoBuscado != null) {
+            ListaLineas listaLineas = archivoBuscado.getLi();
+            if (!listaLineas.esVacia()) {
+                NodoLinea primeraLinea = listaLineas.getPrimero();
+                while (primeraLinea != null) {
+                    NodoPalabra primeraPalabra = primeraLinea.getLp().getPrimero();
+                    while (primeraPalabra != null) {
+                        if (primeraPalabra.getPalabra() == palabraABorrar) {
+                            primeraLinea.getLp().borrarElemento(palabraABorrar);
+                        }
+                        primeraPalabra = primeraPalabra.getSiguiente();
                     }
-                    auxPalabra = auxPalabra.getSiguiente();
+                    primeraLinea = primeraLinea.getSiguiente();
                 }
-                ret.valorString += "\n";
-                primero = primero.getSiguiente();
             }
-
-        } else {
-            ret.valorString = "Texto vacio";
         }
         return ret;
     }
@@ -359,7 +375,7 @@ public class Sistema implements ISistema {
         return ret;
     }
 
-     @Override
+    @Override
     public Retorno InsertarPalabraEnLinea(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar) {
 
         Retorno ret = new Retorno(Retorno.Resultado.OK);
@@ -367,60 +383,75 @@ public class Sistema implements ISistema {
 
         if (posicionPalabra < 1) {
             ret.valorString = "Error: la posición de la palabra es inválida";
+            ret = new Retorno(Retorno.Resultado.ERROR);
             //return ret;
         } else {
             //primero: ubico la línea:
-            NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
-            ListaLineas listaL = archivoBuscado.getLi();
-            NodoLinea auxLinea = listaL.getPrimero();
-            boolean agregue = false;
-            while (auxLinea != null && !agregue) { //recorro las líneas
-                if (auxLinea.getNumeroLinea() == posicionLinea) {
-                    //si encuentro la línea,
-                    //pregunto si la cantidad de palabras en la línea está al máximo o si la posición buscada es inválida:
-                    if (!auxLinea.getLp().esVacia()) {
-                        int cantidadPalabras = auxLinea.getLp().cantElementos();
-                        if (posicionPalabra > cantidadPalabras + 1) {
-                            ret.valorString = "Error: la posición de la palabra es inválida";
-                        }
-                        if (posicionPalabra == cantidadPalabras + 1) {
-                            auxLinea.getLp().agregarFinal(palabraAIngresar);
-                            agregue = true;
-                        } else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
-                            ret.valorString = "Error: la lista de palabras está llena";
-                            agregue = true;
-                        } else {
-                            //segundo: recorro lista de palabras hasta ubicarme en posicionPalabra
-                            int i = 1;
-                            boolean encontre = false;
-                            NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
-                            while (auxPalabra != null && !encontre) {
-                                if (i == posicionPalabra) {
-                                    NodoPalabra nuevaPalabra = new NodoPalabra(palabraAIngresar);
-                                    nuevaPalabra.Anterior = auxPalabra.Anterior;
-                                    auxPalabra.Anterior.Siguiente = nuevaPalabra;
-                                    auxPalabra.Anterior = nuevaPalabra;
-                                    nuevaPalabra.Siguiente = auxPalabra;
-                                    encontre = true;
-                                    listaL.numerar();
-                                }
-                                i++;
-                                auxPalabra = auxPalabra.Siguiente;
+            if (lstUnidades.buscarelemento(unidad) && lstUnidades.obtenerElemento(unidad).getLc().buscarelemento(carpeta)) {
+                NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+                ListaLineas listaL = archivoBuscado.getLi();
+                NodoLinea auxLinea = listaL.getPrimero();
+                boolean agregue = false;
+                while (auxLinea != null && !agregue) { //recorro las líneas
+                    if (auxLinea.getNumeroLinea() == posicionLinea) {
+                        //si encuentro la línea,
+                        //pregunto si la cantidad de palabras en la línea está al máximo o si la posición buscada es inválida:
+                        if (!auxLinea.getLp().esVacia()) {
+                            int cantidadPalabras = auxLinea.getLp().cantElementos();
+//                            if (posicionPalabra > cantidadPalabras + 1) {
+//                                ret.valorString = "Error: la posición de la palabra es inválida";
+//                                 ret = new Retorno(Retorno.Resultado.ERROR);
+//                            }
+                            if (posicionPalabra == cantidadPalabras + 1) {
+                                auxLinea.getLp().agregarFinal(palabraAIngresar);
+                                agregue = true;
+                            } else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
+                                ret.valorString = "Error: la lista de palabras está llena";
+                                /// ret = new Retorno(Retorno.Resultado.ERROR);
+                                agregue = true;
+                            } else if (posicionPalabra > cantidadPalabras + 1 && cantidadPalabras + 1 <= this.MAX_CANT_PALABRAS_X_LINEA) {
+                                auxLinea.getLp().agregarFinal(palabraAIngresar);
+                                agregue = true;
+
                             }
+
+                            {
+                                //segundo: recorro lista de palabras hasta ubicarme en posicionPalabra
+                                int i = 1;
+                                boolean encontre = false;
+                                NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
+                                while (auxPalabra != null && !encontre) {
+                                    if (i == posicionPalabra) {
+                                        NodoPalabra nuevaPalabra = new NodoPalabra(palabraAIngresar);
+                                        nuevaPalabra.Anterior = auxPalabra.Anterior;
+                                        auxPalabra.Anterior.Siguiente = nuevaPalabra;
+                                        auxPalabra.Anterior = nuevaPalabra;
+                                        nuevaPalabra.Siguiente = auxPalabra;
+                                        encontre = true;
+                                        listaL.numerar();
+                                    }
+                                    i++;
+                                    auxPalabra = auxPalabra.Siguiente;
+                                }
+                            }
+                        } //está vacía; agrego al inicio
+                        else {
+                            auxLinea.getLp().agregarInicio(palabraAIngresar);
+                            agregue = true;
+                            //auxLinea = null;
                         }
-                    } //está vacía; agrego al inicio
-                    else {
-                        auxLinea.getLp().agregarInicio(palabraAIngresar);
-                        agregue = true;
-                        //auxLinea = null;
+                    } else {
+                        auxLinea = auxLinea.getSiguiente();
                     }
-                } else {
-                    auxLinea = auxLinea.getSiguiente();
                 }
-            }
-            if (agregue == false) {
-                //si no encuentro la línea:
-                ret.valorString = "Error: la posición de la línea es inválida";
+                if (!agregue) {
+                    //si no encuentro la línea:
+                    ret.valorString = "Error: la posición de la línea es inválida";
+                    ret = new Retorno(Retorno.Resultado.ERROR);
+                }
+            } else {
+                ret.valorString = "Datos de unidad o carpeta incorrectos";
+                ret = new Retorno(Retorno.Resultado.ERROR);
             }
         }
         return ret;
@@ -428,84 +459,30 @@ public class Sistema implements ISistema {
 
     @Override
     public Retorno InsertarPalabraYDesplazar(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar) {
-
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        ret.valorString = "";
+        ret.valorString = "No se pudo isertar la palabra en la posicion";
+        NodoCarpeta carpetaBuscada = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta);
+        if (carpetaBuscada != null) {
+            NodoArchivo archivoBuscado = carpetaBuscada.getLa().obtenerArchivo(mensaje);
+            if (archivoBuscado != null) {
+                NodoLinea lineaBuscada = archivoBuscado.getLi().obtenerElemento(posicionLinea);
+                if (lineaBuscada != null) {
+                    if (lineaBuscada.lp.cantElementos() <= this.MAX_CANT_PALABRAS_X_LINEA && posicionPalabra >= 1) {//encontre la linea y no esta llena 
+                        NodoPalabra primeraPalabra = lineaBuscada.getLp().getPrimero();
+                        while (primeraPalabra != null) {
 
-        if (posicionPalabra < 1) {
-            ret.valorString = "Error: la posición de la palabra es inválida";
-            //return ret;
-        } else {
-            //primero: ubico la línea:
-            NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
-            ListaLineas listaL = archivoBuscado.getLi();
-            NodoLinea auxLinea = listaL.getPrimero();
-            boolean agregue = false;
-            while (auxLinea != null) { //recorro las líneas
-                if (auxLinea.getNumeroLinea() == posicionLinea) {
-                    //si encuentro la línea,
-                    //pregunto si la cantidad de palabras en la línea está al máximo o si la posición buscada es inválida:
-                    if (!auxLinea.getLp().esVacia()) {
-                        int cantidadPalabras = auxLinea.getLp().cantElementos();
-                        if (posicionPalabra > cantidadPalabras + 1) {
-                            ret.valorString = "Error: la posición de la palabra es inválida";
+                            primeraPalabra = primeraPalabra.getSiguiente();
+
                         }
-                        if (posicionPalabra == cantidadPalabras + 1) {
-                            auxLinea.getLp().agregarFinal(palabraAIngresar);
-                            agregue = true;
-                        } else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
-                            //int cantidadPalabras = auxLinea.getLp().cantElementos();
 
-                            //while (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
-                            int i = 1;
-                            boolean encontre = false;
-                            NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
-                            while (auxPalabra != null && !encontre) {
-                                if (i == posicionPalabra) {
-                                    NodoPalabra nuevaPalabra = new NodoPalabra(palabraAIngresar);
-                                    nuevaPalabra.Anterior = auxPalabra.Anterior;
-                                    auxPalabra.Anterior.Siguiente = nuevaPalabra;
-                                    auxPalabra.Anterior = nuevaPalabra;
-                                    nuevaPalabra.Siguiente = auxPalabra;
-                                    encontre = true;
-                                    listaL.numerar();
-
-                                    auxLinea.siguiente.getLp().agregarInicio(auxLinea.getLp().getUltimo().getPalabra());
-                                    NodoPalabra ultimoLineaDos = auxLinea.getLp().getUltimo().getAnterior();
-                                    auxLinea.getLp().setUltimo(ultimoLineaDos);
-                                    auxLinea.getLp().getUltimo().setSiguiente(null);
-                                }
-                                i++;
-                                auxPalabra = auxPalabra.Siguiente;
-                            }
-                            auxLinea = auxLinea.siguiente;
-                            posicionLinea++;
-                            //cantidadPalabras = auxLinea.getLp().cantElementos();
-                            //}
-                            //agregue = true;
-                        } else if (cantidadPalabras > this.MAX_CANT_PALABRAS_X_LINEA) {
-                            auxLinea.siguiente.getLp().agregarInicio(auxLinea.getLp().getUltimo().getPalabra());
-                            NodoPalabra ultimoLineaDos = auxLinea.getLp().getUltimo().getAnterior();
-                            auxLinea.getLp().setUltimo(ultimoLineaDos);
-                            auxLinea.getLp().getUltimo().setSiguiente(null);
-                            auxLinea = auxLinea.siguiente;
-                        }
-                    } //está vacía; agrego al inicio
-                    else {
-                        auxLinea.getLp().agregarInicio(palabraAIngresar);
-                        agregue = true;
-                        //auxLinea = null;
                     }
-                } else {
-                    auxLinea = auxLinea.getSiguiente();
 
                 }
+
             }
-            if (agregue == false) {
-                //si no encuentro la línea:
-                ret.valorString = "Error: la posición de la línea es inválida";
-            }
+
         }
+
         return ret;
     }
 
@@ -540,6 +517,7 @@ public class Sistema implements ISistema {
                             }
                         } else {
                             ret.valorString = "Error: la posición de la palabra es inválida";
+                            ret = new Retorno(Retorno.Resultado.ERROR);
                         }
                         j++;
                         auxPalabra = auxPalabra.getSiguiente();
@@ -548,6 +526,7 @@ public class Sistema implements ISistema {
             } else {
                 //si no encuentro la línea:
                 ret.valorString = "Error: la posición de la línea es inválida";
+                ret = new Retorno(Retorno.Resultado.ERROR);
             }
             i++;
             auxLinea = auxLinea.siguiente;
@@ -557,8 +536,31 @@ public class Sistema implements ISistema {
 
     @Override
     public Retorno BorrarOcurrenciasPalabraEnLinea(String unidad, String carpeta, String mensaje, int posicionLinea, String palabraABorrar) {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        if (archivoBuscado != null) {
+            ListaLineas listaLineas = archivoBuscado.getLi();
+            if (!listaLineas.esVacia()) {
+                NodoLinea lineaBuscada = listaLineas.getPrimero();
+                if (lineaBuscada != null) {
+                    if (lineaBuscada.getNumeroLinea() == posicionLinea) {
+                        NodoPalabra primeraPalabra = lineaBuscada.getLp().getPrimero();
+                        while (primeraPalabra != null) {
+                            if (primeraPalabra.getPalabra() == palabraABorrar) {
 
+                                lineaBuscada.getLp().borrarElemento(palabraABorrar);
+                            }
+                            primeraPalabra = primeraPalabra.getSiguiente();
+                        }
+
+                    }
+
+                } else {
+                    ret = new Retorno(Retorno.Resultado.ERROR);
+                }
+            }
+        }
         return ret;
     }
 
@@ -586,6 +588,7 @@ public class Sistema implements ISistema {
 
         } else {
             ret.valorString = "La linea proprocionada no no es valida";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
 
         return ret;
@@ -596,10 +599,10 @@ public class Sistema implements ISistema {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorString = "";
         if (!diccionario.buscarelemento(palabraAIngresar)) {
-            //this.diccionario.agregarOrd(palabraAIngresar);
             diccionario.agregarOrd(palabraAIngresar);
         } else {
             ret.valorString = palabraAIngresar + "ya existe en el diccionario.";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
 
         return ret;
@@ -614,6 +617,7 @@ public class Sistema implements ISistema {
             diccionario.borrarElemento(palabraABorrar);
         } else {
             ret.valorString = palabraABorrar + "no existe en el diccionario.";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
 
         return ret;
@@ -636,8 +640,37 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public Retorno ImprimirTextoIncorrecto() {
-        Retorno ret = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+    public Retorno ImprimirTextoIncorrecto(String unidad, String carpeta, String mensaje) {
+        Retorno ret = new Retorno(Retorno.Resultado.OK);
+        ret.valorString = "";
+        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
+        if (archivoBuscado != null) {
+            ListaLineas listaLineas = archivoBuscado.getLi();
+            if (!listaLineas.esVacia()) {
+                NodoLinea primeraLinea = listaLineas.getPrimero();
+                while (primeraLinea != null) {
+                    ret.valorString += primeraLinea.getNumeroLinea() + ":";
+                    NodoPalabra primeraPalabra = primeraLinea.getLp().getPrimero();
+                    while (primeraPalabra != null) {
+                        if (!this.diccionario.buscarelemento(primeraPalabra.getPalabra())) {
+                            ret.valorString += primeraPalabra.getPalabra() + " ";
+
+                        } else {
+                            ret.valorString += "";
+                        }
+
+                        primeraPalabra = primeraPalabra.getSiguiente();
+                    }
+                    ret.valorString += "\n";
+                    primeraLinea = primeraLinea.getSiguiente();
+                }
+
+            } else {
+                ret.valorString = "Texto vacio";
+            }
+        } else {
+            ret.valorString = "El archivo no existe";
+        }
 
         return ret;
     }
@@ -646,7 +679,7 @@ public class Sistema implements ISistema {
     @Override
     public Retorno CargarDistancias(int[][] Ciudades) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        
+
         /*public int[][] mapa = {{0,10,25,15,30,0},
                                 {10,0,20,0,0,0},
                                 {25,20,0,0,0,40},
@@ -659,14 +692,14 @@ public class Sistema implements ISistema {
         mapa[0][3] = 15;
         mapa[0][4] = 30;
         mapa[0][5] = 0;
-        
+
         mapa[1][0] = 10;
         mapa[1][1] = 0;
         mapa[1][2] = 20;
         mapa[1][3] = 0;
         mapa[1][4] = 0;
         mapa[1][5] = 0;
-        
+
         mapa[2][0] = 25;
         mapa[2][1] = 20;
         mapa[2][2] = 0;
@@ -680,14 +713,14 @@ public class Sistema implements ISistema {
         mapa[3][3] = 0;
         mapa[3][4] = 0;
         mapa[3][5] = 45;
-        
+
         mapa[4][0] = 30;
         mapa[4][1] = 0;
         mapa[4][2] = 0;
         mapa[4][3] = 0;
         mapa[4][4] = 0;
         mapa[4][5] = 25;
-        
+
         mapa[5][0] = 0;
         mapa[5][1] = 0;
         mapa[5][2] = 40;
@@ -742,7 +775,6 @@ public class Sistema implements ISistema {
         if (Cuidad.equals("NYC")) {
             return 5;
         }
-        
 
         return -1;
     }
@@ -766,7 +798,6 @@ public class Sistema implements ISistema {
         if (nroCuidad == 5) {
             return "NYC";
         }
-       
 
         return "";
     }

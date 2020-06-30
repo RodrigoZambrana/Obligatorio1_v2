@@ -14,8 +14,8 @@ public class ListaPalabras implements IListaPalabras {
     NodoPalabra primero;
     NodoPalabra ultimo;
     int cantPalabras;
-    
-     public ListaPalabras() {
+
+    public ListaPalabras() {
         this.primero = null;
         this.ultimo = null;
     }
@@ -43,10 +43,7 @@ public class ListaPalabras implements IListaPalabras {
     public void setCantPalabras(int cantPalabras) {
         this.cantPalabras = cantPalabras;
     }
-   
 
-    
-    
     @Override
     public void vaciar() {
         this.primero = null;
@@ -100,20 +97,20 @@ public class ListaPalabras implements IListaPalabras {
 
     @Override
     public void agregarOrd(String n) {
-                       
-       if (this.esVacia() || (this.getPrimero().getPalabra().toString().compareTo(n.toString())>0)) {
+
+        if (this.esVacia() || (this.getPrimero().getPalabra().compareTo(n) > 0)) {
             this.agregarInicio(n);
             return;
         }
-        if (this.getUltimo().getPalabra().toString().compareTo(n.toString()) < 0) {   //Ã¹ltimo elemento es menor o igual => agrego al final
+        if (this.getUltimo().getPalabra().compareTo(n) < 0) {   //Ã¹ltimo elemento es menor o igual => agrego al final
             this.agregarFinal(n);
             return;
         }
         NodoPalabra aux = this.getPrimero();
         NodoPalabra auxant = aux;
         NodoPalabra nuevo = new NodoPalabra(n);
-       
-        while (aux != null && aux.getPalabra().toString().compareTo(n.toString()) < 0) {
+
+        while (aux != null && aux.getPalabra().compareTo(n) < 0) {
             auxant = aux;
             aux = aux.getSiguiente();
         }
@@ -143,20 +140,17 @@ public class ListaPalabras implements IListaPalabras {
 
     @Override
     public void borrarElemento(String n) {
-
         NodoPalabra aux = obtenerElemento(n);
-
-        if (this.primero == aux) {
+        if (this.primero.palabra.equals(n)) {
             this.borrarInicio();
         } else {
-            if (this.ultimo == aux) {
+            if (this.ultimo.getPalabra().toString().equals(n)) {
                 this.borrarFin();
+            } else {
+                aux.getAnterior().setSiguiente(aux.getSiguiente());
+                aux.getSiguiente().setAnterior(aux.getAnterior());
             }
-
-            aux.getAnterior().setSiguiente(aux.getSiguiente());
-            aux.getSiguiente().setAnterior(aux.getAnterior());
         }
-
     }
 
     @Override

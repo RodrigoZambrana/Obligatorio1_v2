@@ -181,15 +181,15 @@ public class ListaLineas implements IListaLineas{
 
 
     @Override
-    public NodoLinea obtenerElemento(Object n) {
+    public NodoLinea obtenerElemento(int n) {
         NodoLinea aux = this.Primero;
         while (aux != null) {
-//            if (aux.getDato() == n) {
-//                return aux;
-//            }
+            if (aux.getNumeroLinea() == n) {
+                return aux;
+            }
             aux = aux.siguiente;
         }
-        return null;
+        return aux;
     }
 
     @Override
