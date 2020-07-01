@@ -50,10 +50,10 @@ public class Obligatorio_1_AYED1 {
 //
 //// Retorno AgregarMensaje(String unidad, String carpeta, String mensaje);
 ////Casos (OK)
-        p.ver(s.AgregarMensaje("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
-        p.ver(s.AgregarMensaje("C", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
-        p.ver(s.AgregarMensaje("C", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
-        p.ver(s.AgregarMensaje("C", "Archivos", "mensaje4").resultado, Retorno.Resultado.OK, "Se agrega mensaje 4 en carpeta Archivos");
+//        p.ver(s.AgregarMensaje("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrega mensaje 1 en carpeta Archivos");
+//        p.ver(s.AgregarMensaje("C", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrega mensaje 2 en carpeta Archivos");
+//        p.ver(s.AgregarMensaje("C", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrega mensaje 3 en carpeta Archivos");
+//        p.ver(s.AgregarMensaje("C", "Archivos", "mensaje4").resultado, Retorno.Resultado.OK, "Se agrega mensaje 4 en carpeta Archivos");
 //casos ERROR -Agegar mensaje a Carpeta que no existe
 //        p.ver(s.AgregarMensaje("C", "Carpeta X", "mensaje1").resultado, Retorno.Resultado.ERROR, "Se intenta agregar mensaje a Carpeta X, que no existe");
 //        p.ver(s.AgregarMensaje("D", "Archivos", "mensaje1").resultado, Retorno.Resultado.ERROR, "Se intenta agregar mensaje a Carpeta X, en unidad que no existe");
