@@ -124,7 +124,7 @@ public class Obligatorio_1_AYED1 {
 
 //// Retorno BorrarOcurrenciasPalabraEnTexto(String unidad, String carpeta, String mensaje,String palabraABorrar);
 ////casos OK
-        //p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "palabra").resultado, Retorno.Resultado.OK, "Se borra ocurrencias de palabra en el texto");
+        p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "palabra1").resultado, Retorno.Resultado.OK, "Se borra ocurrencias de palabra en el texto");
         //p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "insertar").resultado, Retorno.Resultado.OK, "Se borra ocurrencias de insertar en el texto");
         ////casos ERROR
         //p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "palabraX").resultado, Retorno.Resultado.ERROR, "Se intenta borra ocurrencias de palabra que no existe en el texto");
@@ -142,10 +142,16 @@ public class Obligatorio_1_AYED1 {
 ////casos OK  REIVSAR
         p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 1, 1, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
         p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 1, 2, "palabra2").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
-        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 1, 3, "palabra3").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
-        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 2, 1, "palabra4").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
-        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 2, 2, "palabra5").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
-        p.ver(s.ListarEstructura("C", "Archivos").resultado, Retorno.Resultado.OK, "Se listan los documentos de la carpeta Archivos"+ "\n" + s.ListarEstructura("C", "Archivos").valorString);
+        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 1, 3, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 2, 1, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 2, 2, "palabra2").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 2, 3, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+        
+        //p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "palabra1").resultado, Retorno.Resultado.OK, "Se borra ocurrencias de palabra en el texto");
+        
+//        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 2, 2, "palabra5").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 4, 1, "palabra6").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        p.ver(s.ListarEstructura("C", "Archivos").resultado, Retorno.Resultado.OK, "Se listan los documentos de la carpeta Archivos"+ "\n" + s.ListarEstructura("C", "Archivos").valorString);
 ////casos ERROR
 //////        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 1, 1, "otra").resultado, Retorno.Resultado.ERROR, "Se intenta insertar palabra en linea no valida");
 ////        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 1, 2, "nueva").resultado, Retorno.Resultado.ERROR, "Se intenta insertar palabra en posicionpalabra no valida");
@@ -155,9 +161,19 @@ public class Obligatorio_1_AYED1 {
 //        p.ver(s.ListarEstructura("C", "Archivos").resultado, Retorno.Resultado.OK, "Se listan los documentos de la carpeta Archivos" + "\n" + s.ListarEstructura("C", "Archivos").valorString);
 //// Retorno InsertarPalabraYDesplazar(String unidad, String carpeta,String mensaje,int posicionLinea, int posicionPalabra, String palabraAIngresar);//()
 ////casos OK
-        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 1, 1, "desplaza1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
-        //p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 1, 1, "desplaza2").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
-        p.ver(s.ListarEstructura("C", "Archivos").resultado, Retorno.Resultado.OK, "Se listan los documentos de la carpeta Archivos"+ "\n" + s.ListarEstructura("C", "Archivos").valorString);
+//        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 1, 1, "desplaza1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 1, 1, "desplaza2").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 1, 1, "desplaza3").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 1, 2, "desplaza4").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 2, 1, "desplaza5").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 2, 1, "desplaza5").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 2, 1, "desplaza6").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 2, 1, "desplaza7").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+//        
+        
+        //p.ver(s.ListarEstructura("C", "Archivos").resultado, Retorno.Resultado.OK, "Se listan los documentos de la carpeta Archivos"+ "\n" + s.ListarEstructura("C", "Archivos").valorString);
+        //p.ver(s.InsertarPalabraYDesplazar("C", "Archivos", "mensaje1", 5, 1, "desplaza8").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+        //p.ver(s.ListarEstructura("C", "Archivos").resultado, Retorno.Resultado.OK, "Se listan los documentos de la carpeta Archivos"+ "\n" + s.ListarEstructura("C", "Archivos").valorString);
 ////casos ERROR
 //// Retorno BorrarPalabra(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra);//()
 ////casos OK
@@ -172,7 +188,7 @@ public class Obligatorio_1_AYED1 {
 
 //// Retorno BorrarOcurrenciasPalabraEnLinea(String unidad, String carpeta, String mensaje,int posicionLinea, String palabraABorrar);//()
 ////casos OK
-        //p.ver(s.BorrarOcurrenciasPalabraEnLinea("C", "Archivos", "mensaje1", 1, "insertarX").resultado, Retorno.Resultado.OK, "SE BORRA PALABRA");
+        //p.ver(s.BorrarOcurrenciasPalabraEnLinea("C", "Archivos", "mensaje1", 2, "palabra1").resultado, Retorno.Resultado.OK, "SE BORRA PALABRA");
         //p.ver(s.BorrarOcurrenciasPalabraEnLinea("C", "Archivos", "mensaje1", 1, "unaX").resultado, Retorno.Resultado.OK, "SE BORRA PALABRA");
 
 ////casos ERROR
@@ -215,7 +231,7 @@ public class Obligatorio_1_AYED1 {
 //// Destruimos sistema de mensaje   
 //        p.ver(s.destruirSistemaMensajes().resultado, Retorno.Resultado.OK, "Se destruye sistema");
 // listamos la carpeta nuevamente para ver si estan los arvhivos correctos. 
-        //p.ver(s.ListarEstructura("C", "Archivos").resultado, Retorno.Resultado.OK, "Se listan los documentos de la carpeta Archivos" + "\n" + s.ListarEstructura("C", "Archivos").valorString);
+        p.ver(s.ListarEstructura("C", "Archivos").resultado, Retorno.Resultado.OK, "Se listan los documentos de la carpeta Archivos" + "\n" + s.ListarEstructura("C", "Archivos").valorString);
 
         p.imprimirResultadosPrueba();
     }

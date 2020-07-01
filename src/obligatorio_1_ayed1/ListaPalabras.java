@@ -117,6 +117,8 @@ public class ListaPalabras implements IListaPalabras {
         nuevo.setSiguiente(auxant.getSiguiente());
         auxant.setSiguiente(nuevo);
     }
+    
+   
 
     @Override
     public void borrarInicio() {

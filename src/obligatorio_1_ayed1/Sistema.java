@@ -361,10 +361,11 @@ public class Sistema implements ISistema {
                     NodoPalabra primeraPalabra = primeraLinea.getLp().getPrimero();
                     while (primeraPalabra != null) {
                         if (primeraPalabra.getPalabra() == palabraABorrar) {
-                            primeraLinea.getLp().borrarElemento(palabraABorrar);
+                             primeraLinea.getLp().borrarElemento(palabraABorrar);
+                            //primeraPalabra=primeraLinea.getLp().getPrimero();
                             encontrePalabra = true;
-                        }
-                        primeraPalabra = primeraPalabra.getSiguiente();
+                            
+                        }primeraPalabra = primeraPalabra.getSiguiente();
                     }
                     primeraLinea = primeraLinea.getSiguiente();
                 }
@@ -523,39 +524,59 @@ public class Sistema implements ISistema {
                                     if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
                                         if (posicionPalabra == 1) {
                                             auxLinea.getLp().agregarInicio(palabraAIngresar);
-                                            agregue=true;
+                                            auxLinea.getSiguiente().getLp().agregarInicio(auxLinea.getLp().getUltimo().getPalabra());
+                                            auxLinea.getLp().setUltimo(auxLinea.getLp().getUltimo().getAnterior());
+                                            auxLinea.getLp().getUltimo().setSiguiente(null);
+                                            //auxLinea.getLp().setUltimo(auxLinea.getLp().getUltimo().getAnterior());
+                                            agregue = true;
+                                            NodoLinea lineaALaQueDesplace = auxLinea.getSiguiente();
+                                            while (lineaALaQueDesplace.getLp().cantElementos() == this.MAX_CANT_PALABRAS_X_LINEA + 1) {
+                                                if (lineaALaQueDesplace.getSiguiente() == null) {
+                                                this.InsertarLinea(unidad, carpeta, mensaje);
+                                                lineaALaQueDesplace.getSiguiente().getLp().setPrimero(lineaALaQueDesplace.getLp().getUltimo());
+                                                lineaALaQueDesplace.getLp().setUltimo(lineaALaQueDesplace.getLp().getUltimo().getAnterior());
+                                                lineaALaQueDesplace.getLp().getUltimo().setSiguiente(null);
+                                                agregue = true;
+                                            }else{
+                                                lineaALaQueDesplace.getSiguiente().getLp().agregarInicio(lineaALaQueDesplace.getLp().getUltimo().getPalabra());
+                                                lineaALaQueDesplace.getLp().setUltimo(lineaALaQueDesplace.getLp().getUltimo().getAnterior());
+                                                lineaALaQueDesplace.getLp().getUltimo().setSiguiente(null);
+                                                lineaALaQueDesplace = lineaALaQueDesplace.getSiguiente();
+                                                }
+                                                
+                                                
+                                            }
                                         } else {
                                             NodoPalabra nuevaPalabra = new NodoPalabra(palabraAIngresar);
                                             nuevaPalabra.Anterior = auxPalabra.Anterior;
                                             auxPalabra.Anterior.Siguiente = nuevaPalabra;
                                             auxPalabra.Anterior = nuevaPalabra;
                                             nuevaPalabra.Siguiente = auxPalabra;
-                                            auxPalabra.Siguiente = null;
+                                            //auxPalabra.Siguiente = null;
                                             encontre = true;
                                             //listaL.numerar();
 
-                                        }
-                                        //si tengo que desplazar hacia una línea que no existe:
-                                        if (auxLinea.getSiguiente() == null) {
-                                            this.InsertarLineaEnPosicion(unidad, carpeta, mensaje, auxLinea.getNumeroLinea() + 1);
-                                            auxLinea.getSiguiente().getLp().setPrimero(auxLinea.getLp().getUltimo());
-                                            auxLinea.getLp().setUltimo(auxLinea.getLp().getUltimo().getAnterior());
-                                            agregue = true;
-                                        } 
-                                        
-                                        else if(auxLinea.getSiguiente().getLp().cantElementos()==this.MAX_CANT_PALABRAS_X_LINEA) {
-                                            auxLinea.getSiguiente().getLp().agregarInicio(auxLinea.getLp().getUltimo().getPalabra());
-                                            auxLinea.getLp().setUltimo(auxLinea.getLp().getUltimo().getAnterior());
-                                            auxLinea.getLp().getUltimo().setSiguiente(null);
-                                            agregue = true;
-                                            NodoLinea lineaALaQueDesplace = auxLinea.getSiguiente();
-                                            while (lineaALaQueDesplace.getLp().cantElementos() == this.MAX_CANT_PALABRAS_X_LINEA) {
-                                                lineaALaQueDesplace.getSiguiente().getLp().agregarInicio(lineaALaQueDesplace.getLp().getUltimo().getPalabra());
-                                                lineaALaQueDesplace.getLp().setUltimo(lineaALaQueDesplace.getLp().getUltimo().getAnterior());
-                                                //lineaALaQueDesplace.getLp().getUltimo().setSiguiente(null);
-                                                lineaALaQueDesplace = lineaALaQueDesplace.getSiguiente();
+                                            if (auxLinea.getSiguiente().getLp().cantElementos() == this.MAX_CANT_PALABRAS_X_LINEA) {
+                                                auxLinea.getSiguiente().getLp().agregarInicio(auxLinea.getLp().getUltimo().getPalabra());
+                                                auxLinea.getLp().setUltimo(auxLinea.getLp().getUltimo().getAnterior());
+                                                auxLinea.getLp().getUltimo().setSiguiente(null);
+                                                agregue = true;
+                                                NodoLinea lineaALaQueDesplace = auxLinea.getSiguiente();
+                                                while (lineaALaQueDesplace.getLp().cantElementos() == this.MAX_CANT_PALABRAS_X_LINEA+1) {
+                                                    lineaALaQueDesplace.getSiguiente().getLp().agregarInicio(lineaALaQueDesplace.getLp().getUltimo().getPalabra());
+                                                    lineaALaQueDesplace.getLp().setUltimo(lineaALaQueDesplace.getLp().getUltimo().getAnterior());
+                                                    lineaALaQueDesplace.getLp().getUltimo().setSiguiente(null);
+                                                    lineaALaQueDesplace = lineaALaQueDesplace.getSiguiente();
+                                                }
+                                            } //si tengo que desplazar hacia una línea que no existe:
+                                            else if (auxLinea.getSiguiente() == null) {
+                                                this.InsertarLineaEnPosicion(unidad, carpeta, mensaje, auxLinea.getNumeroLinea() + 1);
+                                                auxLinea.getSiguiente().getLp().setPrimero(auxLinea.getLp().getUltimo());
+                                                auxLinea.getLp().setUltimo(auxLinea.getLp().getUltimo().getAnterior());
+                                                agregue = true;
                                             }
                                         }
+//                                       
                                     }
 
                                 }
@@ -637,21 +658,29 @@ public class Sistema implements ISistema {
             if (!listaLineas.esVacia()) {
                 NodoLinea lineaBuscada = listaLineas.getPrimero();
                 if (lineaBuscada != null) {
-                    if (lineaBuscada.getNumeroLinea() == posicionLinea) {
+                    while (lineaBuscada!=null) { 
+                        if (lineaBuscada.getNumeroLinea() == posicionLinea) {
                         NodoPalabra primeraPalabra = lineaBuscada.getLp().getPrimero();
                         while (primeraPalabra != null) {
                             if (primeraPalabra.getPalabra() == palabraABorrar) {
                                 lineaBuscada.getLp().borrarElemento(palabraABorrar);
+                                primeraPalabra=lineaBuscada.getLp().getPrimero();
                             }
                             primeraPalabra = primeraPalabra.getSiguiente();
                         }
 
                     }
-
+                        lineaBuscada=lineaBuscada.getSiguiente();
+                    }
                 } else {
+                    ret.valorString ="La línea es inválida";
                     ret = new Retorno(Retorno.Resultado.ERROR);
                 }
             }
+        }
+        else{
+            ret.valorString ="El archivo buscado no existe";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
         return ret;
     }
