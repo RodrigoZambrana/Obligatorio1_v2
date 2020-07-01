@@ -354,7 +354,7 @@ public class Sistema implements ISistema {
         NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
         if (archivoBuscado != null) {
             ListaLineas listaLineas = archivoBuscado.getLi();
-            boolean encontrePalabra=false;
+            boolean encontrePalabra = false;
             if (!listaLineas.esVacia()) {
                 NodoLinea primeraLinea = listaLineas.getPrimero();
                 while (primeraLinea != null) {
@@ -362,13 +362,16 @@ public class Sistema implements ISistema {
                     while (primeraPalabra != null) {
                         if (primeraPalabra.getPalabra() == palabraABorrar) {
                             primeraLinea.getLp().borrarElemento(palabraABorrar);
-                            encontrePalabra=true;
+                            encontrePalabra = true;
                         }
                         primeraPalabra = primeraPalabra.getSiguiente();
                     }
                     primeraLinea = primeraLinea.getSiguiente();
                 }
-            }if(!encontrePalabra)ret = new Retorno(Retorno.Resultado.ERROR);//LA PALABRA NO EXISTE EN EL TEXTO
+            }
+            if (!encontrePalabra) {
+                ret = new Retorno(Retorno.Resultado.ERROR);//LA PALABRA NO EXISTE EN EL TEXTO
+            }
         }
         return ret;
     }
@@ -428,7 +431,7 @@ public class Sistema implements ISistema {
                             int cantidadPalabras = auxLinea.getLp().cantElementos();
                             if (posicionPalabra > cantidadPalabras + 1) {
                                 ret.valorString = "Error: la posición de la palabra es inválida";
-                                 ret = new Retorno(Retorno.Resultado.ERROR);
+                                ret = new Retorno(Retorno.Resultado.ERROR);
                             }
                             if (posicionPalabra == cantidadPalabras + 1) {
                                 auxLinea.getLp().agregarFinal(palabraAIngresar);
@@ -455,7 +458,7 @@ public class Sistema implements ISistema {
                                         auxPalabra.Anterior = nuevaPalabra;
                                         nuevaPalabra.Siguiente = auxPalabra;
                                         encontre = true;
-                                        //listaL.numerar();
+                                        listaL.numerar();
                                     }
                                     i++;
                                     auxPalabra = auxPalabra.Siguiente;
@@ -485,7 +488,7 @@ public class Sistema implements ISistema {
     @Override
     public Retorno InsertarPalabraYDesplazar(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
-        
+
         if (posicionPalabra < 1) {
             ret.valorString = "Error: la posición de la palabra es inválida";
         } else {
@@ -494,51 +497,67 @@ public class Sistema implements ISistema {
             ListaLineas listaL = archivoBuscado.getLi();
             NodoLinea auxLinea = listaL.getPrimero();
             //int cantidadPalabras = auxLinea.getLp().cantElementos();
-            
+
             boolean agregue = false;
-            
+
             while (auxLinea != null && !agregue) { //recorro las líneas
                 if (auxLinea.getNumeroLinea() == posicionLinea) {
                     //si encuentro la línea,
-                    //pregunto si la cantidad de palabras en la línea está al máximo o si la posición buscada es inválida:
+                    //si la lista de palabras no es vacía
                     if (!auxLinea.getLp().esVacia()) {
+                        //cuento cantidad de palabras
                         int cantidadPalabras = auxLinea.getLp().cantElementos();
-                        
                         if (posicionPalabra > cantidadPalabras + 1) {
                             ret.valorString = "Error: la posición de la palabra es inválida";
+                            agregue = true;
                         }
                         if (posicionPalabra == cantidadPalabras + 1) {
                             auxLinea.getLp().agregarFinal(palabraAIngresar);
                             agregue = true;
-                        } else {
-                            //segundo: recorro lista de palabras hasta ubicarme en posicionPalabra
-                            
+                        } else {//la lína está llena, inserto en posición y desplazo el último 
                             int i = 1;
                             boolean encontre = false;
                             NodoPalabra auxPalabra = auxLinea.getLp().getPrimero();
                             while (auxPalabra != null && !encontre) {
                                 if (i == posicionPalabra) {
                                     if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
+                                        if (posicionPalabra == 1) {
+                                            auxLinea.getLp().agregarInicio(palabraAIngresar);
+                                            agregue=true;
+                                        } else {
+                                            NodoPalabra nuevaPalabra = new NodoPalabra(palabraAIngresar);
+                                            nuevaPalabra.Anterior = auxPalabra.Anterior;
+                                            auxPalabra.Anterior.Siguiente = nuevaPalabra;
+                                            auxPalabra.Anterior = nuevaPalabra;
+                                            nuevaPalabra.Siguiente = auxPalabra;
+                                            auxPalabra.Siguiente = null;
+                                            encontre = true;
+                                            //listaL.numerar();
+
+                                        }
+                                        //si tengo que desplazar hacia una línea que no existe:
                                         if (auxLinea.getSiguiente() == null) {
                                             this.InsertarLineaEnPosicion(unidad, carpeta, mensaje, auxLinea.getNumeroLinea() + 1);
                                             auxLinea.getSiguiente().getLp().setPrimero(auxLinea.getLp().getUltimo());
                                             auxLinea.getLp().setUltimo(auxLinea.getLp().getUltimo().getAnterior());
                                             agregue = true;
-                                        }
-                                        else if (cantidadPalabras == 1 || cantidadPalabras < this.MAX_CANT_PALABRAS_X_LINEA) {
-                                            auxLinea.getSiguiente().getLp().agregarFinal(auxLinea.getLp().getUltimo().getPalabra());
+                                        } 
+                                        
+                                        else if(auxLinea.getSiguiente().getLp().cantElementos()==this.MAX_CANT_PALABRAS_X_LINEA) {
+                                            auxLinea.getSiguiente().getLp().agregarInicio(auxLinea.getLp().getUltimo().getPalabra());
+                                            auxLinea.getLp().setUltimo(auxLinea.getLp().getUltimo().getAnterior());
+                                            auxLinea.getLp().getUltimo().setSiguiente(null);
                                             agregue = true;
+                                            NodoLinea lineaALaQueDesplace = auxLinea.getSiguiente();
+                                            while (lineaALaQueDesplace.getLp().cantElementos() == this.MAX_CANT_PALABRAS_X_LINEA) {
+                                                lineaALaQueDesplace.getSiguiente().getLp().agregarInicio(lineaALaQueDesplace.getLp().getUltimo().getPalabra());
+                                                lineaALaQueDesplace.getLp().setUltimo(lineaALaQueDesplace.getLp().getUltimo().getAnterior());
+                                                //lineaALaQueDesplace.getLp().getUltimo().setSiguiente(null);
+                                                lineaALaQueDesplace = lineaALaQueDesplace.getSiguiente();
+                                            }
                                         }
-                                    } else {
-                                        NodoPalabra nuevaPalabra = new NodoPalabra(palabraAIngresar);
-                                        nuevaPalabra.Anterior = auxPalabra.Anterior;
-                                        auxPalabra.Anterior.Siguiente = nuevaPalabra;
-                                        auxPalabra.Anterior = nuevaPalabra;
-                                        nuevaPalabra.Siguiente = auxPalabra;
-                                        auxPalabra.Siguiente = null;
-                                        encontre = true;
-                                        listaL.numerar();
                                     }
+
                                 }
                                 i++;
                                 auxPalabra = auxPalabra.Siguiente;
