@@ -7,9 +7,9 @@ package obligatorio_1_ayed1;
  */
 public interface IListaLineas {
        public boolean esVacia();
-    public void insertarLinea();
-    public void agregarInicio();
-    public void agregarFinal();
+    //public void insertarLinea();
+    public void agregarInicio(NodoLinea nuevo);
+    public void agregarFinal(NodoLinea nuevo);
     public void borrarInicio(); 
     public boolean buscarelemento(Object dato);    
     public void vaciar();

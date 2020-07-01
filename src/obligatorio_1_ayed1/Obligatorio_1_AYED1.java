@@ -83,8 +83,8 @@ public class Obligatorio_1_AYED1 {
         p.ver(s.InsertarLinea("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrego una linea 2 al archivo mensaje1");
         p.ver(s.InsertarLinea("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrego una linea 3 al archivo mensaje1");
         p.ver(s.InsertarLinea("C", "Archivos", "mensaje1").resultado, Retorno.Resultado.OK, "Se agrego una linea 4 al archivo mensaje1");
-        //p.ver(s.InsertarLinea("C", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrego una linea 1 al archivo mensaje1");
-        //p.ver(s.InsertarLinea("C", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrego una linea 2 al archivo mensaje1");
+        p.ver(s.InsertarLinea("C", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrego una linea 1 al archivo mensaje1");
+        p.ver(s.InsertarLinea("C", "Archivos", "mensaje2").resultado, Retorno.Resultado.OK, "Se agrego una linea 2 al archivo mensaje1");
         //p.ver(s.InsertarLinea("C", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrego una linea 3 al archivo mensaje1");
         //p.ver(s.InsertarLinea("C", "Archivos", "mensaje3").resultado, Retorno.Resultado.OK, "Se agrego una linea 4 al archivo mensaje1");
 //
@@ -124,7 +124,7 @@ public class Obligatorio_1_AYED1 {
 
 //// Retorno BorrarOcurrenciasPalabraEnTexto(String unidad, String carpeta, String mensaje,String palabraABorrar);
 ////casos OK
-        p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "palabra1").resultado, Retorno.Resultado.OK, "Se borra ocurrencias de palabra en el texto");
+        //p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "palabra1").resultado, Retorno.Resultado.OK, "Se borra ocurrencias de palabra en el texto");
         //p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "insertar").resultado, Retorno.Resultado.OK, "Se borra ocurrencias de insertar en el texto");
         ////casos ERROR
         //p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "palabraX").resultado, Retorno.Resultado.ERROR, "Se intenta borra ocurrencias de palabra que no existe en el texto");
@@ -143,9 +143,9 @@ public class Obligatorio_1_AYED1 {
         p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 1, 1, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
         p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 1, 2, "palabra2").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
         p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 1, 3, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
-        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 2, 1, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
-        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 2, 2, "palabra2").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
-        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje1", 2, 3, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje2", 2, 1, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje2", 2, 2, "palabra2").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
+        p.ver(s.InsertarPalabraEnLinea("C", "Archivos", "mensaje2", 2, 3, "palabra1").resultado, Retorno.Resultado.OK, "Se inserta palabra en linea");
         
         //p.ver(s.BorrarOcurrenciasPalabraEnTexto("C", "Archivos", "mensaje1", "palabra1").resultado, Retorno.Resultado.OK, "Se borra ocurrencias de palabra en el texto");
         

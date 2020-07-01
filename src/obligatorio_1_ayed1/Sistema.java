@@ -208,80 +208,56 @@ public class Sistema implements ISistema {
 
     @Override
     public Retorno InsertarLinea(String unidad, String carpeta, String mensaje) {
-        Retorno ret = new Retorno(Retorno.Resultado.OK);
-        ret.valorString = "";
-        NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
-        if (nodoUnidad != null) {
-            ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
-            NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
-            if (carpetaBuscada != null) {
-                boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
-                if (encontreMensaje) {
-                    carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().agregarFinal();
-                    ret.valorString = "Se inserta linea en blanco";
-                } else {
-                    ret.valorString = "El  mensaje no  existe en la carpeta";
-                    ret = new Retorno(Retorno.Resultado.ERROR);
-                }
+     Retorno ret = new Retorno(Retorno.Resultado.ERROR);
+        ret.valorString = "No se pudo insertar la linea en " + carpeta + " - " + mensaje;
+        NodoUnidad nodoUnidad = lstUnidades.getPrimero();
+        NodoCarpeta nodoCarpeta = nodoUnidad.getLc().getPrimero();
+        if (nodoCarpeta != null) {
+            NodoArchivo auxArchivo = nodoCarpeta.getLa().obtenerArchivo(mensaje);
+            if (auxArchivo != null) {
+                int pos = auxArchivo.getLi().cantLineas;
+                NodoLinea nuevaLinea = new NodoLinea(pos + 1);
+                auxArchivo.getLi().agregarFinal(nuevaLinea);
 
+                ret.valorString = "Se inserto la linea con exito";
+                ret.resultado = Retorno.Resultado.OK;
             } else {
-                ret.valorString = "La carpeta no  existe en la unidad";
-                ret = new Retorno(Retorno.Resultado.ERROR);
+                ret.valorString = "El archivo no existe";
             }
-        } else {
-            ret.valorString = "La unidad no existe en el sistema";
-            ret = new Retorno(Retorno.Resultado.ERROR);
         }
-
         return ret;
     }
 
     @Override
     public Retorno InsertarLineaEnPosicion(String unidad, String carpeta, String mensaje, int posicionLinea) {
-        Retorno ret = new Retorno(Retorno.Resultado.OK);
-        ret.valorString = "";
-        NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
-        ListaLineas listaL = archivoBuscado.getLi();
-        int cantLineas = listaL.cantElementos();
-
-        if (!listaL.esVacia()) {
-            if (posicionLinea <= cantLineas) {//la posicion a agregar es menor o igual al tamaño de la lista
-                if (posicionLinea == 1) {
-                    listaL.agregarInicio();//agrego al inicio
-                } else {
-                    NodoLinea aux = listaL.getPrimero();
-                    boolean encontre = false;
-                    while (aux != null && !encontre) {
-                        if (aux.getNumeroLinea() == posicionLinea) {
-                            NodoLinea nuevaLinea = new NodoLinea();
-                            nuevaLinea.anterior = aux.anterior;
-                            aux.anterior.siguiente = nuevaLinea;
-                            aux.anterior = nuevaLinea;
-                            nuevaLinea.siguiente = aux;
-                            encontre = true;
-                            ret.valorString = "Se inserta línea en la posición " + posicionLinea;
-                            listaL.numerar();
-                        }
-                        aux = aux.siguiente;
-                    }
+        Retorno ret = new Retorno(Retorno.Resultado.ERROR);
+        ret.valorString = "No se pudo insertar la linea en la posicion " + posicionLinea;
+        NodoUnidad nodoUnidad = lstUnidades.getPrimero();
+        NodoCarpeta nodoCarpeta = nodoUnidad.getLc().getPrimero();
+        if (nodoCarpeta != null) {
+            NodoArchivo auxArchivo = nodoCarpeta.getLa().obtenerArchivo(mensaje);
+            if (auxArchivo != null) {
+                int pos = auxArchivo.getLi().cantLineas;
+                NodoLinea nuevaLinea = new NodoLinea(pos);
+                NodoLinea auxLinea = auxArchivo.getLi().Primero;
+                while (auxLinea != null && auxLinea.numeroLinea != posicionLinea) {
+                    auxLinea = auxLinea.getSiguiente();
                 }
-            } else if (posicionLinea == cantLineas + 1) {
-                listaL.agregarFinal();//agrego al final
-
-            } else if (posicionLinea > cantLineas + 1) {
-                ret.valorString = "La linea no existe en el texto";
-                ret = new Retorno(Retorno.Resultado.ERROR);
-
+                if (auxLinea != null && auxLinea.getNumeroLinea()== posicionLinea) {
+                    nuevaLinea.setNumeroLinea(posicionLinea);
+                    auxArchivo.getLi().agregarOrd(posicionLinea, nuevaLinea);
+                    while (auxLinea != null) {
+                        auxLinea.setNumeroLinea(auxLinea.getNumeroLinea()+ 1);
+                        auxLinea = auxLinea.getSiguiente();
+                    }
+                    ret.valorString = "Se insterto la linea en la posicion " + posicionLinea;
+                    ret.resultado = Retorno.Resultado.OK;
+                }
             }
-        } //está vacía, agrego al inicio
-        else {
-            listaL.agregarInicio();
-            ret.valorString = "Se inserto una linea en la posicion" + posicionLinea;
-            return ret;
         }
+
         return ret;
     }
-
     @Override
     public Retorno BorrarLinea(String unidad, String carpeta, String mensaje, int posicionLinea) { //ver borrar elemento
         Retorno ret = new Retorno(Retorno.Resultado.OK);

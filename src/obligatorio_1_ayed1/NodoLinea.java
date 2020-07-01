@@ -10,26 +10,27 @@ package obligatorio_1_ayed1;
  * @author marti
  */
 public class NodoLinea {
-    static int nro = 1;
+    //static int nro = 1;
     int numeroLinea;
     NodoLinea siguiente;
     NodoLinea anterior;
     ListaPalabras lp;
       
-     public NodoLinea() {
-        this.numeroLinea = NodoLinea.nro++;
+     public NodoLinea(int numeroLinea) {
+        //this.numeroLinea = NodoLinea.nro++;
         this.lp = new ListaPalabras();
+        this.numeroLinea = numeroLinea;
         this.siguiente = null;
         this.lp = new ListaPalabras();
     }
 
-    public static int getNro() {
-        return nro;
-    }
-
-    public static void setNro(int nro) {
-        NodoLinea.nro = nro;
-    }
+//    public static int getNro() {
+//        return nro;
+//    }
+//
+//    public static void setNro(int nro) {
+//        NodoLinea.nro = nro;
+//    }
 
     public int getNumeroLinea() {
         return numeroLinea;

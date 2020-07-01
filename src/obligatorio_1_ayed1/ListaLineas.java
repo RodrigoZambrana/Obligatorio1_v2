@@ -50,34 +50,29 @@ public class ListaLineas implements IListaLineas{
         return (this.Primero == null);
     }
     
-     @Override
-    public void insertarLinea() {//al inicio
-        NodoLinea nuevo = new NodoLinea();
-        if (this.esVacia()) {
-            this.Primero = nuevo;
-            this.Ultimo = nuevo;
-        } else {
-            nuevo.siguiente = this.Primero;
-            this.Primero = nuevo;
-        }
-    }
+//     @Override
+//    public void insertarLinea() {//al inicio
+//        NodoLinea nuevo = new NodoLinea();
+//        if (this.esVacia()) {
+//            this.Primero = nuevo;
+//            this.Ultimo = nuevo;
+//        } else {
+//            nuevo.siguiente = this.Primero;
+//            this.Primero = nuevo;
+//        }
+//    }
 
-    @Override
-    public void agregarInicio() {
-        NodoLinea nuevo = new NodoLinea();
+      @Override
+    public void agregarInicio(NodoLinea nuevo) {
         if (this.esVacia()) {
             this.Primero = nuevo;
             this.Ultimo = nuevo;
         } else {
-            NodoLinea aux = this.Primero;
-            while (aux != null) {
-               aux.setNumeroLinea(aux.getNumeroLinea()+1);
-               aux = aux.siguiente;
-            }
-            nuevo.siguiente = this.Primero;
-            this.Primero = nuevo;
-            nuevo.setNumeroLinea(1);
+            nuevo.setSiguiente(Primero);
+            this.Primero.setAnterior(nuevo);
+            this.setPrimero(nuevo);
         }
+        this.cantLineas++;
     }
 
     @Override
@@ -128,9 +123,7 @@ public class ListaLineas implements IListaLineas{
     }
 
     @Override
-    public void agregarFinal() {
-        NodoLinea nuevo = new NodoLinea();
-
+    public void agregarFinal(NodoLinea nuevo) {
         if (this.esVacia()) {
             this.Primero = nuevo;
             this.Ultimo = nuevo;
@@ -139,7 +132,30 @@ public class ListaLineas implements IListaLineas{
             nuevo.setAnterior(this.Ultimo);
             this.Ultimo = nuevo;
         }
+        this.cantLineas++;
+    }
 
+        public void agregarOrd(int n, NodoLinea nueva) {
+        if (n < this.cantLineas + 1) {
+            if (this.esVacia() || n < this.Primero.getNumeroLinea()) {
+                this.agregarInicio(nueva);
+            } else {
+                if (this.cantLineas + 1 == n) {
+                    this.agregarFinal(nueva);
+                } else {
+                    NodoLinea aux = this.Primero;
+                    while (aux != null && aux.numeroLinea < n) {
+                        aux = aux.getSiguiente();
+                    }
+                    NodoLinea anterior = aux.getAnterior();
+                    anterior.setSiguiente(nueva);
+                    aux.setAnterior(nueva);
+                    nueva.setSiguiente(aux);
+                    nueva.setAnterior(anterior);
+                }
+            }
+            this.cantLineas++;
+        }
     }
 
     @Override
