@@ -120,11 +120,16 @@ public class Sistema implements ISistema {
             NodoUnidad nodoUnidad = lstUnidades.obtenerElemento(unidad);
             ListaCarpetas carpetasEnUnidad = nodoUnidad.getLc();
             NodoCarpeta carpetaBuscada = carpetasEnUnidad.obtenercarpeta(carpeta);
-            boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
-            if (!encontreMensaje) {
-                carpetaBuscada.getLa().agregarFinal(mensaje);
+            if (carpetaBuscada != null) {
+                boolean encontreMensaje = carpetaBuscada.getLa().buscarelemento(mensaje);
+                if (!encontreMensaje) {
+                    carpetaBuscada.getLa().agregarFinal(mensaje);
+                } else {
+                    ret.valorString = "El  mensaje ya existe en la carpeta";
+                    ret = new Retorno(Retorno.Resultado.ERROR);
+                }
             } else {
-                ret.valorString = "El  mensaje ya existe en la carpeta";
+                ret.valorString = "La carpeta no existe";
                 ret = new Retorno(Retorno.Resultado.ERROR);
             }
         } else {
@@ -208,11 +213,13 @@ public class Sistema implements ISistema {
                 if (encontreMensaje) {
                     carpetaBuscada.getLa().obtenerArchivo(mensaje).getLi().agregarFinal();
                     ret.valorString = "Se inserta linea en blanco";
-
-                }
+                }else {
+                ret.valorString = "El  mensaje no  existe en la carpeta";
+                ret = new Retorno(Retorno.Resultado.ERROR);
+            }
 
             } else {
-                ret.valorString = "El  mensaje no  existe en la carpeta";
+                ret.valorString = "La carpeta no  existe en la unidad";
                 ret = new Retorno(Retorno.Resultado.ERROR);
             }
         } else {
@@ -221,7 +228,6 @@ public class Sistema implements ISistema {
         }
 
         return ret;
-
     }
 
     @Override
@@ -255,6 +261,11 @@ public class Sistema implements ISistema {
                 }
             } else if (posicionLinea == cantLineas + 1) {
                 listaL.agregarFinal();//agrego al final
+                
+            }else if (posicionLinea > cantLineas + 1) {
+                 ret.valorString = "La linea no existe en el texto";
+                 ret = new Retorno(Retorno.Resultado.ERROR);
+                
             }
         } //está vacía, agrego al inicio
         else {
@@ -320,9 +331,13 @@ public class Sistema implements ISistema {
     public Retorno BorrarTodo(String unidad, String carpeta, String mensaje) {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
-        ListaLineas listaLineas = archivoBuscado.getLi();
-        listaLineas.vaciar();
-
+        if (archivoBuscado != null) {
+            ListaLineas listaLineas = archivoBuscado.getLi();
+            listaLineas.vaciar();
+        } else {
+            ret.valorString = "Error: el archivo no es valido";
+            ret = new Retorno(Retorno.Resultado.ERROR);
+        }
         return ret;
     }
 
@@ -355,22 +370,27 @@ public class Sistema implements ISistema {
         Retorno ret = new Retorno(Retorno.Resultado.OK);
         ret.valorString = "";
         NodoArchivo archivoBuscado = lstUnidades.obtenerElemento(unidad).getLc().obtenerCarpeta(carpeta).getLa().obtenerArchivo(mensaje);
-        ListaLineas listaLineas = archivoBuscado.getLi();
-        if (!listaLineas.esVacia()) {
-            NodoLinea primero = archivoBuscado.getLi().getPrimero();
-            while (primero != null) {
-                ret.valorString += primero.getNumeroLinea() + ": ";
-                NodoPalabra auxPalabra = primero.getLp().getPrimero();
-                while (auxPalabra != null) {
-                    ret.valorString += auxPalabra.getPalabra() + " ";
-                    auxPalabra = auxPalabra.getSiguiente();
+        if (archivoBuscado!=null) {
+            ListaLineas listaLineas = archivoBuscado.getLi();
+            if (!listaLineas.esVacia()) {
+                NodoLinea primero = archivoBuscado.getLi().getPrimero();
+                while (primero != null) {
+                    ret.valorString += primero.getNumeroLinea() + ": ";
+                    NodoPalabra auxPalabra = primero.getLp().getPrimero();
+                    while (auxPalabra != null) {
+                        ret.valorString += auxPalabra.getPalabra() + " ";
+                        auxPalabra = auxPalabra.getSiguiente();
+                    }
+                    ret.valorString += "\n";
+                    primero = primero.getSiguiente();
                 }
-                ret.valorString += "\n";
-                primero = primero.getSiguiente();
-            }
 
+            } else {
+                ret.valorString = "Texto vacio";
+            }
         } else {
-            ret.valorString = "Texto vacio";
+            ret.valorString = "Error: El archivo no existe";
+            ret = new Retorno(Retorno.Resultado.ERROR);
         }
         return ret;
     }
@@ -407,6 +427,7 @@ public class Sistema implements ISistema {
                                 agregue = true;
                             } else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
                                 ret.valorString = "Error: la lista de palabras está llena";
+                                ret = new Retorno(Retorno.Resultado.ERROR);
                                 /// ret = new Retorno(Retorno.Resultado.ERROR);
                                 agregue = true;
                             } else if (posicionPalabra > cantidadPalabras + 1 && cantidadPalabras + 1 <= this.MAX_CANT_PALABRAS_X_LINEA) {
@@ -456,6 +477,7 @@ public class Sistema implements ISistema {
         }
         return ret;
     }
+    
 
     @Override
     public Retorno InsertarPalabraYDesplazar(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar) {
