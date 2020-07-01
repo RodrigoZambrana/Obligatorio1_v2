@@ -37,7 +37,7 @@ public interface ISistema {
  Retorno IngresarPalabraDiccionario(String palabraAIngresar);  //()
  Retorno BorrarPalabraDiccionario(String palabraABorrar);//()
  Retorno ImprimirDiccionario();//()
- Retorno ImprimirTextoIncorrecto();//()
+ Retorno ImprimirTextoIncorrecto(String unidad, String carpeta, String mensaje);//()
  Retorno CargarDistancias(int[][] Ciudades);//()
  Retorno BuscarCamino ( int [][] M, String origen, String destino);//()
  

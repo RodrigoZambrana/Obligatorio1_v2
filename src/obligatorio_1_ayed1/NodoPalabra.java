@@ -14,9 +14,18 @@ public class NodoPalabra {
     NodoPalabra Anterior;
     NodoPalabra Siguiente;
     String palabra;
+    int posicion;
 
     public NodoPalabra(String palabra) {
         this.palabra = palabra;
+    }
+
+    public int getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
     }
 
     public NodoPalabra getSiguiente() {
