@@ -426,10 +426,10 @@ public class Sistema implements ISistema {
                         //pregunto si la cantidad de palabras en la línea está al máximo o si la posición buscada es inválida:
                         if (!auxLinea.getLp().esVacia()) {
                             int cantidadPalabras = auxLinea.getLp().cantElementos();
-//                            if (posicionPalabra > cantidadPalabras + 1) {
-//                                ret.valorString = "Error: la posición de la palabra es inválida";
-//                                 ret = new Retorno(Retorno.Resultado.ERROR);
-//                            }
+                            if (posicionPalabra > cantidadPalabras + 1) {
+                                ret.valorString = "Error: la posición de la palabra es inválida";
+                                 ret = new Retorno(Retorno.Resultado.ERROR);
+                            }
                             if (posicionPalabra == cantidadPalabras + 1) {
                                 auxLinea.getLp().agregarFinal(palabraAIngresar);
                                 agregue = true;
