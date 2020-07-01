@@ -228,7 +228,6 @@ public class Sistema implements ISistema {
         }
 
         return ret;
-
     }
 
     @Override
@@ -428,15 +427,14 @@ public class Sistema implements ISistema {
                                 agregue = true;
                             } else if (cantidadPalabras == this.MAX_CANT_PALABRAS_X_LINEA) {
                                 ret.valorString = "Error: la lista de palabras está llena";
+                                ret = new Retorno(Retorno.Resultado.ERROR);
                                 /// ret = new Retorno(Retorno.Resultado.ERROR);
                                 agregue = true;
                             } else if (posicionPalabra > cantidadPalabras + 1 && cantidadPalabras + 1 <= this.MAX_CANT_PALABRAS_X_LINEA) {
                                 auxLinea.getLp().agregarFinal(palabraAIngresar);
                                 agregue = true;
 
-                            }
-
-                            {
+                            } else {
                                 //segundo: recorro lista de palabras hasta ubicarme en posicionPalabra
                                 int i = 1;
                                 boolean encontre = false;
@@ -461,8 +459,10 @@ public class Sistema implements ISistema {
                             agregue = true;
                             //auxLinea = null;
                         }
-                    } else {
-                        auxLinea = auxLinea.getSiguiente();
+                    } //está vacía; agrego al inicio
+                    else {
+                        auxLinea.getLp().agregarInicio(palabraAIngresar);
+                        agregue = true;
                     }
                 }
                 if (!agregue) {
@@ -477,6 +477,7 @@ public class Sistema implements ISistema {
         }
         return ret;
     }
+    
 
     @Override
     public Retorno InsertarPalabraYDesplazar(String unidad, String carpeta, String mensaje, int posicionLinea, int posicionPalabra, String palabraAIngresar) {
